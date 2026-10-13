@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acoustica</title>
+  <meta name="description" content="Acoustica — an interactive academy and design studio for audio, acoustics, soundproofing, studio and hall design.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Avenir Next is used where installed (Apple devices, licensed installs); Nunito Sans is the closest open fallback -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23f5a524'/%3E%3Cpath d='M3 12c2-6 4-6 6 0s4 6 6 0 4-6 6 0' stroke='%231a1203' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#/home" style="text-decoration:none;color:inherit">
+        <div class="brand-mark"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 12c2-6 4-6 6 0s4 6 6 0 4-6 6 0"/></svg></div>
+        <div><div class="brand-name">Acoustica</div><div class="brand-sub">Sound · Space · Silence</div></div>
+      </a>
+      <nav class="nav" id="nav"></nav>
+    </aside>
+    <div class="main">
+      <header class="topbar">
+        <button class="menu-btn ghost" id="menuBtn" aria-label="Open menu"></button>
+        <div class="search">
+          <span id="searchIcon"></span>
+          <input id="search" type="search" placeholder="Search lessons, tools, terms…  ( / )" autocomplete="off" aria-label="Search">
+          <div class="search-results" id="searchResults"></div>
+        </div>
+        <div class="spacer"></div>
+        <button id="themeBtn" class="ghost" aria-label="Colour scheme"></button>
+      </header>
+      <main id="page"></main>
+    </div>
+  </div>
+  <div class="theme-panel" id="themePanel"></div>
+
+  <script src="js/core.js"></script>
+  <script src="js/physics.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/viz.js"></script>
+  <script src="js/content/lessons.js"></script>
+  <script src="js/content/lessons2.js"></script>
+  <script src="js/content/library.js"></script>
+  <script src="js/pages/home.js"></script>
+  <script src="js/pages/academy.js"></script>
+  <script src="js/pages/lab.js"></script>
+  <script src="js/pages/hear.js"></script>
+  <script src="js/pages/analyzer.js"></script>
+  <script src="js/pages/measure.js"></script>
+  <script src="js/pages/troubleshoot.js"></script>
+  <script src="js/pages/absorbers.js"></script>
+  <script src="js/pages/diffusers.js"></script>
+  <script src="js/pages/isolation.js"></script>
+  <script src="js/pages/floors.js"></script>
+  <script src="js/pages/calc.js"></script>
+  <script src="js/pages/reference.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+/* Academy: chapter index and lesson reader with interactive visuals and quizzes. */
+(function () {
+  'use strict';
+  const { el, html } = A;
+
+  function progress() { return A.store.get('progress', {}); }
+  function saveProgress(id, patch) {
+    const p = progress();
+    p[id] = Object.assign({}, p[id], patch);
+    A.store.set('progress', p);
+  }
+
+  function renderIndex(root) {
+    A.pageHead(root, 'Academy', 'The Acoustics Academy', 'Twenty chapters, ordered like a university course but taught like an apprenticeship. Every chapter has interactive physics, rules of thumb, mentor notes, common mistakes, alternatives and a short quiz.');
+    const prog = progress();
+    const levels = ['Foundation', 'Core', 'Advanced'];
+    levels.forEach((lv) => {
+      const list = LESSONS.filter((l) => l.level === lv);
+      if (!list.length) return;
+      root.appendChild(html(`<h2>${lv}</h2>`));
+      const g = el('div', { class: 'grid gauto' });
+      list.forEach((l) => {
+        const p = prog[l.id] || {};
+        g.appendChild(html(`<a class="tile" href="#/academy/${l.id}">
+          <div class="row" style="justify-content:space-between"><span class="pill">Chapter ${l.n}</span><span class="small">${l.mins} min ${p.done ? '· <span class="good">✓ done</span>' : ''}</span></div>
+          <h3 style="margin-top:8px">${l.title}</h3><p>${l.summary}</p>
+          ${p.quiz != null ? `<div class="small" style="margin-top:6px">Quiz: ${p.quiz}%</div>` : ''}
+        </a>`));
+      });
+      root.appendChild(g);
+    });
+  }
+
+  function renderLesson(root, id) {
+    const idx = LESSONS.findIndex((l) => l.id === id);
+    if (idx < 0) return renderIndex(root);
+    const L = LESSONS[idx];
+    const prog = progress();
+    const layout = el('div', { class: 'lesson-layout' });
+    const toc = el('nav', { class: 'toc' });
+    toc.innerHTML = `<a href="#/academy">← All chapters</a>` + LESSONS.map((l) => `<a href="#/academy/${l.id}" class="${l.id === id ? 'on' : ''}">${l.n}. ${l.title}${prog[l.id] && prog[l.id].done ? '<span class="done">✓</span>' : ''}</a>`).join('');
+    const body = el('article', { class: 'lesson' });
+    layout.append(toc, body);
+    root.appendChild(layout);
+
+    body.appendChild(html(`<div class="page-head"><div class="eyebrow">Chapter ${L.n} · ${L.level} · ${L.mins} min</div><h1>${L.title}</h1><p>${L.summary}</p></div>`));
+    L.sections.forEach((s, i) => {
+      const sec = el('section', { id: 's' + i });
+      sec.appendChild(html(`<h2>${s.h}</h2>`));
+      const content = el('div'); content.innerHTML = s.html || '';
+      sec.appendChild(content);
+      if (s.viz) {
+        const host = el('div', { class: 'card', style: { padding: '14px 16px' } });
+        sec.appendChild(host);
+        try {
+          if (typeof s.viz === 'function') s.viz(host);
+          else if (V[s.viz]) V[s.viz](host);
+        } catch (e) { console.error(e); host.textContent = 'Visual failed to load: ' + e.message; }
+      }
+      body.appendChild(sec);
+    });
+
+    // quiz
+    if (L.quiz && L.quiz.length) {
+      const q = el('section', { class: 'quiz card' });
+      q.appendChild(html(`<h2 style="margin-top:0">Check your understanding</h2>`));
+      const answers = new Array(L.quiz.length).fill(null);
+      const score = el('div', { class: 'small' });
+      L.quiz.forEach((item, qi) => {
+        const box = el('div', { class: 'q' });
+        box.appendChild(html(`<div><b>${qi + 1}. ${item.q}</b></div>`));
+        const opts = el('div', { class: 'opts' });
+        const why = el('div', { class: 'why' }, item.why);
+        item.opts.forEach((o, oi) => {
+          const b = el('button', {}, o);
+          b.onclick = () => {
+            if (answers[qi] != null) return;
+            answers[qi] = oi;
+            A.$$('button', opts).forEach((x, k) => { if (k === item.a) x.classList.add('right'); else if (k === oi) x.classList.add('wrong'); });
+            why.classList.add('show');
+            const n = answers.filter((a) => a != null).length;
+            const right = answers.filter((a, k) => a === L.quiz[k].a).length;
+            score.textContent = `Score: ${right}/${n}`;
+            if (n === L.quiz.length) {
+              const pct = Math.round((right / n) * 100);
+              saveProgress(L.id, { quiz: pct, done: pct >= 50 });
+              score.innerHTML = pct >= 50 ? `<span class="good">Chapter complete — ${pct}%.</span> Progress saved.` : `<span class="warn">${pct}% — review the chapter and try again (reload).</span>`;
+            }
+          };
+          opts.appendChild(b);
+        });
+        box.append(opts, why);
+        q.appendChild(box);
+      });
+      q.appendChild(score);
+      body.appendChild(q);
+    }
+
+    // prev / next
+    const nav = el('div', { class: 'row', style: { justifyContent: 'space-between', marginTop: '20px' } });
+    const prev = LESSONS[idx - 1], next = LESSONS[idx + 1];
+    nav.appendChild(prev ? html(`<a class="btn" href="#/academy/${prev.id}">← ${prev.title}</a>`) : el('span'));
+    const mark = el('button', {}, prog[L.id] && prog[L.id].done ? '✓ Completed' : 'Mark as complete');
+    mark.onclick = () => { saveProgress(L.id, { done: true }); mark.textContent = '✓ Completed'; };
+    nav.appendChild(mark);
+    nav.appendChild(next ? html(`<a class="btn primary" href="#/academy/${next.id}">${next.title} →</a>`) : html(`<a class="btn primary" href="#/guides">Go design something →</a>`));
+    body.appendChild(nav);
+  }
+
+  A.register('academy', {
+    title: 'Academy',
+    render(el, params) { if (params[0]) renderLesson(el, params[0]); else renderIndex(el); },
+  });
+})();
