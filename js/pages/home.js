@@ -28,8 +28,8 @@
       const next = (window.LESSONS || []).find((l) => !(prog[l.id] && prog[l.id].done)) || LESSONS[0];
       const hero = A.html(`<section class="hero">
         <div class="page-head" style="margin:0"><div class="eyebrow">Your acoustician in residence</div></div>
-        <h1>Learn the physics of sound. Then design rooms that sound — and isolate — like the best in the world.</h1>
-        <p>Acoustica teaches audio, acoustics, soundproofing, studio and hall design the way a seasoned acoustician would: by showing you the physics, giving you the numbers, and walking you through real design decisions — with alternatives.</p>
+        <h1>Learn the physics of sound. Then design rooms and sound systems that perform like the best in the world.</h1>
+        <p>Acoustica teaches acoustics, soundproofing, studio and hall design, audio engineering and sound-system design the way a seasoned acoustician would: by showing you the physics, giving you the numbers, and walking you through real design decisions — with alternatives.</p>
         <div class="row" style="margin-top:16px">
           <a class="btn primary" href="#/academy/${next.id}">${A.icon('graduation')} ${done ? 'Continue: ' + next.title : 'Start the Academy'}</a>
           <a class="btn" href="#/analyzer">${A.icon('room')} Analyse my room</a>
@@ -78,6 +78,8 @@
         ['diffusers', 'diffuser', 'Diffuser Designer', 'QRD, PRD and skyline diffusers with polar plots and cut lists.'],
         ['isolation', 'wall', 'Soundproofing', 'Wall builder with STC/Rw, composite partitions and a neighbour-noise planner.'],
         ['floors', 'spring', 'Floating Floors', 'Springs, pads, mats and floated timber floors — f₀, deflection, isolator counts.'],
+        ['pa', 'speaker', 'PA & System Designer', 'Coverage maps, delays, sub arrays, crossover alignment, a tuning lab and amp/cable/100 V calculators.'],
+        ['systems', 'layers', 'Signal Flow & Networks', 'Analog and digital pipelines for every venue, devices, connectors, Dante/AVB/AES67 and clocking.'],
         ['guides', 'hall', 'Studio & Hall Guides', 'Targets, step-by-step design and mistakes for 13 room types.'],
         ['workshop', 'hammer', 'Workshop', 'Build sheets for panels, traps, diffusers, window plugs, floated floors.'],
         ['cases', 'map', 'Case Studies', 'From Boston Symphony Hall to a basement studio — what worked and why.'],
@@ -87,13 +89,16 @@
       tiles.forEach(([id, ic, t, d]) => g.appendChild(A.html(`<a class="tile" href="#/${id}"><div class="ic">${A.icon(ic)}</div><h3>${t}</h3><p>${d}</p></a>`)));
       el.appendChild(g);
 
-      el.appendChild(A.html(`<h2>A learning path to becoming an acoustic engineer</h2>`));
-      const path = A.el('div', { class: 'grid g4' });
+      el.appendChild(A.html(`<h2>A learning path to becoming an acoustic & audio engineer</h2>`));
+      const path = A.el('div', { class: 'grid gauto' });
       const stages = [
         ['Foundations', 'sound,decibels,hearing,propagation', 'Waves, dB, ears and how sound travels.'],
         ['Room acoustics', 'interference,modes,reverb,absorption,diffusion', 'Reflections, modes, decay, absorbers, diffusers.'],
         ['Isolation & vibration', 'isolation,flanking,vibration,floating,criteria', 'Walls, flanking, springs, floors, HVAC.'],
         ['Design practice', 'control-room,rooms,halls,measurement,audio,workflow', 'Studios, halls, measurement and method.'],
+        ['Audio foundations', 'a-electric,a-transducers,a-flow,a-digital', 'Signals, mics & speakers, consoles, digital audio.'],
+        ['Processing & networks', 'a-network,a-dsp,a-crossover,a-amps', 'AoIP, DSP, crossovers, amps and cabling.'],
+        ['Sound system design', 'a-loudspeakers,a-pa-design,a-install,a-tuning,a-feedback,a-workflow', 'Arrays, PA design, installation, tuning, workflows.'],
       ];
       stages.forEach(([t, ids, d], i) => {
         const list = ids.split(',').map((id) => (window.LESSONS || []).find((l) => l.id === id)).filter(Boolean);

@@ -30,6 +30,8 @@
     return { stop() { clearInterval(timer); } };
   }
 
+  A.startBand = startBand;
+
   /* ---------- TL at octave centres for a wall option ---------- */
   const OCT = [63, 125, 250, 500, 1000, 2000, 4000, 8000];
   function wallOptions() {

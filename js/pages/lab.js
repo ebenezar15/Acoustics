@@ -17,6 +17,14 @@
     ['digital', 'Digital Audio', 'Sampling, Nyquist, aliasing and bit depth.', (h) => V.sampling(h)],
     ['halls', 'Hall Shapes', 'Shoebox vs fan vs vineyard: lateral reflections and ITDG.', (h) => V.hall(h)],
     ['reflections', 'Control-Room Reflections', 'Image sources and first-reflection points.', (h) => V.reflections(h)],
+    ['eq', 'EQ & Filters', 'Parametric EQ with real biquad filters — magnitude, phase, and audio.', (h) => V.eq(h)],
+    ['xover', 'Crossovers & Alignment', 'Low-pass + high-pass, delay and polarity — how sources sum.', (h) => V.crossover(h)],
+    ['dyn', 'Compressor', 'Threshold, ratio, knee, attack and release, heard and seen.', (h) => V.compressor(h)],
+    ['subs', 'Subwoofer Arrays', 'Cardioid, end-fire and broadside arrays.', (h) => V.subArray(h)],
+    ['line', 'Line Arrays', 'Point source vs line source level over distance.', (h) => V.lineVsPoint(h)],
+    ['mics', 'Microphone Patterns', 'Omni to figure-8 and what they reject.', (h) => V.micPatterns(h)],
+    ['gain', 'Gain Structure', 'Headroom and noise through a signal chain.', (h) => V.gainStructure(h)],
+    ['tune', 'System Tuning', 'A simulated transfer-function analyser: align and EQ a system.', (h) => V.tuning(h)],
   ];
   A.register('lab', {
     title: 'Physics Lab',

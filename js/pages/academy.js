@@ -3,6 +3,10 @@
   'use strict';
   const { el, html } = A;
 
+  const TRACKS = [
+    ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Twenty chapters from “what is sound” to concert halls: waves, decibels, hearing, room modes, absorption, diffusion, isolation, vibration, floating floors, studios, halls and measurement.'],
+    ['audio', 'Audio Engineering & Sound Systems', 'Fourteen courses on the electrical and digital side: signals and levels, transducers, consoles and signal flow, digital audio, networking (Dante, AVB, AES67), DSP, crossovers, amplifiers, arrays, PA design, installation, tuning with RTA and transfer functions, feedback and production workflows.'],
+  ];
   function progress() { return A.store.get('progress', {}); }
   function saveProgress(id, patch) {
     const p = progress();
@@ -11,13 +15,17 @@
   }
 
   function renderIndex(root) {
-    A.pageHead(root, 'Academy', 'The Acoustics Academy', 'Twenty chapters, ordered like a university course but taught like an apprenticeship. Every chapter has interactive physics, rules of thumb, mentor notes, common mistakes, alternatives and a short quiz.');
+    A.pageHead(root, 'Academy', 'The Acoustica Academy', 'Two course tracks, ordered like a university programme but taught like an apprenticeship. Every course has interactive physics, rules of thumb, mentor notes, common mistakes, alternatives and a short quiz.');
     const prog = progress();
     const levels = ['Foundation', 'Core', 'Advanced'];
+    TRACKS.forEach(([tid, tname, tdesc]) => {
+    const inTrack = LESSONS.filter((l) => (l.track || 'acoustics') === tid);
+    const done = inTrack.filter((l) => prog[l.id] && prog[l.id].done).length;
+    root.appendChild(html(`<div class="card" style="margin-top:22px"><div class="eyebrow small accent" style="text-transform:uppercase;letter-spacing:.12em;font-weight:700">Course track</div><h2 style="margin:.2em 0">${tname}</h2><p class="muted" style="margin:0 0 8px">${tdesc}</p><div class="progress-bar"><i style="width:${Math.round((done / inTrack.length) * 100)}%"></i></div><div class="small" style="margin-top:6px">${done}/${inTrack.length} courses complete</div></div>`));
     levels.forEach((lv) => {
-      const list = LESSONS.filter((l) => l.level === lv);
+      const list = inTrack.filter((l) => l.level === lv);
       if (!list.length) return;
-      root.appendChild(html(`<h2>${lv}</h2>`));
+      root.appendChild(html(`<h3>${lv}</h3>`));
       const g = el('div', { class: 'grid gauto' });
       list.forEach((l) => {
         const p = prog[l.id] || {};
@@ -29,6 +37,7 @@
       });
       root.appendChild(g);
     });
+    });
   }
 
   function renderLesson(root, id) {
@@ -38,7 +47,7 @@
     const prog = progress();
     const layout = el('div', { class: 'lesson-layout' });
     const toc = el('nav', { class: 'toc' });
-    toc.innerHTML = `<a href="#/academy">← All chapters</a>` + LESSONS.map((l) => `<a href="#/academy/${l.id}" class="${l.id === id ? 'on' : ''}">${l.n}. ${l.title}${prog[l.id] && prog[l.id].done ? '<span class="done">✓</span>' : ''}</a>`).join('');
+    toc.innerHTML = `<a href="#/academy">← All courses</a>` + LESSONS.filter((l) => (l.track || 'acoustics') === (L.track || 'acoustics')).map((l) => `<a href="#/academy/${l.id}" class="${l.id === id ? 'on' : ''}">${l.n}. ${l.title}${prog[l.id] && prog[l.id].done ? '<span class="done">✓</span>' : ''}</a>`).join('');
     const body = el('article', { class: 'lesson' });
     layout.append(toc, body);
     root.appendChild(layout);
