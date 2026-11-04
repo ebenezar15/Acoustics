@@ -32,6 +32,7 @@
         <p>Acoustica teaches acoustics, soundproofing, studio and hall design, audio engineering and sound-system design the way a seasoned acoustician would: by showing you the physics, giving you the numbers, and walking you through real design decisions — with alternatives.</p>
         <div class="row" style="margin-top:16px">
           <a class="btn primary" href="#/academy/${next.id}">${A.icon('graduation')} ${done ? 'Continue: ' + next.title : 'Start the Academy'}</a>
+          <a class="btn" href="#/predict">${A.icon('star')} Predict my room</a>
           <a class="btn" href="#/treatment">${A.icon('grid')} Treat my room</a>
           <a class="btn" href="#/analyzer">${A.icon('room')} Analyse my room</a>
           <a class="btn" href="#/lab">${A.icon('lab')} Open the Physics Lab</a>
@@ -102,7 +103,7 @@
       };
       const groups = [
         ['Learn', 'concepts, physics, practice', [['academy', 'Academy', 'Two tracks · 37 courses with interactive physics and quizzes', 'wave'], ['lab', 'Physics Lab', 'Wave tank and 20+ simulations', 'wave'], ['hear', 'Hear the Decibel', 'Listen through walls; hear dB steps', 'ear']]],
-        ['Analyse', 'find what is wrong', [['treatment', 'Treatment Simulator', 'Place traps & diffusers; see every mode change', 'modes'], ['analyzer', 'Room Analyzer', 'Modes, RT, bass at the seat, treatment plan', 'bars'], ['measure', 'Measure', 'Live RTA and clap-test RT60', 'bars'], ['doctor', 'Room Doctor', 'Symptom → cause → fix', 'modes']]],
+        ['Analyse', 'find what is wrong', [['predict', 'Room Predictor', 'Dimensions → problem frequencies, modes, zones and placed treatment', 'modes'], ['treatment', 'Treatment Simulator', 'Place traps & diffusers; see every mode change', 'modes'], ['analyzer', 'Room Analyzer', 'Modes, RT, bass at the seat, treatment plan', 'bars'], ['measure', 'Measure', 'Live RTA and clap-test RT60', 'bars'], ['doctor', 'Room Doctor', 'Symptom → cause → fix', 'modes']]],
         ['Design', 'size it and predict it', [['absorbers', 'Absorber Designer', 'Porous, membrane, Helmholtz', 'wall'], ['diffusers', 'Diffuser Designer', 'QRD, PRD, skyline + polar plots', 'diff'], ['isolation', 'Soundproofing', 'Walls, STC/Rw, neighbour planner', 'wall'], ['floors', 'Floating Floors', 'Springs, pads, air spring', 'wall']]],
         ['Sound systems', 'audio engineering in practice', [['pa', 'PA & System Designer', 'Coverage maps, delays, tuning lab', 'spk'], ['systems', 'Signal Flow & Networks', 'Pipelines, Dante/AVB/AES67', 'net']]],
         ['Build', 'drawings, guides, references', [['workshop', 'Workshop', 'Dimensioned drawings & cut lists', 'build'], ['guides', 'Studio & Hall Guides', '13 room types', 'build'], ['cases', 'Case Studies', 'Real halls & projects', 'build'], ['materials', 'Materials Library', 'α tables & properties', 'bars']]],

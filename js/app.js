@@ -8,7 +8,7 @@
   A.NAV = [
     ['Start', [['home', 'Home', 'home']]],
     ['Learn', [['academy', 'Academy', 'graduation'], ['lab', 'Physics Lab', 'lab'], ['hear', 'Hear the Decibel', 'ear'], ['glossary', 'Glossary & Formulas', 'list']]],
-    ['Analyse', [['treatment', 'Treatment Simulator', 'grid'], ['analyzer', 'Room Analyzer', 'room'], ['measure', 'Measure (Mic)', 'mic'], ['doctor', 'Room Doctor', 'help']]],
+    ['Analyse', [['predict', 'Room Predictor', 'star'], ['treatment', 'Treatment Simulator', 'grid'], ['analyzer', 'Room Analyzer', 'room'], ['measure', 'Measure (Mic)', 'mic'], ['doctor', 'Room Doctor', 'help']]],
     ['Sound Systems', [['pa', 'PA & System Designer', 'speaker'], ['systems', 'Signal Flow & Networks', 'layers']]],
     ['Design', [['absorbers', 'Absorber Designer', 'absorb'], ['diffusers', 'Diffuser Designer', 'diffuser'], ['isolation', 'Soundproofing', 'wall'], ['floors', 'Floating Floors & Vibration', 'spring'], ['calc', 'Calculators', 'calc']]],
     ['Build & Reference', [['guides', 'Studio & Hall Guides', 'hall'], ['workshop', 'Workshop (DIY builds)', 'hammer'], ['cases', 'Case Studies', 'map'], ['masters', 'Masters & Schools', 'users'], ['materials', 'Materials Library', 'layers']]],
