@@ -4,7 +4,7 @@
   const { el, html } = A;
 
   const TRACKS = [
-    ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Twenty-two chapters from “what is sound” to concert halls: waves, decibels, hearing, room modes and how to treat them, absorption, diffusion, isolation, hidden and integrated design, vibration, floating floors, studios, halls and measurement.'],
+    ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Twenty-three chapters from “what is sound” to concert halls: waves, fundamentals and harmonics, decibels, hearing, room modes and how to treat them, absorption, diffusion, isolation, hidden and integrated design, vibration, floating floors, studios, halls and measurement.'],
     ['audio', 'Audio Engineering & Sound Systems', 'Fourteen courses on the electrical and digital side: signals and levels, transducers, consoles and signal flow, digital audio, networking (Dante, AVB, AES67), DSP, crossovers, amplifiers, arrays, PA design, installation, tuning with RTA and transfer functions, feedback and production workflows.'],
   ];
   function progress() { return A.store.get('progress', {}); }
@@ -29,7 +29,7 @@
       const g = el('div', { class: 'grid gauto' });
       list.forEach((l) => {
         const p = prog[l.id] || {};
-        g.appendChild(html(`<a class="tile" href="#/academy/${l.id}">
+        g.appendChild(html(`<a class="tile" data-level="${l.level}" href="#/academy/${l.id}">
           <div class="row" style="justify-content:space-between"><span class="pill">Chapter ${l.n}</span><span class="small">${l.mins} min ${p.done ? '· <span class="good">✓ done</span>' : ''}</span></div>
           <h3 style="margin-top:8px">${l.title}</h3><p>${l.summary}</p>
           ${p.quiz != null ? `<div class="small" style="margin-top:6px">Quiz: ${p.quiz}%</div>` : ''}

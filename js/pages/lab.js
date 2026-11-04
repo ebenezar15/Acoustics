@@ -3,6 +3,8 @@
   'use strict';
   const SIMS = [
     ['tank', 'Wave Tank', 'Real-time 2-D wave simulation. Diffraction, interference, standing waves, diffusers and absorbers — as waves.', (h) => V.waveTank(h, { height: 420 })],
+    ['harm', 'Harmonics & Timbre', 'Build a sound from its harmonics; remove the fundamental and still hear the pitch.', (h) => { V.harmonics(h); h.appendChild(A.html('<h3>Resonance</h3>')); V.resonance(h); }],
+    ['lowhigh', 'Low vs High Targeting', 'Does treating the low end change the highs? Try tuned traps, filters, absorbers and walls.', (h) => { V.lowTarget(h); h.appendChild(A.html('<h3>Strings & room modes</h3>')); V.stringModes(h); }],
     ['wave', 'Sound Waves', 'Longitudinal motion, compression and rarefaction.', (h) => { V.wave(h); h.appendChild(A.html('<h3>Wavelength vs. the world</h3>')); V.wavelength(h); }],
     ['phase', 'Phase & Comb Filtering', 'Two waves summing, and what a single reflection does to the spectrum (with audio).', (h) => { V.phase(h); h.appendChild(A.html('<h3>Comb filter from one reflection</h3>')); V.comb(h); }],
     ['modes', 'Room Modes', 'Standing-wave pressure maps — hear each mode and move the listener.', (h) => V.modes2D(h)],

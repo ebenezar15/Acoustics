@@ -37,6 +37,7 @@
     if (n == null || !isFinite(n)) return '—';
     const a = Math.abs(n);
     if (a !== 0 && (a >= 1e6 || a < 1e-3)) return n.toExponential(2);
+    if (Math.abs(n) < 0.5 * Math.pow(10, -d)) n = 0;
     return Number(n).toFixed(d).replace(/\.0+$/, '').replace(/(\.\d*?)0+$/, '$1');
   };
   A.fmtHz = (f) => (f >= 1000 ? A.fmt(f / 1000, f >= 10000 ? 0 : 1) + ' kHz' : A.fmt(f, f < 100 ? 1 : 0) + ' Hz');
@@ -281,7 +282,8 @@
       ['pointerdown', 'pointermove', 'pointerup', 'pointerleave'].forEach((e) => cv.addEventListener(e, handler));
     }
     size();
-    if (opts.animate) api.start(); else requestAnimationFrame(() => draw());
+    if (opts.animate) api.start();
+    requestAnimationFrame(() => draw());
     return api;
   };
 
@@ -500,7 +502,8 @@
     return { select };
   };
   A.pageHead = function (host, eyebrow, title, lead) {
-    host.appendChild(A.html(`<div class="page-head"><div class="eyebrow">${eyebrow}</div><h1>${title}</h1>${lead ? `<p>${lead}</p>` : ''}</div>`));
+    const art = `<svg class="ph-art" viewBox="0 0 260 90" aria-hidden="true"><path d="M0 45 C 30 10, 60 80, 90 45 S 150 10, 180 45 S 240 80, 260 45" stroke="var(--accent)"/><path d="M0 50 C 40 25, 80 75, 120 50 S 200 25, 260 50" stroke="var(--accent2)"/><path d="M0 40 C 20 30, 40 60, 65 40 S 110 20, 130 40 S 175 60, 195 40 S 240 25, 260 40" stroke="var(--c3)"/></svg>`;
+    host.appendChild(A.html(`<div class="page-head">${art}<div class="eyebrow">${eyebrow}</div><h1>${title}</h1>${lead ? `<p>${lead}</p>` : ''}</div>`));
   };
   A.statBox = (k, v, d, cls = '') => `<div class="stat"><div class="k">${k}</div><div class="v ${cls}">${v}</div>${d ? `<div class="d">${d}</div>` : ''}</div>`;
 

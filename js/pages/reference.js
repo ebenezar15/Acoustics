@@ -65,20 +65,40 @@
     render(root, params) {
       const c = LIB.cases.find((x) => x.id === params[0]);
       if (!c) {
-        A.pageHead(root, 'Build & reference', 'Case Studies', 'Landmark halls and representative projects. Real venues are summarised from widely published facts; illustrative projects are composites that show the method with numbers from this app.');
-        ['Real hall', 'Illustrative project'].forEach((type) => {
-          root.appendChild(html(`<h2>${type === 'Real hall' ? 'Landmark halls' : 'Illustrative projects'}</h2>`));
-          const grid = el('div', { class: 'grid gauto' });
-          LIB.cases.filter((x) => x.type === type).forEach((x) => grid.appendChild(html(`<a class="tile" href="#/cases/${x.id}"><div>${x.tags.map((t) => `<span class="pill">${t}</span>`).join('')}</div><h3 style="margin-top:8px">${x.name}</h3><p>${x.summary}</p></a>`)));
-          root.appendChild(grid);
-        });
+        A.pageHead(root, 'Build & reference', 'Case Studies', 'Problems, diagnoses, solutions and results — with before/after charts computed by the same physics as the tools. Real venues are summarised from widely published facts; project cases are illustrative composites.');
+        const tags = [...new Set(LIB.cases.flatMap((x) => x.tags))].sort();
+        let tag = '';
+        const bar = el('div', { class: 'glance' });
+        const draw = () => {
+          bar.innerHTML = `<a class="pill ${tag ? '' : 'on'}" href="javascript:void 0" data-t="">All (${LIB.cases.length})</a>` + tags.map((t) => `<a class="pill ${t === tag ? 'on' : ''}" href="javascript:void 0" data-t="${t}">${t}</a>`).join('');
+          body.innerHTML = '';
+          [['Project case', 'Project cases — problem → solution → result'], ['Illustrative project', 'More illustrative projects'], ['Real hall', 'Landmark halls']].forEach(([type, title]) => {
+            const list = LIB.cases.filter((x) => x.type === type && (!tag || x.tags.includes(tag)));
+            if (!list.length) return;
+            body.appendChild(html(`<div class="group-title"><h2>${title}</h2><span>${list.length}</span></div>`));
+            const grid = el('div', { class: 'grid gauto' });
+            list.forEach((x) => grid.appendChild(html(`<a class="tile case-tile" href="#/cases/${x.id}">${x.stats ? `<div class="case-stats">${x.stats.slice(0, 2).map(([k, b, a]) => `<div><span>${k}</span><b>${b} → <em>${a}</em></b></div>`).join('')}</div>` : ''}<div>${x.tags.map((t) => `<span class="pill">${t}</span>`).join('')}</div><h3 style="margin-top:8px">${x.name}</h3><p>${x.summary}</p></a>`)));
+            body.appendChild(grid);
+          });
+        };
+        bar.addEventListener('click', (e) => { const t = e.target.dataset.t; if (t == null) return; tag = t; draw(); });
+        const body = el('div');
+        root.append(bar, body);
+        draw();
         return;
       }
       root.appendChild(html(`<div class="page-head"><div class="eyebrow"><a href="#/cases">Case studies</a> / ${c.type}</div><h1>${c.name}</h1><p>${c.summary}</p></div>`));
-      const b = el('div', { class: 'card lesson' }); b.innerHTML = c.body; root.appendChild(b);
+      if (c.stats) root.appendChild(html(`<div class="ba-grid">${c.stats.map(([k, b, a]) => `<div class="ba"><div class="k">${k}</div><div class="ba-row"><span class="ba-b">${b}</span><span class="ba-arrow">→</span><span class="ba-a">${a}</span></div></div>`).join('')}</div>`));
+      if (c.flow) root.appendChild(html(`<div class="flowline case-flow">${c.flow.map(([t, d], i) => `<div class="flowstep"><span class="flownum">${i + 1}</span><b>${t}</b><small>${d}</small></div>`).join('')}</div>`));
+      const grid = el('div', { class: c.viz ? 'grid g2' : '' });
+      const b = el('div', { class: 'card lesson' }); b.innerHTML = c.body; grid.appendChild(b);
+      if (c.viz) { const v = el('div', { class: 'card' }); v.appendChild(html('<h3 style="margin-top:0">Before & after</h3>')); grid.appendChild(v); c.viz(v); }
+      root.appendChild(grid);
       if (c.tags.includes('shoebox') || c.tags.includes('vineyard')) { const x = el('div', { class: 'card', style: { marginTop: '16px' } }); x.appendChild(html('<h3 style="margin-top:0">Compare hall forms</h3>')); root.appendChild(x); V.hall(x); }
       if (c.id === 'mix-translation') { const x = el('div', { class: 'card', style: { marginTop: '16px' } }); root.appendChild(x); V.modes2D(x, { L: 3, W: 3 }); }
       if (c.id === 'rooftop-hvac') { const x = el('div', { class: 'card', style: { marginTop: '16px' } }); root.appendChild(x); V.transmissibility(x, { fn: 3.2, ff: 24 }); }
+      const i = LIB.cases.indexOf(c), nx = LIB.cases[(i + 1) % LIB.cases.length];
+      root.appendChild(html(`<p style="margin-top:18px"><a class="btn" href="#/cases">← All cases</a> <a class="btn primary" href="#/cases/${nx.id}">Next: ${nx.name} →</a></p>`));
     },
   });
 
