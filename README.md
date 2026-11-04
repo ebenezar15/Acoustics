@@ -19,6 +19,7 @@ You can also open `index.html` directly. The microphone features need `localhost
 | **Academy** | Two course tracks. Acoustics: 20 chapters, from what sound is to concert halls, plus measurement, audio engineering and project method. Each chapter has interactive visuals, mentor notes, common mistakes, alternatives, rule-of-thumb data and a quiz. Progress is saved in your browser. Audio & Sound Systems: 14 courses on signals and levels, microphones and loudspeakers, consoles and signal flow, digital audio, networking (Dante, AVB/Milan, AES67, MADI), DSP, crossovers and alignment, amplifiers and 100 V systems, arrays, PA design, installation, tuning with RTA and transfer functions, feedback, and production workflows. |
 | **Physics Lab** | A real-time 2-D FDTD wave tank (diffraction, interference, standing waves, QRD and absorbers), plus simulations of waves and wavelength, phase and comb filtering (with audio), room modes (audible), reverberation, porous absorption, Helmholtz resonators, mass law and double walls, vibration transmissibility, ISO 226 equal-loudness curves, sampling and aliasing, hall shapes and control-room reflections. |
 | **Hear the Decibel** | A sound-level ladder, dB steps you can hear, and a "through the wall" simulator: a synthesised band, pink noise or your own audio file, filtered by the predicted octave-band TL of each construction. |
+| **Treatment Simulator** | Drag corner traps, tuned membrane and Helmholtz traps, panels, diffusers and clouds into a room. See each mode's decay change, the modal overlap widen and the bass at the seat smooth out. A problem finder suggests each target frequency and the best spot for a trap. Also covers reflections and diffusion, and a planner for hidden or integrated isolation-plus-treatment. |
 | **Room Analyzer** | Modes and the Bonello and Bolt checks; predicted bass response at the seat (modal summation); a seat-quality map; RT per band with Sabine and Eyring against a target for the room type; reflection points; a diagnosis; and a quantified treatment plan with a before/after prediction. |
 | **Measure** | A live microphone RTA, a clap or balloon-pop RT60 (T20 per octave, using Schroeder integration) and a signal generator. |
 | **Room Doctor** | Symptom → causes → how to confirm → fixes → alternatives. |
@@ -31,7 +32,7 @@ You can also open `index.html` directly. The microphone features need `localhost
 | **Calculators** | About 25 everyday calculators: levels, speakers and timing, SBIR, RT, barriers, HVAC velocity, ventilation, and units. |
 | **Reference** | Design guides for 13 room types, 12 DIY build sheets, case studies, Masters & Schools of thought (with your own notes), a materials library, a glossary and a formula sheet. |
 
-You can switch between 9 colour schemes and set a custom accent colour. The typeface is Avenir Next where installed, falling back to Nunito Sans.
+Length units can be switched between metric (auto), mm, cm, m, inches and feet. Build pages include dimensioned, parametric drawings with cut lists. You can switch between 9 colour schemes and set a custom accent colour. The typeface is Avenir Next where installed, falling back to Nunito Sans.
 
 ## Accuracy notes
 

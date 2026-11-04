@@ -40,7 +40,7 @@
       if (!w) {
         A.pageHead(root, 'Build & reference', 'Workshop', 'Build sheets for the things acousticians specify most often. Each links to the designer that sizes it for your room.');
         const grid = el('div', { class: 'grid gauto' });
-        LIB.workshop.forEach((x) => grid.appendChild(html(`<a class="tile" href="#/workshop/${x.id}"><div class="row" style="justify-content:space-between"><span class="pill">${x.level}</span><span class="small">${x.time} · ${x.cost}</span></div><h3 style="margin-top:8px">${x.name}</h3><p>${x.summary}</p></a>`)));
+        LIB.workshop.forEach((x) => grid.appendChild(html(`<a class="tile" href="#/workshop/${x.id}">${A.workshopThumb && A.workshopThumb(x.id) ? `<div class="wk-thumb">${A.workshopThumb(x.id)}</div>` : ''}<div class="row" style="justify-content:space-between"><span class="pill">${x.level}</span><span class="small">${x.time} · ${x.cost}</span></div><h3 style="margin-top:8px">${x.name}</h3><p>${x.summary}</p></a>`)));
         root.appendChild(grid);
         root.appendChild(html(`<div class="callout warn">Safety: wear gloves, a dust mask (P2/N95 or better) and eye protection when cutting mineral wool; use fire-rated materials; hang anything overhead with rated fixings into structure.</div>`));
         return;
@@ -49,9 +49,12 @@
       const grid = el('div', { class: 'grid g2' });
       grid.appendChild(html(`<div class="card"><h3 style="margin-top:0">Materials</h3>${ul(w.materials)}<h3>Tools</h3>${ul(w.tools)}</div>`));
       grid.appendChild(html(`<div class="card"><h3 style="margin-top:0">Steps</h3><ol class="steps">${w.steps.map((s) => `<li>${s}</li>`).join('')}</ol></div>`));
+      const dh = el('div', { style: { marginBottom: '16px' } });
+      root.appendChild(dh);
+      if (A.workshopDrawing) A.workshopDrawing(w.id, dh);
       root.appendChild(grid);
       root.appendChild(html(`<div class="callout mentor">${w.tips.join(' ')}</div>`));
-      const names = { absorbers: 'Absorber Designer', diffusers: 'Diffuser Designer', isolation: 'Soundproofing', floors: 'Floating Floor Designer', calc: 'Calculators' };
+      const names = { absorbers: 'Absorber Designer', diffusers: 'Diffuser Designer', isolation: 'Soundproofing', floors: 'Floating Floor Designer', calc: 'Calculators', treatment: 'Treatment Simulator' };
       root.appendChild(html(`<p><a class="btn primary" href="#/${w.calc}">Size it in the ${names[w.calc]} →</a></p>`));
     },
   });

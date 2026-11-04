@@ -117,5 +117,17 @@ for (let i = 0; i < n; i++) x[i] = (Math.random() * 2 - 1) * Math.exp(-6.91 * i 
 const t60 = P.decayFit(P.schroederCurve(x), fs);
 ok(near(t60, 0.6, 0.06), 'Schroeder fit recovers T60 ' + t60.toFixed(2));
 
+// modal treatment: a tuned trap at a mode's antinode damps it far more than at its node
+{
+  const room = { L: 5, W: 4, H: 2.5, alpha: 0.05 };
+  const base = P.treatedModes(room, []);
+  const m100 = base.find((m) => m.n.join() === '1,0,0');
+  const atCorner = P.treatedModes(room, [{ kind: 'membrane', f0: m100.f, x: 0, y: 0, area: 2 }]).find((m) => m.n.join() === '1,0,0');
+  const atNode = P.treatedModes(room, [{ kind: 'membrane', f0: m100.f, x: 2.5, y: 0, area: 2 }]).find((m) => m.n.join() === '1,0,0');
+  console.log('  T60 (1,0,0): bare', m100.T60.toFixed(2), 'trap at corner', atCorner.T60.toFixed(2), 'trap at node', atNode.T60.toFixed(2));
+  ok(atCorner.T60 < m100.T60 * 0.6 && Math.abs(atNode.T60 - m100.T60) < 0.05, 'placement matters: antinode damps, node does nothing');
+  const r = P.modalResponseModes(room, base, [0.5, 1, 1.2], [3, 2, 1.2]);
+  ok(r.every((p) => isFinite(p.db)), 'treated modal response finite');
+}
 console.log(fails ? `\n${fails} FAILED` : '\nAll passed');
 process.exit(fails ? 1 : 0);

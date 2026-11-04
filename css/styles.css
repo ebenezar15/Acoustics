@@ -307,3 +307,36 @@ details[open] > summary { margin-bottom: 8px; }
   .app { display: block; }
 }
 @media (max-width: 860px) { #themeBtn span { display: none; } }
+
+/* ===================== v3 visual layer ===================== */
+#unitSel { max-width: 210px; padding: 7px 8px; font-size: .84rem; }
+@media (max-width: 860px) { #unitSel { max-width: 110px; } }
+
+.flowline { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+.flowstep { position: relative; flex: 1 1 150px; min-width: 0; background: var(--panel2); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px 12px 44px; display: flex; flex-direction: column; gap: 2px; animation: fadeUp .4s both; }
+.flowstep small { color: var(--muted); font-size: .8rem; line-height: 1.4; }
+.flownum { position: absolute; left: 10px; top: 12px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 800; font-size: .78rem; }
+.flowstep:nth-child(2) { animation-delay: .06s } .flowstep:nth-child(3) { animation-delay: .12s } .flowstep:nth-child(4) { animation-delay: .18s } .flowstep:nth-child(5) { animation-delay: .24s }
+
+.read-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 90; width: 0; transition: width .1s linear; }
+.lesson section { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px 22px; }
+.lesson section > h2:first-child { margin-top: 0; display: flex; align-items: center; gap: 10px; }
+.sec-num { flex: none; width: 30px; height: 30px; border-radius: 9px; background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent); display: grid; place-items: center; font-size: .9rem; font-weight: 800; }
+.lesson .quiz { border-radius: 16px; }
+.glance { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 18px; }
+.glance .pill { font-size: .78rem; padding: 4px 11px; }
+
+.lmap { overflow-x: auto; }
+.lmap svg { min-width: 760px; }
+.lmap a text { fill: var(--text); }
+.lmap .node { transition: transform .2s; transform-box: fill-box; transform-origin: center; }
+.lmap a:hover .node { transform: scale(1.18); }
+
+.tile { position: relative; overflow: hidden; }
+.tile .art { height: 70px; margin: -16px -18px 12px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, var(--panel2)), color-mix(in srgb, var(--accent2) 14%, var(--panel2))); display: grid; place-items: center; }
+.tile .art svg { width: 100%; height: 70px; }
+.group-title { display: flex; align-items: baseline; gap: 10px; margin: 26px 0 10px; }
+.group-title h2 { margin: 0; }
+.group-title span { color: var(--muted); font-size: .9rem; }
+.wk-thumb { margin: -16px -18px 10px; border-bottom: 1px solid var(--line); background: var(--bg2); }
+.wk-thumb svg { display: block; width: 100%; height: 120px; }

@@ -4,7 +4,7 @@
   const { el, html } = A;
 
   const TRACKS = [
-    ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Twenty chapters from “what is sound” to concert halls: waves, decibels, hearing, room modes, absorption, diffusion, isolation, vibration, floating floors, studios, halls and measurement.'],
+    ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Twenty-two chapters from “what is sound” to concert halls: waves, decibels, hearing, room modes and how to treat them, absorption, diffusion, isolation, hidden and integrated design, vibration, floating floors, studios, halls and measurement.'],
     ['audio', 'Audio Engineering & Sound Systems', 'Fourteen courses on the electrical and digital side: signals and levels, transducers, consoles and signal flow, digital audio, networking (Dante, AVB, AES67), DSP, crossovers, amplifiers, arrays, PA design, installation, tuning with RTA and transfer functions, feedback and production workflows.'],
   ];
   function progress() { return A.store.get('progress', {}); }
@@ -53,9 +53,15 @@
     root.appendChild(layout);
 
     body.appendChild(html(`<div class="page-head"><div class="eyebrow">Chapter ${L.n} · ${L.level} · ${L.mins} min</div><h1>${L.title}</h1><p>${L.summary}</p></div>`));
+    body.appendChild(html(`<div class="glance"><span class="pill on">In this chapter</span>${L.sections.map((s, i) => `<a class="pill" href="javascript:void 0" data-s="${i}">${i + 1}. ${s.h}</a>`).join('')}</div>`));
+    body.lastChild.addEventListener('click', (e) => { const i = e.target.dataset && e.target.dataset.s; if (i != null) document.getElementById('s' + i).scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    const bar = el('div', { class: 'read-progress' }); document.body.appendChild(bar);
+    const onScroll = () => { const r = body.getBoundingClientRect(); const p = A.clamp((-r.top + 80) / Math.max(1, r.height - innerHeight + 80), 0, 1); bar.style.width = p * 100 + '%'; };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    A.onLeave(() => { window.removeEventListener('scroll', onScroll); bar.remove(); });
     L.sections.forEach((s, i) => {
       const sec = el('section', { id: 's' + i });
-      sec.appendChild(html(`<h2>${s.h}</h2>`));
+      sec.appendChild(html(`<h2><span class="sec-num">${i + 1}</span>${s.h}</h2>`));
       const content = el('div'); content.innerHTML = s.html || '';
       sec.appendChild(content);
       if (s.viz) {

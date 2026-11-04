@@ -158,6 +158,69 @@
     out.forEach((p) => (p.db -= med));
     return out;
   };
+  /* ---------------- modal treatment model ----------------
+     Each mode n decays with its own rate δn = c/(8V) · Σ_i Sᵢ αᵢ(fn) wᵢn, where wᵢn = εn·ψn(rᵢ)²
+     is the absorber's coupling to that mode (εn·ψ² averages to 1 over the room; it reaches εn at corners
+     and 0 at nodes). This is why the same absorber helps one mode and does nothing for another. */
+  P.modeEps = (n) => (n[0] ? 2 : 1) * (n[1] ? 2 : 1) * (n[2] ? 2 : 1);
+  P.modeWeight = (n, dims, pts) => {
+    const e = P.modeEps(n);
+    return pts.reduce((s, r) => s + e * Math.pow(P.modeShape(n, dims, r), 2), 0) / pts.length;
+  };
+  /** α(f) of the treatment kinds used by the simulator */
+  P.treatmentAlpha = function (it, f) {
+    switch (it.kind) {
+      case 'panel': return P.porousAlpha(f, 12000, (it.d || 0.1), (it.gap == null ? 0.05 : it.gap));
+      case 'corner': return P.porousAlpha(f, 8000, it.d || 0.4, 0);
+      case 'cloud': return Math.min(1, P.porousAlpha(f, 12000, 0.1, 0.2) * 1.3);
+      case 'membrane': { const D = it.D || 0.15; const m = Math.pow(50 / (it.f0 || 60), 2) / D; return P.membraneAlpha(f, { m, D, fillSigma: 5000, r: 0.2 }); }
+      case 'helmholtz': { const f0 = it.f0 || 120, Q = 2.2, x = f / f0 - f0 / f; return 0.75 / (1 + Q * Q * x * x) + 0.05; }
+      case 'diffuser': return f < 300 ? 0.08 + 0.1 * (f / 300) : 0.18;
+      default: return 0.1;
+    }
+  };
+  /** sample points of an item's face (vertical extent at its plan position) */
+  P.itemPoints = (it, H) => {
+    const z0 = it.z0 == null ? 0 : it.z0, z1 = it.z1 == null ? H : it.z1, pts = [];
+    for (let k = 0; k < 7; k++) pts.push([it.x, it.y, z0 + ((z1 - z0) * (k + 0.5)) / 7]);
+    return pts;
+  };
+  /**
+   * modes with per-mode decay for a treated room.
+   * room {L,W,H, alpha: [α125.. or function(f)] for boundaries}, items [{kind,x,y,z0,z1,area,f0,...}]
+   */
+  P.treatedModes = function (room, items, fmax = 300) {
+    const { L, W, H } = room, V = L * W * H, dims = [L, W, H];
+    const aB = typeof room.alpha === 'function' ? room.alpha : () => room.alpha || 0.05;
+    const modes = P.roomModes(L, W, H, fmax);
+    const walls = [[L * W, 2, 2], [W * H, 0, 2], [L * H, 1, 2]]; // floor+ceiling ⟂ z, front+back ⟂ x, sides ⟂ y
+    modes.forEach((m) => {
+      let A = 0;
+      walls.forEach(([S, axis, count]) => { A += count * S * aB(m.f) * (m.n[axis] ? 2 : 1) * (P.modeEps(m.n) / ((m.n[0] ? 2 : 1) * (m.n[1] ? 2 : 1) * (m.n[2] ? 2 : 1))); });
+      m.Awalls = A;
+      m.items = items.map((it) => { const w = P.modeWeight(m.n, dims, P.itemPoints(it, H)); return it.area * P.treatmentAlpha(it, m.f) * w; });
+      m.A = A + m.items.reduce((a, b) => a + b, 0);
+      m.delta = (P.C / (8 * V)) * m.A;
+      m.T60 = 6.91 / m.delta;
+    });
+    return modes;
+  };
+  /** low-frequency response with a per-mode decay rate (from treatedModes) */
+  P.modalResponseModes = function (room, modes, src, rcv, fmin = 15, fmax = 250, nPts = 260) {
+    const { L, W, H } = room, dims = [L, W, H];
+    const srcs = Array.isArray(src[0]) ? src : [src];
+    const deltaZero = modes.length ? modes[0].delta : 20;
+    const terms = [{ w: 0, a: srcs.length, d: deltaZero }].concat(modes.map((m) => ({ w: 2 * PI * m.f, a: P.modeEps(m.n) * srcs.reduce((s, q) => s + P.modeShape(m.n, dims, q), 0) * P.modeShape(m.n, dims, rcv), d: m.delta })));
+    const out = [];
+    for (let s = 0; s < nPts; s++) {
+      const f = fmin * Math.pow(fmax / fmin, s / (nPts - 1)), w = 2 * PI * f;
+      let re = 0, im = 0;
+      for (const t of terms) { const dr = t.w * t.w - w * w, di = 2 * t.d * w, dd = dr * dr + di * di; re += (t.a * dr) / dd; im += (-t.a * di) / dd; }
+      out.push({ f, db: 20 * log10(Math.hypot(re, im) + 1e-30) });
+    }
+    return out;
+  };
+
   /** standing-wave pressure for one mode at a point (−1…1) */
   P.modeShape = (n, dims, r) => n.reduce((acc, ni, i) => acc * Math.cos((ni * PI * r[i]) / dims[i]), 1);
 

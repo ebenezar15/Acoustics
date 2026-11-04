@@ -40,7 +40,34 @@
     return Number(n).toFixed(d).replace(/\.0+$/, '').replace(/(\.\d*?)0+$/, '$1');
   };
   A.fmtHz = (f) => (f >= 1000 ? A.fmt(f / 1000, f >= 10000 ? 0 : 1) + ' kHz' : A.fmt(f, f < 100 ? 1 : 0) + ' Hz');
-  A.fmtLen = (m) => (m < 0.01 ? A.fmt(m * 1000, 1) + ' mm' : m < 1 ? A.fmt(m * 100, 1) + ' cm' : A.fmt(m, 2) + ' m');
+  /* ---------------- length units (mm, cm, m, in, ft or automatic metric) ---------------- */
+  A.UNITS = {
+    auto: { name: 'Metric (auto)', f: 1, l: 'm' },
+    mm: { name: 'Millimetres', f: 1000, l: 'mm', d: 0 },
+    cm: { name: 'Centimetres', f: 100, l: 'cm', d: 1 },
+    m: { name: 'Metres', f: 1, l: 'm', d: 2 },
+    in: { name: 'Inches', f: 39.3701, l: 'in', d: 1 },
+    ft: { name: 'Feet', f: 3.28084, l: 'ft', d: 2 },
+  };
+  A.unit = (() => { try { const v = JSON.parse(localStorage.getItem('acoustica:unit')); return A.UNITS[v] ? v : 'auto'; } catch (e) { return 'auto'; } })();
+  A.setUnit = (u) => { A.unit = A.UNITS[u] ? u : 'auto'; A.store.set('unit', A.unit); window.dispatchEvent(new Event('unitchange')); };
+  /** format a length given in metres in the chosen unit */
+  A.fmtLen = function (m) {
+    const u = A.unit;
+    if (u === 'auto') return m < 0.01 ? A.fmt(m * 1000, 1) + ' mm' : m < 1 ? A.fmt(m * 100, 1) + ' cm' : A.fmt(m, 2) + ' m';
+    if (u === 'ft' && Math.abs(m) < 0.3048) return A.fmt(m * 39.3701, 1) + ' in';
+    const U = A.UNITS[u], v = m * U.f;
+    const d = u === 'mm' ? (Math.abs(v) < 10 ? 1 : 0) : u === 'in' ? (Math.abs(v) < 10 ? 2 : 1) : U.d;
+    return A.fmt(v, d) + ' ' + U.l;
+  };
+  /** convert a value in a native length unit ('m'|'cm'|'mm') to metres */
+  A.toMetres = (v, native) => (native === 'mm' ? v / 1000 : native === 'cm' ? v / 100 : v);
+  A.fromMetres = (m, native) => (native === 'mm' ? m * 1000 : native === 'cm' ? m * 100 : m);
+  A.isLenUnit = (u) => u === 'm' || u === 'mm' || u === 'cm';
+  /** display unit label for a native length unit */
+  A.lenLabel = (native) => (A.unit === 'auto' ? native : A.UNITS[A.unit].l);
+  A.lenDisplay = (v, native) => (A.unit === 'auto' ? v : +(A.toMetres(v, native) * A.UNITS[A.unit].f).toFixed(4));
+  A.lenParse = (d, native) => (A.unit === 'auto' ? d : A.fromMetres(d / A.UNITS[A.unit].f, native));
   A.clamp = (x, a, b) => Math.max(a, Math.min(b, x));
   A.lerp = (a, b, t) => a + (b - a) * t;
 
@@ -389,7 +416,9 @@
       let input;
       const val = A.el('b');
       const showVal = () => {
-        if (s.type === 'range') val.textContent = (s.fmt ? s.fmt(state[s.key]) : A.fmt(state[s.key], 3)) + (s.unit ? ' ' + s.unit : '');
+        if (s.type !== 'range') return;
+        if (!s.fmt && A.isLenUnit(s.unit)) { val.textContent = A.fmtLen(A.toMetres(state[s.key], s.unit)); return; }
+        val.textContent = (s.fmt ? s.fmt(state[s.key]) : A.fmt(state[s.key], 3)) + (s.unit ? ' ' + s.unit : '');
       };
       if (s.type === 'select') {
         input = A.el('select');
@@ -409,9 +438,10 @@
         wrap.appendChild(input);
         wrap.appendChild(A.el('label', { for: input.id }, s.label));
       } else if (s.type === 'number' || s.type === 'text') {
-        input = A.el('input', { type: s.type, value: s.value, min: s.min, max: s.max, step: s.step || 'any' });
-        input.addEventListener('input', () => { state[s.key] = s.type === 'number' ? parseFloat(input.value) || 0 : input.value; fire(); });
-        wrap.appendChild(A.el('label', {}, s.label + (s.unit ? ` (${s.unit})` : '')));
+        const isLen = s.type === 'number' && A.isLenUnit(s.unit);
+        input = A.el('input', { type: s.type, value: isLen ? A.lenDisplay(s.value, s.unit) : s.value, min: isLen ? null : s.min, max: isLen ? null : s.max, step: 'any' });
+        input.addEventListener('input', () => { const n = parseFloat(input.value) || 0; state[s.key] = s.type === 'number' ? (isLen ? A.lenParse(n, s.unit) : n) : input.value; fire(); });
+        wrap.appendChild(A.el('label', {}, s.label + (s.unit ? ` (${isLen ? A.lenLabel(s.unit) : s.unit})` : '')));
         wrap.appendChild(input);
       } else {
         input = A.el('input', { type: 'range', min: s.min, max: s.max, step: s.step || 'any', value: s.value });
@@ -429,7 +459,7 @@
       value(k, v, silent) {
         const it = inputs[k]; if (!it) return;
         state[k] = v;
-        if (it.s.type === 'check') it.input.checked = !!v; else it.input.value = v;
+        if (it.s.type === 'check') it.input.checked = !!v; else if (it.s.type === 'number' && A.isLenUnit(it.s.unit)) it.input.value = A.lenDisplay(v, it.s.unit); else it.input.value = v;
         it.showVal && it.showVal();
         if (!silent) fire();
       },
