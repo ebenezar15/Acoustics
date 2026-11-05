@@ -205,14 +205,15 @@
           const atCentre = Math.abs(P.modeShape(m.n, [s.L, s.W, s.H], [s.L / 2, s.W / 2, 1.2]));
           const seatTxt = atSeat < 0.3 ? 'near a <b>null</b> — this note will sound weak' : atSeat > 0.75 ? 'near an <b>antinode</b> — this note will boom' : 'in between — moderate';
           // build specs
-          const mem = [['6 mm plywood', 3.6], ['9 mm plywood', 5.4], ['12.5 mm gypsum', 9.5]].map(([n, mass]) => [n, Math.pow(50 / c.f, 2) / mass]).find(([, D]) => D <= 0.3) || ['12.5 mm gypsum', Math.pow(50 / c.f, 2) / 9.5];
+          const memD = (mat, t, mass) => { const fpl = P.plateF11(P.PANELS[mat], t, 0.6, 1.2); return fpl >= c.f * 0.95 ? 9 : Math.pow(50 / Math.sqrt(c.f * c.f - fpl * fpl), 2) / mass; };
+          const mem = [['6 mm plywood', memD('plywood', 0.006, 3.6)], ['9 mm plywood', memD('plywood', 0.009, 5.4)], ['12.5 mm gypsum', memD('gypsum', 0.0125, 9.5)]].find(([, D]) => D <= 0.3) || ['12.5 mm gypsum', memD('gypsum', 0.0125, 9.5)];
           let slot = null; for (let sw = 2; sw <= 30; sw++) { const f = P.perforatedF0({ t: 0.018, slot: true, slotW: sw / 1000, open: P.slotOpenArea(sw / 1000, 0.07), D: 0.1 }); if (!slot || Math.abs(f - c.f) < Math.abs(slot[1] - c.f)) slot = [sw, f]; }
           const walls = m.n.map((n, k) => (n ? ['front/rear walls', 'side walls', 'floor/ceiling'][k] : '')).filter(Boolean).join(' + ');
           const fixes = [];
           if (atSeat < 0.3) fixes.push(`<b>Move the seat or speakers</b> off this null — absorption cannot fill a hole. Moving ${L_(Math.min(0.3, s.L * 0.06))} along the length changes it noticeably; multiple subs help in cinemas.`);
           else if (atSeat > 0.75) fixes.push(`<b>Shift the seat</b> slightly toward a quieter zone of this pattern (pale area on the map), staying symmetric across the width.`);
           fixes.push(`<b>Corner bass traps</b> (already in the plan): this mode peaks in all 8 corners.`);
-          if (c.f < 110) fixes.push(`<b>Membrane trap tuned to ${fmtHz(c.f)}</b>: ${mem[0]} front over a sealed <b>${L_(mem[1])}</b> deep cavity, wool on the back, on the ${walls} near a corner.`);
+          if (c.f < 110) fixes.push(`<b>Membrane trap tuned to ${fmtHz(c.f)}</b>: 600 × 1200 mm ${mem[0]} front over a sealed <b>${L_(mem[1])}</b> deep cavity (panel stiffness included), wool on the back, on the ${walls} near a corner.`);
           else fixes.push(`<b>Slotted Helmholtz panel tuned to ≈${fmtHz(slot[1])}</b>: 70 mm × 18 mm slats with <b>${L_(slot[0] / 1000)}</b> gaps over a 100 mm wool-filled cavity, on the ${walls}.`);
           if (atSeat >= 0.3) fixes.push(`<b>EQ cut</b> as a final touch: −3 to −6 dB at ${fmtHz(c.f)}, Q ≈ 4–8 — only after physical fixes, and never boost a null.`);
           const card = el('div', { class: 'card', style: { background: 'var(--panel2)' } }); pg.appendChild(card);

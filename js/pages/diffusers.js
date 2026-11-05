@@ -108,6 +108,7 @@
           ctx.fillStyle = A.alpha(A.css('good'), 0.08); ctx.fillRect(ax.X(st.f0), ax.y1, ax.X(Math.min(10000, P.diffuserFmax(st.w / 1000))) - ax.X(st.f0), ax.y0 - ax.y1);
           A.plotLine(ctx, ax, b, A.css('muted'), 1.5, [5, 4]);
           A.plotLine(ctx, ax, a, A.css('accent'), 2.5);
+          if (st.type !== 'sky') P.flatPlateFreqs(st.N, st.f0, 10000).forEach((fp) => { ctx.strokeStyle = A.css('bad'); ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(ax.X(fp), ax.y1); ctx.lineTo(ax.X(fp), ax.y0); ctx.stroke(); ctx.setLineDash([]); A.text(ctx, 'flat plate ' + A.shortHz(fp), ax.X(fp) + 3, ax.y1 + 12, { size: 10, color: A.css('bad') }); });
         },
       });
 
@@ -121,7 +122,9 @@
           A.statBox('Max well depth', fmt(maxD * 1000, 0) + ' mm', `plus ${st.back} mm back`) +
           A.statBox('Period width', fmt(widthP * 1000, 0) + ' mm', `${st.type === 'sky' ? st.N + '×' + st.N + ' blocks' : d.length + ' wells'}`) +
           A.statBox('Sit at least', fmt(Math.max(2, (3 * P.C) / st.f0 / 2), 1) + ' m away', 'far-field guideline') +
-          (st.type === 'prd' ? A.statBox('Primitive root g', g) : '');
+          (st.type === 'prd' ? A.statBox('Primitive root g', g) : '') +
+          (st.type !== 'sky' ? A.statBox('Flat-plate frequencies', P.flatPlateFreqs(st.N, st.f0, 20000).slice(0, 3).map(fmtHz).join(', ') || '—', 'all wells ≡ λ/2 multiples → reflects like a flat panel', 'warn') : '') +
+          A.statBox('Grating lobes @ ' + fmtHz(Math.pow(10, st.fp)), P.gratingLobes(widthP, Math.pow(10, st.fp)).length, 'more lobes = more even scattering; few periods = lumpy');
         cutCard.innerHTML = '';
         if (st.type === 'sky') {
           const g2 = P.skylineGrid(st.N), unit = (P.C / (2 * st.N * st.f0)) * 1000;

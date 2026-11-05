@@ -102,7 +102,7 @@
         ear: '<circle cx="180" cy="36" r="22" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="180" cy="36" r="12" fill="none" stroke="var(--accent2)" stroke-width="3"/><circle cx="180" cy="36" r="4" fill="var(--text)"/>',
       };
       const groups = [
-        ['Learn', 'concepts, physics, practice', [['academy', 'Academy', 'Two tracks · 37 courses with interactive physics and quizzes', 'wave'], ['lab', 'Physics Lab', 'Wave tank and 20+ simulations', 'wave'], ['hear', 'Hear the Decibel', 'Listen through walls; hear dB steps', 'ear']]],
+        ['Learn', 'concepts, physics, practice', [['academy', 'Academy', 'Two tracks · 39 courses with interactive physics and quizzes', 'wave'], ['lab', 'Physics Lab', 'Wave tank and 20+ simulations', 'wave'], ['hear', 'Hear the Decibel', 'Listen through walls; hear dB steps', 'ear']]],
         ['Analyse', 'find what is wrong', [['predict', 'Room Predictor', 'Dimensions → problem frequencies, modes, zones and placed treatment', 'modes'], ['treatment', 'Treatment Simulator', 'Place traps & diffusers; see every mode change', 'modes'], ['analyzer', 'Room Analyzer', 'Modes, RT, bass at the seat, treatment plan', 'bars'], ['measure', 'Measure', 'Live RTA and clap-test RT60', 'bars'], ['doctor', 'Room Doctor', 'Symptom → cause → fix', 'modes']]],
         ['Design', 'size it and predict it', [['absorbers', 'Absorber Designer', 'Porous, membrane, Helmholtz', 'wall'], ['diffusers', 'Diffuser Designer', 'QRD, PRD, skyline + polar plots', 'diff'], ['isolation', 'Soundproofing', 'Walls, STC/Rw, neighbour planner', 'wall'], ['floors', 'Floating Floors', 'Springs, pads, air spring', 'wall']]],
         ['Sound systems', 'audio engineering in practice', [['pa', 'PA & System Designer', 'Coverage maps, delays, tuning lab', 'spk'], ['systems', 'Signal Flow & Networks', 'Pipelines, Dante/AVB/AES67', 'net']]],
@@ -119,9 +119,9 @@
       const path = A.el('div', { class: 'grid gauto' });
       const stages = [
         ['Foundations', 'sound,harmonics,decibels,hearing,propagation', 'Waves, fundamentals & harmonics, dB, ears and how sound travels.'],
-        ['Room acoustics', 'interference,modes,modes-treat,reverb,absorption,diffusion', 'Reflections, modes and their treatment, decay, absorbers, diffusers.'],
+        ['Room acoustics', 'interference,modes,modes-treat,reverb,bands,absorption,diffusion', 'Reflections, modes and their treatment, decay, absorbers, diffusers.'],
         ['Isolation & vibration', 'isolation,flanking,integrated,vibration,floating,criteria', 'Walls, flanking, integrated design, springs, floors, HVAC.'],
-        ['Design practice', 'control-room,rooms,halls,measurement,audio,workflow', 'Studios, halls, measurement and method.'],
+        ['Design practice', 'control-room,flat,rooms,halls,measurement,audio,workflow', 'Studios, halls, measurement and method.'],
         ['Audio foundations', 'a-electric,a-transducers,a-flow,a-digital', 'Signals, mics & speakers, consoles, digital audio.'],
         ['Processing & networks', 'a-network,a-dsp,a-crossover,a-amps', 'AoIP, DSP, crossovers, amps and cabling.'],
         ['Sound system design', 'a-loudspeakers,a-pa-design,a-install,a-tuning,a-feedback,a-workflow', 'Arrays, PA design, installation, tuning, workflows.'],

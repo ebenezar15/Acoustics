@@ -379,6 +379,19 @@ LIB.symptoms = [
 
 /* ---------------------------------------------------------------------- */
 LIB.glossary = [
+  ['EDT', 'Early decay time: slope of the first 10 dB of decay × 6. Correlates with perceived reverberance.'],
+  ['T20 / T30', 'Reverberation time from the −5 to −25 dB (×3) or −5 to −35 dB (×2) part of the decay curve (ISO 3382).'],
+  ['Schroeder integration', 'Backward integration of the squared impulse response, giving a smooth decay curve for RT fitting.'],
+  ['Octave grouping', 'Summarising bands into low (63–250), mid (500–1k) and high (2k–8k) groups, e.g. RTmid, bass ratio, treble ratio.'],
+  ['Treble ratio', '(RT2k + RT4k)/(RT500 + RT1k); brilliance of a hall.'],
+  ['Fractional-octave smoothing', 'Averaging a frequency response over 1/n octave around each frequency; more smoothing hides more detail.'],
+  ['Flat response', 'Ambiguous: flat anechoic loudspeaker (the goal), flat in-room curve (usually not desirable above ~500 Hz), or smooth low-frequency response (the hard part).'],
+  ['Target curve', 'The in-room response a system is tuned toward, typically gently tilted downward with frequency.'],
+  ['Translation', 'How reliably a mix made in one room sounds right on other systems.'],
+  ['Micro-perforated panel (MPP)', 'Sheet with sub-millimetre holes that absorbs by viscous losses (Maa’s theory); no fibrous material needed.'],
+  ['Komatsu model', 'Empirical porous-absorber model (2008) improving Delany–Bazley and Miki for dense materials and low frequency.'],
+  ['Field incidence', 'Absorption averaged over angles 0–78°, usually closest to reverberation-room data.'],
+  ['Flat-plate frequency', 'Frequency (n·N·f₀) at which every well of a Schroeder diffuser is a whole number of half-wavelengths deep, so it reflects like a flat panel.'],
   ['AES3', 'Two-channel digital audio interface over 110 Ω balanced cable (AES/EBU).'],
   ['AES67', 'Interoperability standard for high-performance audio over IP.'],
   ['AEC', 'Acoustic echo cancellation — removes far-end loudspeaker sound from microphones in conferencing.'],
@@ -509,6 +522,12 @@ LIB.glossary = [
 
 /* ---------------------------------------------------------------------- */
 LIB.formulas = [
+  ['Octave band edges', 'f_lower = fc/√2 · f_upper = fc·√2', 'third-octave: fc/2^(1/6), fc·2^(1/6)'],
+  ['RT from T20 / T30', 'RT60 = 3·t(−5→−25 dB) = 2·t(−5→−35 dB)', 'EDT = 6·t(0→−10 dB)'],
+  ['Bass ratio', 'BR = (RT125 + RT250)/(RT500 + RT1k)', ''],
+  ['Maa micro-perforate', 'r = 32ηt/(εp ρc d²)·[√(1+k²/32) + √2·k·d/(32t)] · ωm = ωt/(εc)·[1 + 1/√(9+k²/2) + 0.85d/t]', 'k = d·√(ωρ/4η)'],
+  ['Membrane with stiffness', 'f₀ = √(f²mass-air + f²plate), f_plate = (π/2)·√(B/m)·(1/a² + 1/b²)', 'simply supported a×b'],
+  ['Diffuser flat-plate frequency', 'f_fp = n·N·f₀', ''],
   ['Ohm’s law & power', 'V = I·R · P = V²/R', ''],
   ['dBu / dBV', 'dBu = 20·log₁₀(V/0.775) · dBV = 20·log₁₀(V)', ''],
   ['Parallel loads', '1/Z = Σ 1/Zᵢ', ''],

@@ -103,6 +103,7 @@
 
   function boot() {
     A.theme.init();
+    const am = A.store.get('absModel', null); if (am) { P.porousModel = am.model; P.incidence = am.inc; }
     buildNav();
     buildTheme();
     buildSearch();

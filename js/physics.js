@@ -245,14 +245,31 @@
   P.meanFreePath = (V, S) => (4 * V) / S;
 
   /* ---------------- porous absorption (Miki model) ---------------- */
-  /** characteristic impedance & wavenumber of a porous material with flow resistivity sigma (Pa·s/m²) */
-  P.miki = function (f, sigma) {
+  /* ---------------- porous material models ----------------
+     Delany & Bazley (1970): X = ρ0 f / σ, valid ≈ 0.01 < X < 1.
+     Miki (1990): uses f/σ, physically consistent at low frequency.
+     Komatsu (2008): improved fit for high σ / low frequency (q = 2 − log10(f/σ)).
+     Sign convention e^{jωt}: Zc = ρc(a − jb), k = (ω/c)(c − jd). */
+  P.porousModel = 'miki';
+  P.POROUS_MODELS = { db: 'Delany–Bazley (1970)', miki: 'Miki (1990)', komatsu: 'Komatsu (2008)' };
+  P.porousZk = function (f, sigma, model = P.porousModel) {
+    const w = 2 * PI * f, z0 = P.RHO * P.C, k0 = w / P.C;
+    if (model === 'db') {
+      const X = (P.RHO * f) / sigma;
+      return { Zc: Cx(z0 * (1 + 0.0571 * Math.pow(X, -0.754)), -z0 * 0.087 * Math.pow(X, -0.732)), k: Cx(k0 * (1 + 0.0978 * Math.pow(X, -0.7)), -k0 * 0.189 * Math.pow(X, -0.595)), valid: X > 0.01 && X < 1, X };
+    }
+    if (model === 'komatsu') {
+      const q = 2 - log10(f / sigma);
+      return { Zc: Cx(z0 * (1 + 0.00027 * Math.pow(q, 6.2)), -z0 * 0.0047 * Math.pow(q, 4.1)), k: Cx(k0 * (1 + 0.0004 * Math.pow(q, 6.2)), -k0 * 0.0069 * Math.pow(q, 4.1)), valid: true, q };
+    }
     const X = f / sigma;
-    const w = 2 * PI * f;
-    const Zc = Cx(P.RHO * P.C * (1 + 0.07 * Math.pow(X, -0.632)), -P.RHO * P.C * 0.107 * Math.pow(X, -0.632));
-    const k = Cx((w / P.C) * (1 + 0.109 * Math.pow(X, -0.618)), -(w / P.C) * 0.16 * Math.pow(X, -0.618));
-    return { Zc, k };
+    return { Zc: Cx(z0 * (1 + 0.07 * Math.pow(X, -0.632)), -z0 * 0.107 * Math.pow(X, -0.632)), k: Cx(k0 * (1 + 0.109 * Math.pow(X, -0.618)), -k0 * 0.16 * Math.pow(X, -0.618)), valid: true };
   };
+  /** incidence: 'normal' | 'field' (Paris integral 0–78°) | 'random' (0–90°) */
+  P.incidence = 'field';
+  /** characteristic impedance & wavenumber of a porous material with flow resistivity sigma (Pa·s/m²) */
+  P.miki = function (f, sigma) { const r = P.porousZk(f, sigma); return { Zc: r.Zc, k: r.k }; };
+
   /** impedance looking into a layer (Zc,k,thickness) terminated by load impedance ZL (null = rigid) */
   function layerImpedance(Zc, k, d, ZL) {
     const kd = cscale(k, d);
@@ -273,20 +290,22 @@
       const zc = cscale(Zs, cos);
       const R = cdiv(csub(zc, Cx(z0)), cadd(zc, Cx(z0)));
       const r = cabs(R);
-      return 1 - r * r;
+      return Math.max(0, 1 - r * r);
     };
-    if (!random) return a(1);
-    let s = 0;
+    const mode = random === false ? 'normal' : typeof random === 'string' ? random : P.incidence;
+    if (mode === 'normal') return a(1);
+    const tmax = mode === 'random' ? PI / 2 : (78 * PI) / 180;
+    let s = 0, n = 0;
     const N = 45;
     for (let i = 0; i < N; i++) {
-      const th = ((i + 0.5) / N) * (PI / 2);
-      s += a(Math.cos(th)) * Math.sin(2 * th);
+      const th = ((i + 0.5) / N) * tmax, wgt = Math.sin(2 * th);
+      s += a(Math.cos(th)) * wgt; n += wgt;
     }
-    return s * (PI / 2 / N);
+    return s / n;
   };
   /** porous absorber of thickness d (m) over air gap D (m) on rigid wall */
-  P.porousAlpha = function (f, sigma, d, D = 0, random = true) {
-    const { Zc, k } = P.miki(f, sigma);
+  P.porousAlpha = function (f, sigma, d, D = 0, random = true, model) {
+    const { Zc, k } = P.porousZk(f, sigma, model || P.porousModel);
     const Zs = layerImpedance(Zc, k, d, airGap(f, D));
     return P.alphaFromZ(Zs, random);
   };
@@ -298,6 +317,7 @@
   /** perforated / slotted panel (Helmholtz) absorber */
   P.perforatedAlpha = function (f, o) {
     // o: {t, holeD, open (fraction), D, fillSigma, slot:boolean, slotW, fabricR}
+    if (!o.slot) return P.mppAlpha(f, o);
     const w = 2 * PI * f;
     const eps = Math.max(o.open, 1e-4);
     const a = (o.slot ? o.slotW : o.holeD) / 2;
@@ -311,6 +331,22 @@
     const Zs = cadd(Zp, cavityZ(f, o.D, o.fillSigma));
     return P.alphaFromZ(Zs, true);
   };
+  /** Maa (1998) perforated / micro-perforated panel: normalised impedance of the perforation.
+      d hole diameter, t thickness, eps open-area ratio (all SI). η = air dynamic viscosity. */
+  P.ETA = 1.81e-5;
+  P.maaZ = function (f, d, t, eps) {
+    const w = 2 * PI * f, z0 = P.RHO * P.C;
+    const k = d * sqrt((w * P.RHO) / (4 * P.ETA));
+    const r = ((32 * P.ETA * t) / (eps * z0 * d * d)) * (sqrt(1 + (k * k) / 32) + (Math.SQRT2 / 32) * k * (d / t));
+    const wm = ((w * t) / (eps * P.C)) * (1 + 1 / sqrt(9 + (k * k) / 2) + 0.85 * (d / t));
+    return { r, wm, k, Z: Cx(r * z0, wm * z0) };
+  };
+  /** perforated (hole) panel absorber using Maa's model; o: {t, holeD, open, D, fillSigma, fabricR} */
+  P.mppAlpha = function (f, o, incidence) {
+    const m = P.maaZ(f, o.holeD, o.t, Math.max(o.open, 1e-4));
+    const Zp = cadd(m.Z, Cx((o.fabricR || 0) / Math.max(o.open, 1e-4), 0));
+    return P.alphaFromZ(cadd(Zp, cavityZ(f, o.D, o.fillSigma)), incidence);
+  };
   P.perforatedF0 = function (o) {
     const eps = Math.max(o.open, 1e-4);
     const a = (o.slot ? o.slotW : o.holeD) / 2;
@@ -321,10 +357,16 @@
   P.slotOpenArea = (slotW, boardW) => slotW / (slotW + boardW);
   /** membrane (panel) absorber */
   P.membraneF0 = (m, D, filled = true) => (filled ? 50 : 60) / sqrt(m * D);
+  /** plate (bending) fundamental of a simply supported a×b panel; adds stiffness to a membrane absorber */
+  P.plateF11 = (mat, t, a, b) => { const B = (mat.E * t * t * t) / (12 * (1 - mat.nu * mat.nu)); const m = mat.rho * t; return (PI / 2) * sqrt(B / m) * (1 / (a * a) + 1 / (b * b)); };
+  /** membrane absorber resonance including panel bending stiffness: f² = f_mass-air² + f_plate² */
+  P.membraneF0Plate = (m, D, filled, fPlate) => Math.hypot(P.membraneF0(m, D, filled), fPlate || 0);
   P.membraneAlpha = function (f, o) {
     // o: {m (kg/m²), D, fillSigma, r (panel loss, in units of rho c)}
     const w = 2 * PI * f;
-    const Zp = Cx((o.r || 0.15) * P.RHO * P.C, w * o.m);
+    // panel mass reactance minus bending-stiffness reactance (stiffness s = m·ω_p²)
+    const wp = 2 * PI * (o.fPlate || 0);
+    const Zp = Cx((o.r || 0.15) * P.RHO * P.C, w * o.m - (o.m * wp * wp) / w);
     const Zs = cadd(Zp, cavityZ(f, o.D, o.fillSigma));
     return P.alphaFromZ(Zs, true);
   };
@@ -350,6 +392,10 @@
   /** depth of each well for design frequency f0 */
   P.wellDepths = (seq, N, f0, c = P.C) => seq.map((s) => (s * c) / (2 * N * f0));
   P.diffuserFmax = (wellW, c = P.C) => c / (2 * wellW);
+  /** flat-plate frequencies: all well depths are multiples of λ/2 → the diffuser reflects like a flat panel */
+  P.flatPlateFreqs = (N, f0, fmax = 20000) => { const out = []; for (let n = 1; n * N * f0 <= fmax; n++) out.push(n * N * f0); return out; };
+  /** grating lobe angles (deg) of a periodic diffuser with period width Wp at frequency f */
+  P.gratingLobes = (Wp, f, c = P.C) => { const lam = c / f, out = []; for (let m = -20; m <= 20; m++) { const s = (m * lam) / Wp; if (Math.abs(s) <= 1) out.push((Math.asin(s) * 180) / PI); } return out; };
   /** far-field polar response (normal incidence) for a well sequence (depths m, width m, periods) */
   P.diffuserPolar = function (depths, wellW, f, periods = 3, c = P.C, nAng = 181) {
     const k = (2 * PI * f) / c;

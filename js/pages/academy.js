@@ -4,7 +4,7 @@
   const { el, html } = A;
 
   const TRACKS = [
-    ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Twenty-three chapters from “what is sound” to concert halls: waves, fundamentals and harmonics, decibels, hearing, room modes and how to treat them, absorption, diffusion, isolation, hidden and integrated design, vibration, floating floors, studios, halls and measurement.'],
+    ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Twenty-five chapters from “what is sound” to concert halls: waves, fundamentals and harmonics, decibels, RT60 and octave bands, flat response, hearing, room modes and how to treat them, absorption, diffusion, isolation, hidden and integrated design, vibration, floating floors, studios, halls and measurement.'],
     ['audio', 'Audio Engineering & Sound Systems', 'Fourteen courses on the electrical and digital side: signals and levels, transducers, consoles and signal flow, digital audio, networking (Dante, AVB, AES67), DSP, crossovers, amplifiers, arrays, PA design, installation, tuning with RTA and transfer functions, feedback and production workflows.'],
   ];
   function progress() { return A.store.get('progress', {}); }

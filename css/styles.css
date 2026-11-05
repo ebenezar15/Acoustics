@@ -369,3 +369,5 @@ details[open] > summary { margin-bottom: 8px; }
 .tile[data-level="Core"] { border-left-color: var(--accent2); }
 .tile[data-level="Advanced"] { border-left-color: var(--c3); }
 @media (max-width: 860px) { .btn { white-space: normal; max-width: 100%; } }
+.lesson-layout > * { min-width: 0; } .lesson { max-width: 100%; }
+@media (min-width: 1081px) { .lesson { max-width: 860px; } }

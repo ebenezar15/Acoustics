@@ -33,8 +33,12 @@
       { key: 'w', label: 'Width', type: 'range', min: 400, max: 1200, step: 10, value: 600, unit: 'mm' },
       { key: 'h', label: 'Height', type: 'range', min: 400, max: 2000, step: 10, value: 1200, unit: 'mm' },
     ], (s) => {
-      const [nm, m, tp] = PANEL_MASS[s.p]; const D = Math.pow(50 / s.f0, 2) / m;
-      return { svg: DR.membrane({ w: s.w / 1000, h: s.h / 1000, D, tp, wool: Math.min(0.05, D * 0.4) }), stats: [['Cavity depth', A.fmtLen(D), D > 0.4 ? 'deep — choose a heavier membrane' : ''], ['Tuned to', fmtHz(50 / Math.sqrt(m * D))], ['Panel', nm], ['Box volume', fmt(D * s.w * s.h / 1e6 * 1000, 0) + ' L']], cut: [`Sides: 2 × ${A.fmtLen(s.h / 1000)} and 2 × ${A.fmtLen(s.w / 1000 - 0.036)} of 18 mm stock, ${A.fmtLen(D)} deep`, `Back ${A.fmtLen(s.w / 1000)} × ${A.fmtLen(s.h / 1000)}`, `Membrane ${A.fmtLen(s.w / 1000)} × ${A.fmtLen(s.h / 1000)} ${nm}`, `Wool on the back, ${A.fmtLen(Math.min(0.05, D * 0.4))} thick`, 'Weatherstrip around the membrane edge'] };
+      const [nm, m, tp] = PANEL_MASS[s.p];
+      const mat = { '3hb': 'mdf', '6ply': 'plywood', '9ply': 'plywood', '12gyp': 'gypsum' }[s.p];
+      const fpl = P.plateF11(P.PANELS[mat], tp, s.w / 1000, s.h / 1000);
+      const fma = Math.sqrt(Math.max(1, s.f0 * s.f0 - fpl * fpl));
+      const D = Math.pow(50 / fma, 2) / m; // cavity for the mass-air part, after removing the panel's own stiffness
+      return { svg: DR.membrane({ w: s.w / 1000, h: s.h / 1000, D, tp, wool: Math.min(0.05, D * 0.4) }), stats: [['Cavity depth', A.fmtLen(D), fpl >= s.f0 * 0.95 ? 'panel too stiff for this frequency — use a thinner or larger panel' : D > 0.4 ? 'deep — choose a heavier membrane' : 'includes panel stiffness'], ['Tuned to', fmtHz(P.membraneF0Plate(m, D, true, fpl))], ['Panel stiffness adds', fmtHz(fpl), 'f₀² = f²mass-air + f²plate'], ['Box volume', fmt(D * s.w * s.h / 1e6 * 1000, 0) + ' L']], cut: [`Sides: 2 × ${A.fmtLen(s.h / 1000)} and 2 × ${A.fmtLen(s.w / 1000 - 0.036)} of 18 mm stock, ${A.fmtLen(D)} deep`, `Back ${A.fmtLen(s.w / 1000)} × ${A.fmtLen(s.h / 1000)}`, `Membrane ${A.fmtLen(s.w / 1000)} × ${A.fmtLen(s.h / 1000)} ${nm}`, `Wool on the back, ${A.fmtLen(Math.min(0.05, D * 0.4))} thick`, 'Weatherstrip around the membrane edge'] };
     }),
     'slot-wall': (host) => ctl(host, [
       { key: 'slat', label: 'Slat width', type: 'range', min: 20, max: 150, step: 1, value: 70, unit: 'mm' },
