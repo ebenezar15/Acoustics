@@ -29,6 +29,7 @@
     ['line', 'Line Arrays', 'Point source vs line source level over distance.', (h) => V.lineVsPoint(h)],
     ['mics', 'Microphone Patterns', 'Omni to figure-8 and what they reject.', (h) => V.micPatterns(h)],
     ['gain', 'Gain Structure', 'Headroom and noise through a signal chain.', (h) => V.gainStructure(h)],
+    ['hum', 'Hum, Buzz & Grounding', 'Drag a ground wire through a cable’s field, shrink a ground loop, see the pin-1 problem and track down hum step by step.', (h) => { h.appendChild(A.html('<h3>What kind of noise is it?</h3>')); V.humSounds(h); h.appendChild(A.html('<h3>The cable is a transformer</h3>')); V.conduitField(h); h.appendChild(A.html('<h3>Ground loop area</h3>')); V.groundLoop(h); h.appendChild(A.html('<h3>The pin-1 problem</h3>')); V.pin1(h); h.appendChild(A.html('<h3>Wall-warts & transformers</h3>')); V.wallWart(h); h.appendChild(A.html('<h3>Hum Detective</h3>')); V.humDetective(h); }],
     ['tune', 'System Tuning', 'A simulated transfer-function analyser: align and EQ a system.', (h) => V.tuning(h)],
   ];
   A.register('lab', {

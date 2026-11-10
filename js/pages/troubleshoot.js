@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   const { el, html } = A;
-  const TOOL = { analyzer: ['Room Analyzer', 'room'], absorbers: ['Absorber Designer', 'absorb'], diffusers: ['Diffuser Designer', 'diffuser'], isolation: ['Soundproofing', 'wall'], floors: ['Floating Floors', 'spring'], calc: ['Calculators', 'calc'], measure: ['Measure', 'mic'] };
+  const TOOL = { analyzer: ['Room Analyzer', 'room'], absorbers: ['Absorber Designer', 'absorb'], diffusers: ['Diffuser Designer', 'diffuser'], isolation: ['Soundproofing', 'wall'], floors: ['Floating Floors', 'spring'], calc: ['Calculators', 'calc'], measure: ['Measure', 'mic'], 'academy/a-ground': ['Grounding course', 'graduation'], 'lab/hum': ['Hum Lab', 'lab'] };
   A.register('doctor', {
     title: 'Room Doctor',
     render(root, params) {

@@ -179,6 +179,30 @@ a.tile:hover { transform: translateY(-2px); border-color: var(--accent); text-de
 .callout.physics::before { content: "The physics"; display: block; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--c3); font-weight: 700; margin-bottom: 4px; }
 .callout.data { border-color: var(--c4); background: color-mix(in srgb, var(--c4) 8%, var(--panel)); }
 .callout.data::before { content: "Rule-of-thumb data"; display: block; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--c4); font-weight: 700; margin-bottom: 4px; }
+.callout.safety { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 9%, var(--panel)); }
+.callout.safety::before { content: "⚠ Safety first"; display: block; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--bad); font-weight: 700; margin-bottom: 4px; }
+.callout.example { border-color: var(--good); background: color-mix(in srgb, var(--good) 8%, var(--panel)); }
+.callout.example::before { content: "Real-world example"; display: block; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--good); font-weight: 700; margin-bottom: 4px; }
+.detective-opts { display: grid; gap: 8px; }
+.detective-opts button { text-align: left; white-space: normal; justify-content: flex-start; }
+.uc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin: 12px 0; }
+.uc { background: var(--panel2); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; border-top: 4px solid var(--accent); }
+.uc h4 { margin: 0 0 6px; display: flex; gap: 8px; align-items: center; }
+.uc .uc-ico { font-size: 1.4rem; }
+.uc dl { margin: 0; font-size: .86rem; }
+.uc dt { font-weight: 700; color: var(--muted); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; margin-top: 6px; }
+.uc dd { margin: 2px 0 0; }
+.uc dd.fix { color: var(--good); }
+.myth { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 12px 0; }
+.myth > div { padding: 9px 12px; border-bottom: 1px solid var(--line); font-size: .9rem; }
+.myth > .m { background: color-mix(in srgb, var(--bad) 7%, var(--panel)); }
+.myth > .m::before { content: "✗ "; color: var(--bad); font-weight: 700; }
+.myth > .r { background: color-mix(in srgb, var(--good) 7%, var(--panel)); }
+.myth > .r::before { content: "✓ "; color: var(--good); font-weight: 700; }
+.gsvg { width: 100%; height: auto; display: block; margin: 10px 0; }
+.gsvg text { font-family: inherit; fill: var(--text); }
+.ba-svg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 700px) { .ba-svg, .myth { grid-template-columns: 1fr; } }
 
 .formula {
   font-family: var(--mono); background: var(--bg2); border: 1px solid var(--line); border-radius: 10px;
