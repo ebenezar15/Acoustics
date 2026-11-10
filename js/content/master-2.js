@@ -363,9 +363,9 @@
     <rect x="30" y="40" width="160" height="130" fill="var(--panel2)" stroke="var(--text)" stroke-width="2"/><circle cx="110" cy="58" r="6" fill="var(--accent)"/><circle cx="110" cy="140" r="5" fill="var(--good)"/>
     <path d="M110 58 L30 100 L110 140 M110 58 L190 100 L110 140" stroke="var(--good)" fill="none"/><text x="110" y="190" text-anchor="middle" font-size="10">Shoebox: strong side reflections</text>
     <path d="M270 40 L370 40 L420 170 L220 170 Z" fill="var(--panel2)" stroke="var(--text)" stroke-width="2"/><circle cx="320" cy="56" r="6" fill="var(--accent)"/><circle cx="320" cy="140" r="5" fill="var(--good)"/>
-    <path d="M320 56 L245 105 L200 120" stroke="var(--bad)" fill="none"/><text x="320" y="190" text-anchor="middle" font-size="10">Fan: reflections sent away from seats</text>
-    <path d="M470 170 A90 90 0 0 1 610 170" fill="var(--panel2)" stroke="var(--text)" stroke-width="2"/><path d="M470 170 L610 170" stroke="var(--text)" stroke-width="2"/><circle cx="540" cy="160" r="5" fill="var(--accent)"/>
-    <path d="M540 160 L500 110 L540 128 M540 160 L580 110 L540 128" stroke="var(--bad)" fill="none"/><circle cx="540" cy="128" r="6" fill="var(--bad)" opacity=".5"/>
+    <path d="M320 56 L245 105 L232 160" stroke="var(--bad)" fill="none"/><path d="M320 56 L395 105 L408 160" stroke="var(--bad)" fill="none"/><text x="320" y="190" text-anchor="middle" font-size="10">Fan: reflections sent away from seats</text>
+    <path d="M470 170 A75 75 0 0 1 610 170" fill="var(--panel2)" stroke="var(--text)" stroke-width="2"/><path d="M470 170 L610 170" stroke="var(--text)" stroke-width="2"/><circle cx="540" cy="163" r="4" fill="var(--accent)"/>
+    <path d="M540 162 L500 134 L540 146 M540 162 L580 134 L540 146" stroke="var(--bad)" fill="none"/><circle cx="540" cy="146" r="5" fill="var(--bad)" opacity=".5"/>
     <text x="540" y="190" text-anchor="middle" font-size="10">Concave: sound focuses (hot spot)</text>
   </svg>`;
   const SVG_ECHO = `<svg class="gsvg" viewBox="0 0 640 170" role="img" aria-label="Echo threshold">
