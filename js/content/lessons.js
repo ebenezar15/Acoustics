@@ -353,7 +353,7 @@ window.LESSONS = [
           <li><b>SAA</b> (ASTM C423) averages twelve third-octaves from 200 Hz to 2.5 kHz — a bit better.</li>
           <li><b>Mounting matters</b>: “Type A” means flat on a hard surface; “E-400” means 400 mm off the surface (ceiling tiles). The same product performs very differently on each.</li>
         </ul>
-        <div class="callout mentor">Ron Sauro’s lab work at NWAA Labs, and others, repeatedly shows that published coefficients depend heavily on sample size, mounting and test procedure. When the numbers matter, ask for the full third-octave test report, the mounting type and the lab — not a marketing NRC.</div>` },
+        <div class="callout mentor">Independent laboratory work repeatedly shows that published coefficients depend heavily on sample size, mounting and test procedure. When the numbers matter, ask for the full third-octave test report, the mounting type and the lab — not a marketing NRC.</div>` },
       { h: 'Membrane (panel) absorbers', html: `
         <p>A limp or semi-rigid panel (plywood, MDF, hardboard, or a heavy membrane) sealed over an air cavity forms a mass–spring system. Partially filling the cavity with wool broadens and damps the resonance.</p>
         <div class="formula"><span class="lbl">Resonant frequency (m in kg/m², d in m)</span>f₀ ≈ 60 / √(m·d) &nbsp; (empty) &nbsp; · &nbsp; ≈ 50 / √(m·d) &nbsp; (wool-filled)</div>

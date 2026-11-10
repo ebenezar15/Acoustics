@@ -72,8 +72,8 @@
 
       /* ---- learning map: two tracks as connected nodes ---- */
       el.appendChild(A.html(`<div class="group-title"><h2>Your learning map</h2><span>click any stop · filled = completed</span></div>`));
-      const tracks = [['acoustics', 'Acoustics, soundproofing & room design'], ['audio', 'Audio engineering & sound systems']];
-      let mapSvg = '<svg viewBox="0 0 1000 300" role="img" aria-label="Learning map">';
+      const tracks = [['acoustics', 'Acoustics, soundproofing & room design'], ['audio', 'Audio engineering & sound systems'], ['master', 'Studio Design Master Class']];
+      let mapSvg = '<svg viewBox="0 0 1000 450" role="img" aria-label="Learning map">';
       tracks.forEach(([tid, tname], ti) => {
         const list = LESSONS.filter((l) => (l.track || 'acoustics') === tid);
         const y0 = 70 + ti * 150, n = list.length;
@@ -86,7 +86,7 @@
           mapSvg += `<a href="#/academy/${l.id}"><title>${l.n}. ${l.title}</title><circle class="node" cx="${x}" cy="${y}" r="13" fill="${d ? 'var(--accent)' : 'var(--panel)'}" stroke="var(--${lvl[l.level]})" stroke-width="3"/><text x="${x}" y="${y + 4}" text-anchor="middle" font-size="9" font-weight="800">${l.n}</text></a>`;
         });
       });
-      mapSvg += `<g font-size="11" fill="var(--muted)"><circle cx="760" cy="288" r="6" fill="none" stroke="var(--c4)" stroke-width="3"/><text x="772" y="292">Foundation</text><circle cx="850" cy="288" r="6" fill="none" stroke="var(--accent2)" stroke-width="3"/><text x="862" y="292">Core</text><circle cx="910" cy="288" r="6" fill="none" stroke="var(--c3)" stroke-width="3"/><text x="922" y="292">Advanced</text></g></svg>`;
+      mapSvg += `<g font-size="11" fill="var(--muted)"><circle cx="760" cy="438" r="6" fill="none" stroke="var(--c4)" stroke-width="3"/><text x="772" y="442">Foundation</text><circle cx="850" cy="438" r="6" fill="none" stroke="var(--accent2)" stroke-width="3"/><text x="862" y="442">Core</text><circle cx="910" cy="438" r="6" fill="none" stroke="var(--c3)" stroke-width="3"/><text x="922" y="442">Advanced</text></g></svg>`;
       el.appendChild(A.html(`<div class="card lmap">${mapSvg}</div>`));
 
       /* ---- workbench: tools grouped by job, each with a small illustration ---- */
@@ -102,7 +102,7 @@
         ear: '<circle cx="180" cy="36" r="22" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="180" cy="36" r="12" fill="none" stroke="var(--accent2)" stroke-width="3"/><circle cx="180" cy="36" r="4" fill="var(--text)"/>',
       };
       const groups = [
-        ['Learn', 'concepts, physics, practice', [['academy', 'Academy', 'Two tracks · 39 courses with interactive physics and quizzes', 'wave'], ['lab', 'Physics Lab', 'Wave tank and 20+ simulations', 'wave'], ['hear', 'Hear the Decibel', 'Listen through walls; hear dB steps', 'ear']]],
+        ['Learn', 'concepts, physics, practice', [['academy', 'Academy', `Three tracks · ${(window.LESSONS || []).length} courses with interactive physics and quizzes`, 'wave'], ['lab', 'Physics Lab', 'Wave tank and 20+ simulations', 'wave'], ['hear', 'Hear the Decibel', 'Listen through walls; hear dB steps', 'ear']]],
         ['Analyse', 'find what is wrong', [['predict', 'Room Predictor', 'Dimensions → problem frequencies, modes, zones and placed treatment', 'modes'], ['treatment', 'Treatment Simulator', 'Place traps & diffusers; see every mode change', 'modes'], ['analyzer', 'Room Analyzer', 'Modes, RT, bass at the seat, treatment plan', 'bars'], ['measure', 'Measure', 'Live RTA and clap-test RT60', 'bars'], ['doctor', 'Room Doctor', 'Symptom → cause → fix', 'modes']]],
         ['Design', 'size it and predict it', [['absorbers', 'Absorber Designer', 'Porous, membrane, Helmholtz', 'wall'], ['diffusers', 'Diffuser Designer', 'QRD, PRD, skyline + polar plots', 'diff'], ['isolation', 'Soundproofing', 'Walls, STC/Rw, neighbour planner', 'wall'], ['floors', 'Floating Floors', 'Springs, pads, air spring', 'wall']]],
         ['Sound systems', 'audio engineering in practice', [['pa', 'PA & System Designer', 'Coverage maps, delays, tuning lab', 'spk'], ['systems', 'Signal Flow & Networks', 'Pipelines, Dante/AVB/AES67', 'net']]],
@@ -125,6 +125,10 @@
         ['Audio foundations', 'a-electric,a-transducers,a-flow,a-digital', 'Signals, mics & speakers, consoles, digital audio.'],
         ['Processing & networks', 'a-network,a-dsp,a-crossover,a-amps', 'AoIP, DSP, crossovers, amps and cabling.'],
         ['Sound system design', 'a-loudspeakers,a-pa-design,a-install,a-tuning,a-feedback,a-workflow', 'Arrays, PA design, installation, tuning, workflows.'],
+        ['Master Class: first principles', 'm-myths,m-diy,m-matter,m-params,m-absorb-how,m-lab', 'Myths, method, matter & energy, absorption mechanisms, lab testing.'],
+        ['Master Class: isolation & rooms', 'm-iso-basics,m-walls,m-doors-windows,m-floors,m-large-rooms,m-small-rooms', 'Requirements, walls, doors, windows, floors, large and small rooms.'],
+        ['Master Class: studio rooms', 'm-control,m-tracking,m-music-booths,m-vo-booths,m-foley,m-treat-designs,m-flowres', 'Control rooms, tracking rooms, booths, Foley/ADR and treatment designs.'],
+        ['Master Class: systems & PLANS', 'm-speakers,m-electrical,m-lowvolt,m-hvac,m-daylight,m-plan-bedroom,m-plan-basement,m-plan-detached,m-plan-pro', 'Speakers, wiring, HVAC, daylight and four studio plans.'],
       ];
       stages.forEach(([t, ids, d], i) => {
         const list = ids.split(',').map((id) => (window.LESSONS || []).find((l) => l.id === id)).filter(Boolean);

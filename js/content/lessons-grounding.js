@@ -1,8 +1,8 @@
 /* ==========================================================================
    Academy — "Hum, Buzz & Grounding" (audio track).
    Practical course on ground loops, pin-1 problems, dimmer buzz and zero
-   loop area wiring. Concepts after J. H. Brandt’s tech note on grounding,
-   Brandt & Sauro, Whitlock & Fox, Muncy (1995) and AES48 — in our own words.
+   loop area wiring. Concepts after Whitlock & Fox, Muncy (1995), AES48 and
+   published field reports — in our own words.
    ========================================================================== */
 (function () {
   const flow = (steps) => `<div class="flowline">${steps.map(([t, d], i) => `<div class="flowstep"><span class="flownum">${i + 1}</span><b>${t}</b><small>${d}</small></div>`).join('')}</div>`;
@@ -149,8 +149,7 @@
           <tr><td>9</td><td>Follow IEEE 1100 and your local electrical code; never isolated ground rods</td><td>Safety and a single ground reference</td></tr></table></div>
         <div class="callout alt"><b>Your hum toolkit:</b> outlet tester · cable tester · 2 passive DI boxes with ground-lift (signal shield only) · a stereo line isolation transformer · coax ground isolator · USB isolator · clip-on ferrites · gaffer tape (to bundle audio and power). <b>Never carry “cheater” ground-lift plug adapters.</b></div>` },
       { h: 'Further reading', html: `
-        <ul class="small"><li>J. H. Brandt — technical note on grounding, ground loops and zero loop area wiring; and Brandt &amp; Sauro on technical power and grounding.</li>
-          <li>N. Muncy (1995), “Noise susceptibility in analog and digital signal processing systems”, <i>J. Audio Eng. Soc.</i> 43(6) — the pin-1 problem and shield-current-induced noise.</li>
+        <ul class="small"><li>N. Muncy (1995), “Noise susceptibility in analog and digital signal processing systems”, <i>J. Audio Eng. Soc.</i> 43(6) — the pin-1 problem and shield-current-induced noise.</li>
           <li>AES48 — interconnections, grounding and EMC for balanced audio equipment.</li>
           <li>B. Whitlock &amp; R. Fox — grounding and interfacing articles and seminars; Rane Notes 110 &amp; 151.</li>
           <li>H. Ott — <i>Electromagnetic Compatibility Engineering</i>; IEEE Std 1100 (“Emerald Book”); NEC Article 647.</li></ul>` },

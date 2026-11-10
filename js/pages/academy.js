@@ -6,6 +6,7 @@
   const TRACKS = [
     ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Twenty-five chapters from “what is sound” to concert halls: waves, fundamentals and harmonics, decibels, RT60 and octave bands, flat response, hearing, room modes and how to treat them, absorption, diffusion, isolation, hidden and integrated design, vibration, floating floors, studios, halls and measurement.'],
     ['audio', 'Audio Engineering & Sound Systems', 'Fifteen courses on the electrical and digital side: signals and levels, transducers, consoles and signal flow, digital audio, networking (Dante, AVB, AES67), DSP, crossovers, amplifiers, hum & grounding, arrays, PA design, installation, tuning with RTA and transfer functions, feedback and production workflows.'],
+    ['master', 'Studio Design Master Class', 'Twenty-eight practical courses from first principles to finished buildings: myths and the scientific method, matter and energy, how absorbers work, lab testing, isolation (walls, doors, windows, floating floors), large and small rooms, control rooms, tracking rooms, booths, Foley/ADR, treatment designs, flow resistivity, speakers and flush-mounting, electrical and low-voltage wiring, HVAC, day-lighting — and four dimensioned studio PLANS.'],
   ];
   function progress() { return A.store.get('progress', {}); }
   function saveProgress(id, patch) {

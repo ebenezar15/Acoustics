@@ -1,7 +1,7 @@
 /* ==========================================================================
    Acoustica — hum, buzz & grounding widgets.
    Practical, visual models of where ground noise comes from and how wiring
-   choices change it. Physics after Brandt & Sauro, Whitlock, Muncy (1995)
+   choices change it. Physics after Whitlock, Muncy (1995)
    and AES48; simplified for teaching.
    ========================================================================== */
 (function () {

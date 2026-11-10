@@ -395,3 +395,29 @@ details[open] > summary { margin-bottom: 8px; }
 @media (max-width: 860px) { .btn { white-space: normal; max-width: 100%; } }
 .lesson-layout > * { min-width: 0; } .lesson { max-width: 100%; }
 @media (min-width: 1081px) { .lesson { max-width: 860px; } }
+/* ---------- Master Class: myth cards, plans ---------- */
+.myth-card { background: var(--panel2); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; border-left: 6px solid var(--accent); transition: border-color .3s; }
+.myth-card.is-fact { border-left-color: var(--good); }
+.myth-card.is-myth { border-left-color: var(--bad); }
+.myth-q { font-size: 1.2rem; font-weight: 700; margin: 8px 0 12px; line-height: 1.35; }
+.myth-verdict { font-weight: 800; letter-spacing: .06em; font-size: 1.05rem; margin-bottom: 6px; }
+.is-fact .myth-verdict { color: var(--good); } .is-myth .myth-verdict { color: var(--bad); }
+.plan-wrap { margin: 10px 0; }
+.plan-layers { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0; }
+.plan-toggle { cursor: pointer; user-select: none; }
+.plan-toggle input { display: none; }
+.plan-box { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 6px; overflow: hidden; }
+.plan-svg { width: 100%; height: auto; display: block; }
+.plan-svg text { font-family: inherit; }
+.plan-box.hide-iso .L-iso, .plan-box.hide-treat .L-treat, .plan-box.hide-gear .L-gear, .plan-box.hide-elec .L-elec, .plan-box.hide-hvac .L-hvac, .plan-box.hide-dims .L-dims { display: none; }
+.pl-air { animation: plAir 1.2s linear infinite; }
+@keyframes plAir { to { stroke-dashoffset: -40; } }
+.pl-wave { animation: plWave 1.6s ease-in-out infinite; transform-box: fill-box; }
+@keyframes plWave { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+.plan-legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0; color: var(--muted); }
+.plan-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.plan-notes { margin: 8px 0; padding-left: 22px; }
+.plan-notes li { margin: 4px 0; }
+.plan-notes li::marker { color: var(--accent); font-weight: 800; }
+.master-part { margin-top: 26px; }
+@media (prefers-reduced-motion: reduce) { .pl-air, .pl-wave { animation: none; } }

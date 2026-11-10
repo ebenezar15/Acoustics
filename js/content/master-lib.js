@@ -1,0 +1,36 @@
+/* Master Class glossary & formula additions. */
+(function () {
+  'use strict';
+  LIB.glossary.push(
+    ['Scientific method', 'Observe, form a testable hypothesis, measure with controlled variables, repeat, and let the data — not authority — decide.'],
+    ['States of matter', 'Solid, liquid, gas and plasma. Sound travels fastest in stiff solids, slower in liquids, slowest in gases.'],
+    ['Snell’s law', 'sin θ₁/c₁ = sin θ₂/c₂: sound bends toward the medium (or air layer) where it travels more slowly.'],
+    ['Frictional absorption', 'Porous materials turn air motion into heat through viscous friction in their pores and fibres.'],
+    ['Diffractive absorption', 'Extra absorption around edges, slots and small panels where sound bends and the air speeds up.'],
+    ['Diaphragmatic absorption', 'A panel or membrane on an air cavity resonates and dissipates energy — membrane/panel absorbers.'],
+    ['Sabin', 'Unit of absorption: 1 m² (metric sabin) or 1 ft² of perfect absorber. A = Σ S·α.'],
+    ['ASTM C423 / ISO 354', 'Standard methods for measuring absorption in a reverberation room from decay times with and without a sample.'],
+    ['ASTM E795', 'Standard sample mountings for absorption tests (Type A on the floor, Type B on gypsum, E-405 suspended with an air space, etc.).'],
+    ['Reverberation room', 'A large, hard, irregular test room with a diffuse sound field and long RT, used for absorption and sound-power tests.'],
+    ['ASTM E90 / E336', 'Laboratory (E90) and field (E336) methods for airborne sound isolation; field results are usually lower due to flanking.'],
+    ['Composite TL', 'The isolation of a wall containing doors, windows and gaps; dominated by the weakest element: TL = −10·log(Σ Sᵢ·τᵢ / ΣS).'],
+    ['Sound lock', 'A small lobby with two sealed doors in series between a studio and the outside or corridor.'],
+    ['Hard flush-mounting', 'Monitors built into a massive, rigid front wall (soffit) so the baffle becomes part of the room boundary.'],
+    ['Soft flush-mounting', 'Flush-mounted monitors on decoupling supports in a damped baffle to limit structure-borne transmission.'],
+    ['Diffsorber', 'A hybrid surface — a reflective perforated, slotted or patterned face over an absorber — absorbing lows and mids and scattering highs.'],
+    ['Gas flow resistivity (σ)', 'Pressure drop per unit thickness per unit flow velocity through a porous material, Pa·s/m² (ISO 9053 / ASTM C522).'],
+    ['Impedance balance', 'Equal impedances to ground on both legs of a balanced line; the real basis of common-mode rejection.'],
+    ['Baffle box', 'An HVAC plenum lined with absorber and fitted with internal baffles so sound must turn corners through absorptive surfaces.'],
+    ['Foley', 'Sound effects performed in sync with picture on a Foley stage with pits, surfaces and props.'],
+    ['ADR', 'Automated dialogue replacement: re-recording actors’ lines to picture in a quiet, controlled room.'],
+  );
+  LIB.formulas.push(
+    ['Required isolation', 'TL_req = L_source − L_allowed + 10·log₁₀(S/A_receive) + safety', 'per octave band'],
+    ['Absorption from a reverb-room test', 'α = 0.161·V·(1/T₂ − 1/T₁) / S_sample', 'T₁ empty, T₂ with sample'],
+    ['Flow resistivity', 'σ = Δp·S / (Q·t)', 'Δp pressure drop, S area, Q volume flow, t thickness'],
+    ['Flutter echo repeat rate', 'f = c / (2d)', 'd = distance between parallel surfaces'],
+    ['Duct velocity', 'v = Q / A', 'aim < 3 m/s mains, < 1.5–2 m/s at grilles'],
+    ['CMRR vs imbalance', 'CMRR ≈ 20·log₁₀(Z_cm / ΔZ)', 'Z_cm input common-mode impedance, ΔZ source imbalance'],
+    ['Snell’s law', 'sin θ₁ / c₁ = sin θ₂ / c₂', ''],
+  );
+})();
