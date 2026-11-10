@@ -16,10 +16,10 @@
   const buildup = (title, layers, foot) => {
     let y = 34; const parts = [];
     layers.forEach(([lab, t, fill, o = {}]) => {
-      parts.push(`<rect x="40" y="${y}" width="340" height="${t}" fill="${fill}" ${o.dash ? 'stroke="var(--muted)" stroke-dasharray="4 3"' : 'stroke="var(--line)"'} ${o.op ? `opacity="${o.op}"` : ''}/>`);
-      if (o.springs) for (let x = 70; x < 380; x += 60) parts.push(`<path d="M${x} ${y + 2} l6 ${t / 4 - 1} l-12 ${t / 4} l12 ${t / 4} l-6 ${t / 4 - 2}" stroke="var(--accent)" stroke-width="2" fill="none"/>`);
-      if (o.studs) for (let x = 60; x < 380; x += 70) parts.push(`<rect x="${x}" y="${y}" width="10" height="${t}" fill="var(--warn)" opacity=".55"/>`);
-      parts.push(`<line x1="380" y1="${y + t / 2}" x2="400" y2="${y + t / 2}" stroke="var(--muted)"/><text x="406" y="${y + t / 2 + 4}" font-size="11">${lab}</text>`);
+      parts.push(`<rect x="20" y="${y}" width="200" height="${t}" fill="${fill}" ${o.dash ? 'stroke="var(--muted)" stroke-dasharray="4 3"' : 'stroke="var(--line)"'} ${o.op ? `opacity="${o.op}"` : ''}/>`);
+      if (o.springs) for (let x = 45; x < 215; x += 45) parts.push(`<path d="M${x} ${y + 2} l6 ${t / 4 - 1} l-12 ${t / 4} l12 ${t / 4} l-6 ${t / 4 - 2}" stroke="var(--accent)" stroke-width="2" fill="none"/>`);
+      if (o.studs) for (let x = 35; x < 215; x += 55) parts.push(`<rect x="${x}" y="${y}" width="10" height="${t}" fill="var(--warn)" opacity=".55"/>`);
+      parts.push(`<line x1="220" y1="${y + t / 2}" x2="236" y2="${y + t / 2}" stroke="var(--muted)"/><text x="240" y="${y + t / 2 + 4}" font-size="10.5">${lab}</text>`);
       y += t;
     });
     return `<svg class="gsvg" viewBox="0 0 640 ${y + 30}" role="img" aria-label="${title}"><text x="320" y="20" text-anchor="middle" font-size="12" font-weight="700">${title}</text>${parts.join('')}${foot ? `<text x="320" y="${y + 20}" text-anchor="middle" font-size="10" fill="var(--muted)">${foot}</text>` : ''}</svg>`;
@@ -31,7 +31,7 @@
   /* ======================================================================
      M20 — Speakers
      ====================================================================== */
-  const SVG_FLUSH = `<svg class="gsvg" viewBox="0 0 640 220" role="img" aria-label="Free-standing versus flush-mounted loudspeaker">
+  const SVG_FLUSH = `<svg class="gsvg" viewBox="0 0 640 224" role="img" aria-label="Free-standing versus flush-mounted loudspeaker">
     <text x="160" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="var(--bad)">Free-standing: wall reflection returns late</text>
     <text x="480" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="var(--good)">Flush-mounted: the baffle IS the wall</text>
     <rect x="20" y="30" width="16" height="170" fill="var(--muted)" opacity=".6"/><text x="28" y="214" text-anchor="middle" font-size="10" fill="var(--muted)">wall</text>
@@ -43,7 +43,7 @@
     <rect x="352" y="85" width="28" height="60" fill="var(--accent)"/>
     <path d="M380 115 H610" stroke="var(--accent)" stroke-width="3"/><circle cx="616" cy="115" r="7" fill="var(--good)"/>
     ${[30, 55, 80].map((r) => `<path d="M${380 + r} ${115 - r} A${r} ${r} 0 0 1 ${380 + r} ${115 + r}" fill="none" stroke="var(--accent)" opacity=".5"/>`).join('')}
-    <text x="480" y="182" text-anchor="middle" font-size="10" fill="var(--good)">no gap behind → no notch, +6 dB bass (half space)</text>
+    <text x="495" y="214" text-anchor="middle" font-size="10" fill="var(--good)">no gap behind → no notch, +6 dB bass (half space)</text>
   </svg>`;
   const SVG_SOFFIT = buildup('Hard vs soft flush-mount: cross-section through the baffle', [
     ['Room face: fabric over thin absorber (optional)', 12, WOOL],
@@ -225,6 +225,16 @@
         ${flow([['Signal-flow drawing', 'every source and destination'], ['Cable schedule', 'label, type, from, to, length'], ['Wall boxes & tie-lines', 'standard panels in every room'], ['Containment', 'trays/conduit, sized with spare'], ['Separation', 'from power & lighting'], ['Terminate & label', 'both ends, same label'], ['Test & document', 'before walls are closed']])}
         <div class="callout data">Rules of thumb: fill conduit to no more than about 40 %; leave 25–50 % spare tie-lines; one colour per signal type (e.g. mic/line, digital, network, speaker); labels readable without moving the cable; keep 300 mm from parallel power runs that feed other equipment.</div>
         <div class="callout warn">Common mistakes: no spare capacity; unlabelled “mystery” cables; mixing speaker-level and mic-level in the same bundle; closing walls before testing; cheap connectors on permanent tie-lines.</div>` },
+      { h: 'Cable types & connectors at a glance', html: `
+        ${table(['Signal', 'Cable', 'Connector', 'Keep away from'], [
+          ['Mic / line (analogue)', 'Twisted pair, braid or foil shield', 'XLR, TRS', 'Speaker cables, dimmer & lighting feeds'],
+          ['Digital audio (AES3)', '110 Ω twisted pair', 'XLR', 'Long parallel runs with analogue mics'],
+          ['Audio networking (Dante/AES67)', 'Cat6 / fibre', 'RJ45, etherCON, fibre', 'Sharp bends, overlong unshielded runs near power'],
+          ['Headphone feeds', 'Heavier pair (cue amps)', 'TRS, XLR-4', 'Mic lines in the same bundle'],
+          ['Speaker (low impedance)', '2-core, sized for length', 'Locking speaker connector', 'All low-level audio'],
+          ['70 V / 100 V lines', '2-core, fire-rated where required', 'Terminal blocks', 'Treat as mains-level for separation'],
+        ])}
+        <div class="callout mentor">Pick one colour per signal type and stick to it in every room. When something breaks at 2 a.m., colours and labels save the session.</div>` },
       { h: 'Use cases', html: `<div class="uc-grid">
         ${uc('🏠', 'Home studio', [['Do', 'Short balanced leads, labelled; one patchbay'], ['Avoid', 'Rats’ nest behind the desk'], ['Fix', 'Velcro ties, cable tray under the desk']])}
         ${uc('🎙️', 'Studio with live room & booths', [['Do', 'Wall boxes with mic, line, headphone and network tie-lines'], ['Avoid', 'Cables through doors'], ['Fix', 'Sealed conduits through isolation walls, with acoustic sealant']], '#7a5cc7')}
@@ -327,14 +337,14 @@
   const SVG_DAY = `<svg class="gsvg" viewBox="0 0 640 230" role="img" aria-label="Daylight options for a studio">
     <text x="320" y="18" text-anchor="middle" font-size="12" font-weight="700">Daylight without losing isolation: three options</text>
     <rect x="20" y="60" width="600" height="140" fill="none" stroke="var(--text)" stroke-width="3"/>
-    <rect x="80" y="44" width="70" height="20" fill="var(--c3)" opacity=".5" stroke="var(--c3)"/><rect x="90" y="64" width="50" height="40" fill="var(--c4)" opacity=".35"/><text x="115" y="38" text-anchor="middle" font-size="10">skylight + lined well</text>
+    <rect x="80" y="44" width="70" height="20" fill="var(--c3)" opacity=".5" stroke="var(--c3)"/><rect x="90" y="64" width="50" height="40" fill="var(--c4)" opacity=".35"/><text x="158" y="58" font-size="10">skylight + lined well</text>
     <path d="M115 30 L115 44 M100 32 L108 44 M130 32 L122 44" stroke="var(--warn)" stroke-width="2"/>
     <path d="M100 104 L80 160 M130 104 L150 160" stroke="var(--warn)" opacity=".5" stroke-width="2"/>
     <rect x="280" y="40" width="22" height="30" fill="var(--c3)" opacity=".6"/><path d="M291 70 V120" stroke="var(--c3)" stroke-width="10" opacity=".5"/><text x="291" y="34" text-anchor="middle" font-size="10">light tube</text>
     <rect x="612" y="100" width="16" height="60" fill="var(--c3)" opacity=".6"/><line x1="616" y1="100" x2="616" y2="160" stroke="var(--c3)" stroke-width="2"/><line x1="624" y1="100" x2="624" y2="160" stroke="var(--c3)" stroke-width="2"/>
     <text x="560" y="94" text-anchor="end" font-size="10">studio double window</text><text x="560" y="108" text-anchor="end" font-size="10">on a side wall</text>
     <rect x="40" y="120" width="30" height="40" fill="var(--accent)"/><rect x="40" y="170" width="30" height="20" fill="var(--accent)" opacity=".5"/><text x="55" y="215" text-anchor="middle" font-size="10">speakers</text>
-    <text x="55" y="112" text-anchor="middle" font-size="10" fill="var(--bad)">✗ no glass here</text>
+    <text x="26" y="112" font-size="10" fill="var(--bad)">✗ no glass here</text>
     <circle cx="330" cy="160" r="8" fill="var(--good)"/><text x="330" y="186" text-anchor="middle" font-size="10">mix position</text>
   </svg>`;
   L.push({

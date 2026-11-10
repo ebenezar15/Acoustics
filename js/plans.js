@@ -37,17 +37,17 @@
       budget: 'Medium · room-in-room ceiling, concrete floor',
       els: [
         R(0, 0, 4.2, 3.9, 'Control room', 'rir', '4.2 × 3.9 m, 2.35 m clear', 2.8, 0.55), R(4.5, 0, 2.7, 2.4, 'Vocal booth', 'rir', '2.7 × 2.4 m', 5.6, 0.6),
-        R(4.5, 2.7, 2.7, 2.3, 'Lobby / sound lock', 'int', null, 5.75, 4.5), R(0, 4.2, 2.0, 0.8, 'Machine & HVAC', 'int', null, 1.0, 4.4), R(2.2, 4.2, 2.3, 0.8, 'Corridor', 'int', null, 3.0, 4.85),
+        R(4.5, 2.7, 2.7, 2.3, 'Lobby / sound lock', 'int', null, 5.75, 4.5), R(0, 4.2, 2.0, 0.8, 'Machine & HVAC', 'int', null, 1.0, 4.4), R(2.2, 4.2, 2.3, 0.8, 'Corridor', 'int', null, 2.75, 4.75),
         D(3.25, 3.9, 0.82, 'h', { sw: 1, type: 'acoustic' }), D(5.4, 2.4, 0.82, 'h', { sw: -1, type: 'acoustic' }), D(4.5, 4.0, 0.9, 'v', { sw: 1, type: 'std' }), D(7.2, 3.4, 0.9, 'v', { sw: -1, type: 'std' }),
         W(4.2, 0.5, 1.2, 'v', { studio: true }),
         I('trap', 0, 0, 0.7, 0.7, { c: 'tl' }), I('trap', 0, 3.2, 0.7, 0.7, { c: 'bl' }), I('trap', 3.5, 3.2, 0.7, 0.7, { c: 'br' }), I('trap', 3.5, 0, 0.7, 0.7, { c: 'tr' }),
         I('panel', 0.9, 0, 1.2, 0.12), I('panel', 0.9, 3.78, 1.2, 0.12), I('cloud', 0.9, 0.9, 1.5, 2.1), I('diff', 3.95, 1.0, 0.25, 1.9, { label: 'rear diffuser' }),
         I('desk', 0.55, 1.2, 0.7, 1.5), I('spk', 0.25, 1.05, 0.25, 0.25), I('spk', 0.25, 2.6, 0.25, 0.25), I('seat', 1.45, 1.8, 0.3, 0.3), I('sofa', 2.6, 3.25, 0.8, 0.5, { label: 'client couch' }),
         I('panel', 4.5, 0, 2.7, 0.12), I('panel', 7.08, 0, 0.12, 2.4), I('mic', 5.9, 1.1, 0.2, 0.2), I('trap', 6.6, 1.8, 0.6, 0.6, { c: 'br' }),
-        I('rack', 0.2, 4.35, 0.6, 0.5, { label: 'amps / computer' }), I('hvac', 1.0, 4.3, 0.8, 0.5, { label: 'air handler' }),
+        I('rack', 0.2, 4.45, 0.7, 0.45, { label: 'amps' }), I('hvac', 1.0, 4.3, 0.8, 0.5, { label: 'air handler' }),
         I('duct', 1.8, 4.5, 0.12, 0, { path: [[1.8, 4.55], [2.2, 4.55], [2.2, 4.0], [1.6, 4.0], [1.6, 3.6]] }), I('duct', 1.8, 4.5, 0, 0, { path: [[2.4, 4.55], [4.35, 4.55], [4.35, 2.55], [5.9, 2.55], [5.9, 2.2]] }),
         I('silencer', 1.4, 3.85, 0.45, 0.25), I('silencer', 5.6, 2.45, 0.5, 0.25),
-        I('panelboard', 0.05, 4.75, 0.35, 0.2), I('outlet', 0.1, 1.0, 0.12, 0.12), I('outlet', 0.1, 2.75, 0.12, 0.12), I('outlet', 6.95, 0.3, 0.12, 0.12),
+        I('panelboard', 0.95, 4.82, 0.25, 0.14), I('outlet', 0.1, 1.0, 0.12, 0.12), I('outlet', 0.1, 2.75, 0.12, 0.12), I('outlet', 6.95, 0.3, 0.12, 0.12),
         DIM(0, 5.0, 7.2, 5.0, 0.35), DIM(7.2, 0, 7.2, 5.0, 0.35), DIM(0, 0, 4.2, 0, -0.35),
         N(1, 3.0, 1.1), N(2, 4.35, 1.4), N(3, 6.6, 3.9), N(4, 1.8, 4.6), N(5, 0.4, 3.5),
       ],
@@ -112,7 +112,7 @@
       out.push(`<g class="L-base"><rect x="${X(r.x)}" y="${Y(r.y)}" width="${L(r.w)}" height="${L(r.h)}" fill="${r.wall === 'rir' ? 'color-mix(in srgb, var(--accent) 5%, var(--panel))' : 'var(--panel)'}" stroke="var(--text)" stroke-width="${L(t)}"/></g>`);
       if (r.wall === 'rir') out.push(`<g class="L-iso"><rect x="${X(r.x + 0.16)}" y="${Y(r.y + 0.16)}" width="${L(r.w - 0.32)}" height="${L(r.h - 0.32)}" fill="none" stroke="var(--accent)" stroke-width="${L(0.035)}" stroke-dasharray="${L(0.12)} ${L(0.08)}" opacity=".8"/></g>`);
       const lx = r.lx != null ? r.lx : r.x + r.w / 2, ly = r.ly != null ? r.ly : r.y + r.h / 2;
-      if (r.label) out.push(`<g class="L-base">${txt(X(lx), Y(ly) - (r.sub ? 0.08 * sc : 0), r.label, { weight: 700, size: Math.min(0.24 * sc, L(r.w) / (r.label.length * 0.55)) })}${r.sub ? txt(X(lx), Y(ly) + 0.2 * sc, r.sub, { size: Math.min(0.16 * sc, L(r.w) / (r.sub.length * 0.5)), fill: 'var(--muted)' }) : ''}</g>`);
+      if (r.label) out.push(`<g class="L-base">${txt(X(lx), Y(ly) - (r.sub ? 0.08 * sc : 0), r.label, { weight: 700, size: Math.min(0.24 * sc, L(r.w) / (r.label.length * 0.55), L(r.h) * (r.sub ? 0.22 : 0.26)) })}${r.sub ? txt(X(lx), Y(ly) + 0.2 * sc, r.sub, { size: Math.min(0.16 * sc, L(r.w) / (r.sub.length * 0.5)), fill: 'var(--muted)' }) : ''}</g>`);
     });
     P0.els.forEach((e) => {
       if (e.t === 'door') {
@@ -126,7 +126,7 @@
         out.push(`<g class="L-iso">${g}${e.plug ? `<rect x="${X(e.x) - L(0.2)}" y="${Y(e.y)}" width="${L(0.08)}" height="${L(e.w)}" fill="var(--accent2)" opacity=".7"/>` : ''}</g>`);
       } else if (e.t === 'item') {
         const x = X(e.x), y = Y(e.y), w = L(e.w), h = L(e.h);
-        const lab = e.label ? txt(x + w / 2, y + h / 2 + 0.06 * sc, e.label, { size: Math.min(0.14 * sc, Math.max(w, h) / (e.label.length * 0.5)), fill: 'var(--text)' }) : '';
+        const lab = e.label ? txt(x + w / 2, y + h / 2 + 0.06 * sc, e.label, { size: Math.max(0.1 * sc, Math.min(0.14 * sc, Math.max(w, h) / (e.label.length * 0.5))), fill: 'var(--text)' }) : '';
         switch (e.k) {
           case 'trap': { const pts = { tl: [[x, y], [x + w, y], [x, y + h]], tr: [[x + w, y], [x + w, y + h], [x, y]], bl: [[x, y + h], [x, y], [x + w, y + h]], br: [[x + w, y + h], [x, y + h], [x + w, y]] }[e.c]; out.push(`<g class="L-treat"><polygon points="${pts.map((p) => p.join(',')).join(' ')}" fill="var(--c4)" opacity=".75"/></g>`); break; }
           case 'panel': out.push(`<g class="L-treat"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="var(--c4)" opacity=".8"/>${e.label && Math.max(w, h) > 1.5 * sc ? lab : ''}</g>`); break;
@@ -135,10 +135,10 @@
           case 'desk': out.push(`<g class="L-gear"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${L(0.05)}" fill="var(--panel2)" stroke="var(--text)" stroke-width="${L(0.02)}"/>${txt(x + w / 2, y + h / 2, 'desk', { size: 0.13 * sc, fill: 'var(--muted)' })}</g>`); break;
           case 'spk': case 'soffit': out.push(`<g class="L-gear"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${e.k === 'soffit' ? 'var(--text)' : 'var(--accent)'}"/><g class="pl-wave"><path d="M${x + w + L(0.1)} ${y + h / 2 - L(0.15)} q${L(0.1)} ${L(0.15)} 0 ${L(0.3)}" fill="none" stroke="var(--accent)" stroke-width="${L(0.025)}"/><path d="M${x + w + L(0.25)} ${y + h / 2 - L(0.25)} q${L(0.16)} ${L(0.25)} 0 ${L(0.5)}" fill="none" stroke="var(--accent)" stroke-width="${L(0.02)}"/></g></g>`); break;
           case 'seat': out.push(`<g class="L-gear"><circle cx="${x + w / 2}" cy="${y + h / 2}" r="${w / 2}" fill="var(--good)"/></g>`); break;
-          case 'mic': out.push(`<g class="L-gear"><circle cx="${x + w / 2}" cy="${y + h / 2}" r="${w / 2}" fill="var(--bad)"/>${txt(x + w / 2, y + h + L(0.2), 'mic', { size: 0.12 * sc, fill: 'var(--muted)' })}</g>`); break;
-          case 'sofa': case 'bed': case 'piano': case 'drums': case 'rack': out.push(`<g class="L-gear"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${L(0.08)}" fill="var(--panel2)" stroke="var(--muted)" stroke-width="${L(0.02)}"/>${txt(x + w / 2, y + h / 2 + 0.05 * sc, e.label || e.k, { size: Math.min(0.15 * sc, w / ((e.label || e.k).length * 0.5)), fill: 'var(--muted)' })}</g>`); break;
+          case 'mic': out.push(`<g class="L-gear"><circle cx="${x + w / 2}" cy="${y + h / 2}" r="${w / 2}" fill="var(--bad)"/>${txt(x + w / 2, y + h + L(0.22), 'mic', { size: 0.15 * sc, fill: 'var(--muted)' })}</g>`); break;
+          case 'sofa': case 'bed': case 'piano': case 'drums': case 'rack': out.push(`<g class="L-gear"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${L(0.08)}" fill="var(--panel2)" stroke="var(--muted)" stroke-width="${L(0.02)}"/>${txt(x + w / 2, y + h / 2 + 0.05 * sc, e.label || e.k, { size: Math.max(0.1 * sc, Math.min(0.15 * sc, w / ((e.label || e.k).length * 0.5))), fill: 'var(--muted)' })}</g>`); break;
           case 'outlet': out.push(`<g class="L-elec"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="var(--warn)"/></g>`); break;
-          case 'panelboard': out.push(`<g class="L-elec"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="var(--warn)" stroke="var(--text)" stroke-width="${L(0.02)}"/>${txt(x + w / 2, y - L(0.06), 'tech power', { size: 0.12 * sc, fill: 'var(--warn)' })}</g>`); break;
+          case 'panelboard': out.push(`<g class="L-elec"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="var(--warn)" stroke="var(--text)" stroke-width="${L(0.02)}"/>${txt(x + w + L(0.05), y + h * 0.8, 'tech power', { size: 0.12 * sc, fill: 'var(--warn)', anchor: 'start' })}</g>`); break;
           case 'hvac': out.push(`<g class="L-hvac"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="var(--c3)" opacity=".35" stroke="var(--c3)" stroke-width="${L(0.02)}"/>${lab}</g>`); break;
           case 'silencer': out.push(`<g class="L-hvac"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="var(--c3)" stroke="var(--text)" stroke-width="${L(0.015)}"/></g>`); break;
           case 'duct': out.push(`<g class="L-hvac"><polyline points="${e.path.map(([a, b]) => X(a) + ',' + Y(b)).join(' ')}" fill="none" stroke="var(--c3)" stroke-width="${L(0.09)}" opacity=".4"/><polyline class="pl-air" points="${e.path.map(([a, b]) => X(a) + ',' + Y(b)).join(' ')}" fill="none" stroke="var(--c3)" stroke-width="${L(0.03)}" stroke-dasharray="${L(0.1)} ${L(0.12)}"/></g>`); break;
