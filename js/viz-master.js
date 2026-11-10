@@ -194,7 +194,7 @@
             ctx.stroke();
           }
           ctx.lineWidth = 1;
-          const pulse = ((t * 120) % (w - 60));
+          const pulse = Math.abs((t * 120) % (w - 60));
           ctx.strokeStyle = A.alpha(A.css('accent'), 0.5); ctx.beginPath(); ctx.arc(sx, sy, pulse, -Math.PI / 2, 0.1); ctx.stroke();
           if (st.mode === 'day') A.text(ctx, 'shadow zone — quieter than distance alone predicts', w - 12, g - 10, { align: 'right', size: 11, weight: 700, color: A.css('bad'), bg: A.alpha(A.css('panel'), 0.8) });
           else A.text(ctx, 'sound bends back down — carries much further', w - 12, g - 10, { align: 'right', size: 11, weight: 700, color: A.css('bad'), bg: A.alpha(A.css('panel'), 0.8) });

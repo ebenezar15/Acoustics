@@ -22,6 +22,12 @@
     ['Impedance balance', 'Equal impedances to ground on both legs of a balanced line; the real basis of common-mode rejection.'],
     ['Baffle box', 'An HVAC plenum lined with absorber and fitted with internal baffles so sound must turn corners through absorptive surfaces.'],
     ['Foley', 'Sound effects performed in sync with picture on a Foley stage with pits, surfaces and props.'],
+    ['Particle velocity', 'How fast the air itself moves back and forth in a sound wave; zero at a rigid wall, maximum at λ/4 in a standing wave. Porous absorbers work on it.'],
+    ['Pressure node / antinode', 'Positions in a standing wave where the pressure amplitude is zero (node, quiet) or maximum (antinode, loud). Walls and corners are pressure antinodes.'],
+    ['Quarter-wavelength (λ/4) rule', 'The first velocity maximum (and pressure null) lies λ/4 from a hard wall; porous absorbers ideally reach toward it.'],
+    ['Pressure-gradient microphone', 'A microphone (figure-8, ribbon, most directional types) responding to the pressure difference across its diaphragm, i.e. to particle velocity.'],
+    ['House curve / target curve', 'The in-room frequency response a system is tuned toward; usually a gentle downward tilt with a small bass rise.'],
+    ['Subwoofer crawl', 'Placing the sub at the listening seat and listening at candidate floor positions to find where the bass is smoothest, then swapping.'],
     ['ADR', 'Automated dialogue replacement: re-recording actors’ lines to picture in a quiet, controlled room.'],
   );
   LIB.formulas.push(
