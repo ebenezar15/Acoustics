@@ -84,3 +84,9 @@ How to plan and build doors, seals and glass between rooms: door anatomy, seal t
 - **M18A Activated Carbon for Low-Frequency Absorption** — evidence vs marketing, where it helps (inside sealed resonant traps), materials, build and tuning process, with a carbon-trap simulator. Multipliers are indicative.
 - **M32 Studio Design in India** — RCC/masonry buildings, local materials, climate, air-conditioning, power and earthing, codes and noise limits, process, indicative budgets in rupees, with an India wall builder.
 - Tools in `js/viz-factors.js` (Physics Lab → “Factors, Finishes, Carbon & India Walls”).
+
+### Speaker stands, the studio desk, and mode-by-mode trap placement (Master Class M20A)
+
+- **M20A Building Speaker Stands and the Studio Desk** — stand height, mass, damping and decoupling; five build recipes; the desk bounce and desk design; ergonomics; subwoofer and equipment isolation.
+- **Which mode, which place** — new section in Treating Room Modes, Small-Room Acoustics and Room Treatment Designs: where each mode family has its pressure peaks, best and useless trap positions, worked example.
+- Tools in `js/viz-stands.js` (Physics Lab → “Stands, Desk & Trap Placement”): stand builder, desk-bounce lab, trap placer with before/after modal decay.
