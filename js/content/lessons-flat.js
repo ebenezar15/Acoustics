@@ -54,12 +54,12 @@
   const FLAT = {
     id: 'flat', n: '15A', title: 'Flat Response: Myth, Goal & Method', level: 'Advanced', mins: 45,
     summary: 'What “flat” really means, whether a control room can be flat, every factor that stops it, and how to build rooms that sound great and translate — plus how recording rooms and halls differ.',
-    tags: ['flat response', 'target curve', 'translation', 'control room', 'in-room response', 'EBU Tech 3276', 'ITU-R BS.1116', 'Toole', 'recording room', 'concert hall'],
+    tags: ['flat response', 'target curve', 'translation', 'control room', 'in-room response', 'EBU Tech 3276', 'ITU-R BS.1116', 'recording room', 'concert hall'],
     sections: [
       { h: 'Three different things called “flat”', html: `
         <div class="grid g3">
           <div class="card"><h4 style="margin-top:0">1 · Flat loudspeaker</h4><p class="small">On-axis response measured in an anechoic chamber, ideally with smoothly changing off-axis response. <b>Achievable</b> and the most important of the three — good monitors are within about ±1–2 dB.</p></div>
-          <div class="card"><h4 style="margin-top:0">2 · Flat in-room curve at the seat</h4><p class="small">The steady-state response measured at the mix position. Above a few hundred hertz it should <b>not</b> be ruler-flat: a flat speaker with normal directivity in a normally treated room produces a <b>gentle downward tilt</b> (research by Floyd Toole and others). Forcing it flat with EQ makes the speaker’s direct sound bright.</p></div>
+          <div class="card"><h4 style="margin-top:0">2 · Flat in-room curve at the seat</h4><p class="small">The steady-state response measured at the mix position. Above a few hundred hertz it should <b>not</b> be ruler-flat: a flat speaker with normal directivity in a normally treated room produces a <b>gentle downward tilt</b> (shown repeatedly by controlled listening research). Forcing it flat with EQ makes the speaker’s direct sound bright.</p></div>
           <div class="card"><h4 style="margin-top:0">3 · Flat low-frequency response</h4><p class="small">Below the Schroeder frequency the room dominates: modes and boundary interference give ±10–20 dB swings in untreated small rooms. This is the part you fight with position, trapping, multiple subs and (cuts-only) EQ.</p></div>
         </div>
         <div class="callout mentor">So is “flat” over-hyped? <b>“Flat speaker” is essential. “Flat in-room curve” is a misunderstanding.</b> The real goal is: a neutral loudspeaker, a smooth (not perfectly flat) in-room response that follows a sensible target, even bass across the listening area, and controlled early reflections.</div>` },

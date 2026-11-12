@@ -177,7 +177,6 @@
         <li>Miki Y. (1990) “Acoustical properties of porous materials — modifications of Delany–Bazley models”, J. Acoust. Soc. Jpn (E) 11.</li>
         <li>Komatsu T. (2008) “Improvement of the Delany–Bazley and Miki models for fibrous sound-absorbing materials”, Acoust. Sci. & Tech. 29.</li>
         <li>Maa D.-Y. (1998) “Potential of microperforated panel absorber”, J. Acoust. Soc. Am. 104.</li>
-        <li>Cox T.J., D’Antonio P. — <i>Acoustic Absorbers and Diffusers: Theory, Design and Application</i>.</li>
         <li>Kuttruff H. — <i>Room Acoustics</i>; Everest F.A., Pohlmann K. — <i>Master Handbook of Acoustics</i>.</li>
         <li>ISO 354 (absorption measurement), ISO 17497 (scattering & diffusion coefficients).</li></ul>
       <p class="small">Formulas are implemented from these published works; check the original papers and manufacturer data before building something critical.</p></div>`));

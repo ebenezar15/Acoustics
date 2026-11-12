@@ -100,3 +100,13 @@ Angled reflector panels (redirectors / deflectors) that steer reflections past t
 - **M18C Acoustic Hangers** — hanging bass traps (absorbent-wrapped boards hung in a deep cavity): theory, sizing rules, build, placement, verification; and isolation hangers for suspended ceilings, ducts and clouds.
 - **M18D Waveguides** — shared theory (plane waves, cut-off, tapers, quarter-wave), absorbing waveguide traps and how to design them, loudspeaker waveguides and directivity matching, and what constant directivity means for room treatment.
 - Tools in `js/viz-hangers.js` (Physics Lab → “Hangers & Waveguides”). Hanger and waveguide-trap absorption curves are indicative — measure before and after.
+
+### Recording, Mixing & Mastering track, listening science, wave physics, building types
+
+A fourth Academy track and further lessons written from general knowledge of the field (no text taken from any book; no authors named):
+
+- **Recording, Mixing & Mastering (R1–R10)** — microphones in practice, stereo and surround techniques, miking instruments, running a session, DAW/MIDI/sync, building a mix (balance and panning, EQ and masking, dynamics, space), monitoring, loudness and mastering.
+- **Listening science (4A–4C)** — how we hear rooms and reflections, judging loudspeakers from measurements, audio facts and myths with blind testing.
+- **Wave physics (5A)**, **Diffuser design in depth (M18E)**, **Workbook of practice problems (21)**.
+- **Acoustics by building type (M33)**, **Building services noise and project workflow (M34)**, **Speech intelligibility, voice alarm and assistive listening (A13A)**, **Stage monitoring, in-ears and intercom (A13B)**.
+- Thirty new tools in `js/viz-recording.js`, `js/viz-mixing.js`, `js/viz-psycho.js`, `js/viz-physics2.js`, `js/viz-buildings.js`, grouped in five new Physics Lab tabs.

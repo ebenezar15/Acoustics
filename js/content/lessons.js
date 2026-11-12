@@ -395,7 +395,7 @@ window.LESSONS = [
           <li><b>Thin rigid fins</b> between wells are essential for a 1D QRD.</li>
           <li><b>Primitive root diffusers (PRD)</b> (sₙ = gⁿ mod N) suppress the specular lobe more; <b>2D skyline</b> blocks scatter in both planes.</li>
         </ul>
-        <p>Trevor Cox and Peter D’Antonio’s <i>Acoustic Absorbers and Diffusers</i> is the definitive text. D’Antonio’s company RPG commercialised Schroeder diffusers from the 1980s.</p>` },
+        <p>For the full theory see <a href="#/academy/m-diffuser-depth">Diffuser Design in Depth</a>.</p>` },
       { h: 'Where diffusion works — and where it doesn’t', html: `
         <ul>
           <li>Diffusers need distance: the scattered lobes only form properly some way from the surface. A common guideline is to sit at least ~2–3 m away for typical 1D QRDs; closer, you hear lumpy interference rather than smooth diffusion.</li>

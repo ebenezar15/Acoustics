@@ -336,7 +336,6 @@ LIB.masters = [
       { id: 'beranek', name: 'Leo Beranek (1914–2016)', role: 'Acoustician, author', ideas: ['Surveyed and ranked concert halls; linked ratings to ITDG, RT, BR, lateral energy', 'NC curves; “Concert Halls and Opera Houses”'], learn: ['Lesson 17: Concert halls'] },
       { id: 'schroeder', name: 'Manfred Schroeder (1926–2009)', role: 'Physicist', ideas: ['Schroeder frequency; number-theoretic diffusers (QRD, PRD); backward-integration method for decay curves'], learn: ['Lesson 6, 9 and 18'] },
       { id: 'cremer', name: 'Lothar Cremer (1905–1990)', role: 'Acoustician', ideas: ['Acoustics of the Berlin Philharmonie; structure-borne sound theory (“Structure-Borne Sound” with Heckl)'], learn: ['Lesson 12 and 17'] },
-      { id: 'toole', name: 'Floyd Toole', role: 'Researcher (NRC Canada, Harman)', ideas: ['Evidence-based loudspeaker and small-room research; listener preference studies; multiple subwoofers', '“Sound Reproduction: The Acoustics and Psychoacoustics of Loudspeakers and Rooms”'], learn: ['Lesson 6, 15, 16'] },
       { id: 'everest', name: 'F. Alton Everest (1909–2005)', role: 'Author', ideas: ['“Master Handbook of Acoustics” — the classic practical text for studios'], learn: ['A good companion to the whole Academy'] },
     ],
   },
@@ -344,7 +343,6 @@ LIB.masters = [
     group: 'Studio design schools',
     people: [
       { id: 'davis', name: 'Don & Carolyn Davis / Chips Davis', role: 'LEDE', ideas: ['Live End–Dead End: absorptive front, diffusive rear, clean initial time-delay gap', 'Use of time-delay spectrometry (TDS) in room analysis'], learn: ['Lesson 15'] },
-      { id: 'dantonio', name: 'Peter D’Antonio (RPG)', role: 'RFZ, diffusers', ideas: ['Reflection-Free Zone control rooms', 'Commercialised Schroeder diffusers; co-author with Trevor Cox of “Acoustic Absorbers and Diffusers”'], learn: ['Lesson 9, 15; Diffuser Designer'] },
       { id: 'newell', name: 'Philip Newell & Tom Hidley', role: 'Non-environment', ideas: ['Hard front wall with flush-mounted monitors; highly absorbent elsewhere; very deep LF absorption', '“Recording Studio Design” (Newell)'], learn: ['Lesson 15'] },
       { id: 'walker', name: 'Bob Walker (BBC R&D)', role: 'CID', ideas: ['Controlled Image Design: geometry and treatment to control reflections within the critical time window'], learn: ['Lesson 15'] },
       { id: 'storyk', name: 'John Storyk (WSDG)', role: 'Studio & venue architect', ideas: ['Designed Electric Lady Studios (1970) early in his career and hundreds of studios since; integrated architecture–acoustics–systems approach'], learn: ['Study published WSDG project write-ups'] },
