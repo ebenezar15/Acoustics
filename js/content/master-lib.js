@@ -52,7 +52,7 @@
     ['Acoustic waveguide', 'A channel that carries sound in a controlled way: in a trap, lined guide panels lead sound into depth where it is absorbed; on a loudspeaker, a shaped flare sets how widely the sound spreads.'],
     ['Cut-off frequency (duct)', 'Below c/(2w) only a plane wave travels along a channel of width w; above it, cross-modes appear.'],
     ['Constant directivity', 'A loudspeaker whose coverage angle stays the same over a wide frequency range, usually thanks to a waveguide.'],
-    ['Pattern-control frequency', 'The lowest frequency at which a waveguide or horn holds its coverage angle: about 10⁶ / (angle in degrees × mouth width in mm).'],
+    ['Pattern-control frequency', 'The lowest frequency at which a waveguide or horn holds its coverage angle: about 25 000 000 / (angle in degrees × mouth width in mm), i.e. 10⁶ / (angle × width in inches).'],
     ['ADR', 'Automated dialogue replacement: re-recording actors’ lines to picture in a quiet, controlled room.'],
   );
   LIB.formulas.push(

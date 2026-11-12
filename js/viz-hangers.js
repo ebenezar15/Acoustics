@@ -247,7 +247,7 @@
     const out = el('div', { class: 'stats' }); host.appendChild(out);
     const tip = el('div'); host.appendChild(tip);
     const piston = (dmm, f) => { const x = (0.705 * (C / f)) / (dmm / 1000); return x >= 1 ? 180 : (2 * Math.asin(x) * 180) / Math.PI; };
-    const fpc = () => 1e6 / (st.cov * st.mouth);
+    const fpc = () => 2.54e7 / (st.cov * st.mouth);
     const tweeter = (f) => { if (st.wg === 'none') return Math.min(180, piston(25, f) * 1.0 + (f < 3000 ? 0 : 0)); const fp = fpc(); return f >= fp ? st.cov : Math.min(180, st.cov * Math.pow(fp / f, 1.1)); };
     const woofer = (f) => piston(st.wd, f);
     const system = (f) => { const wl = 1 / (1 + Math.pow(f / st.fx, 4)); return woofer(f) * wl + tweeter(f) * (1 - wl); };
@@ -279,10 +279,10 @@
       out.innerHTML = A.statBox('Woofer at the crossover', (wX >= 179 ? 'omni' : fmt(wX, 1) + '°'), wX < 70 ? 'already beaming' : '') + A.statBox('Tweeter at the crossover', (tX >= 179 ? 'omni' : fmt(tX, 1) + '°'), st.wg === 'wg' ? 'waveguide-controlled' : 'tiny dome: very wide') + A.statBox('Step at the crossover', (step > 0 ? '+' : '') + fmt(step, 1) + '°', Math.abs(step) < 25 ? 'well matched' : Math.abs(step) < 60 ? 'noticeable' : 'big mismatch', Math.abs(step) < 25 ? 'good' : Math.abs(step) < 60 ? 'warn' : 'bad') + (st.wg === 'wg' ? A.statBox('Waveguide holds its pattern down to', fmtHz(fp), fp > st.fx ? 'above the crossover — make it bigger' : 'below the crossover ✓', fp > st.fx ? 'warn' : 'good') : A.statBox('Add a waveguide', 'to control the tweeter', 'try the second option'));
       const T = [];
       if (st.wg === 'none' && step > 60) T.push('The woofer has narrowed to a beam but the bare dome sprays sound almost everywhere: off-axis there is a flare of energy just above the crossover, so side-wall reflections sound brighter than the direct sound. A waveguide fixes this.');
-      if (st.wg === 'wg' && fp > st.fx) T.push(`This waveguide is too small to control ${fmtHz(st.fx)}: it needs a mouth of about ${Math.round(1e6 / (st.cov * st.fx))} mm for ${st.cov}° — or raise the crossover.`);
+      if (st.wg === 'wg' && fp > st.fx) T.push(`This waveguide is too small to control ${fmtHz(st.fx)}: it needs a mouth of about ${Math.round(2.54e7 / (st.cov * st.fx))} mm for ${st.cov}° — or raise the crossover.`);
       if (st.wg === 'wg' && Math.abs(step) < 25 && fp <= st.fx) T.push('Matched directivity: the off-axis response falls smoothly, which makes the room’s reflections sound like the direct sound and makes treatment and EQ far more predictable.');
       if (wX < 60) T.push('The woofer is beaming hard at this crossover. Cross over lower (or use a smaller woofer / a mid driver) so the hand-over happens where the woofer is still about as wide as the waveguide.');
-      T.push('Rule of thumb for waveguides and horns: pattern control holds down to f ≈ 1 000 000 ÷ (coverage angle × mouth width in mm).');
+      T.push('Rule of thumb for waveguides and horns: pattern control holds down to f ≈ 25 000 000 ÷ (coverage angle in degrees × mouth width in mm) — the same as 1 000 000 ÷ (angle × width in inches).');
       tip.innerHTML = `<div class="callout mentor"><ul style="margin:0;padding-left:18px">${T.map((x) => `<li>${x}</li>`).join('')}</ul></div>`;
       cv.redraw();
     }

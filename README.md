@@ -94,3 +94,9 @@ How to plan and build doors, seals and glass between rooms: door anatomy, seal t
 ### Sound redirectors and absorber calculation (Master Class M18B)
 
 Angled reflector panels (redirectors / deflectors) that steer reflections past the listener: the mirror rule (tilt θ → reflection turns 2θ), the limiting frequency set by panel size, step-by-step design, flat / convex / slatted / wedge-backed hybrids, and how to size porous, membrane, slot, perforated and quarter-wave absorbers for a target frequency. Tools in `js/viz-redirect.js` (Physics Lab → “Redirectors & Absorber Calculator”).
+
+### Acoustic hangers and waveguides (Master Class M18C, M18D)
+
+- **M18C Acoustic Hangers** — hanging bass traps (absorbent-wrapped boards hung in a deep cavity): theory, sizing rules, build, placement, verification; and isolation hangers for suspended ceilings, ducts and clouds.
+- **M18D Waveguides** — shared theory (plane waves, cut-off, tapers, quarter-wave), absorbing waveguide traps and how to design them, loudspeaker waveguides and directivity matching, and what constant directivity means for room treatment.
+- Tools in `js/viz-hangers.js` (Physics Lab → “Hangers & Waveguides”). Hanger and waveguide-trap absorption curves are indicative — measure before and after.
