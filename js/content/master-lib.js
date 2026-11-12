@@ -40,6 +40,10 @@
     ['L′nT,w', 'ISO 717-2 single-number impact sound level in the field; lower is better.'],
     ['LAeq / LA90', 'A-weighted equivalent continuous level (the energy average) and the level exceeded for 90 % of the time (the background).'],
     ['αw', 'ISO 11654 weighted sound absorption coefficient: one number (and class A–E) from an ISO 354 test.'],
+    ['Activated carbon (activated charcoal)', 'Highly porous carbon; in the sealed cavity of a resonant bass trap it makes the trapped air more compressible and more damped, lowering and broadening the tuning. Must be kept dry.'],
+    ['Sorption', 'Air molecules sticking to (adsorbing) and leaving (desorbing) a surface as pressure rises and falls; the mechanism behind activated carbon’s low-frequency effect.'],
+    ['AAC block', 'Autoclaved aerated concrete: a light masonry block (≈ 550–700 kg/m³). Good thermal insulation, modest sound isolation for its thickness.'],
+    ['Acoustically transparent fabric', 'Open-weave cloth that lets sound through to the absorber behind; test by blowing through it.'],
     ['ADR', 'Automated dialogue replacement: re-recording actors’ lines to picture in a quiet, controlled room.'],
   );
   LIB.formulas.push(

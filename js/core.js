@@ -328,7 +328,7 @@
     ctx.strokeRect(x0 + 0.5, y1 + 0.5, x1 - x0, y0 - y1);
     ctx.globalAlpha = 1;
     if (xa.label) { ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(xa.label, (x0 + x1) / 2, h - 2); }
-    if (ya.label) { ctx.save(); ctx.translate(12, (y0 + y1) / 2); ctx.rotate(-Math.PI / 2); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(ya.label, 0, 0); ctx.restore(); }
+    if (ya.label) { ctx.save(); ctx.translate(Math.max(12, x0 - 40), (y0 + y1) / 2); ctx.rotate(-Math.PI / 2); ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(ya.label, 0, 0); ctx.restore(); }
     ctx.restore();
     return { X, Y, x0, x1, y0, y1 };
   };
