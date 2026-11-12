@@ -53,7 +53,7 @@
      1. Box designer — sealed and vented enclosures
      ====================================================================== */
   const DRIVERS = {
-    mid: ['6.5-inch mid-woofer', { fs: 45, qts: 0.38, vas: 18, sd: 135, xmax: 5, vb: 12, fb: 48, pd: 5 }],
+    mid: ['6.5-inch mid-woofer', { fs: 45, qts: 0.38, vas: 18, sd: 135, xmax: 5, vb: 12, fb: 48, pd: 6 }],
     sub: ['10-inch subwoofer driver', { fs: 28, qts: 0.45, vas: 60, sd: 330, xmax: 12, vb: 35, fb: 27, pd: 7.5 }],
     pa: ['15-inch high-efficiency woofer', { fs: 40, qts: 0.32, vas: 180, sd: 855, xmax: 7, vb: 110, fb: 45, pd: 12 }],
     full: ['4-inch full-range unit', { fs: 80, qts: 0.55, vas: 4, sd: 55, xmax: 3, vb: 5, fb: 75, pd: 3 }],
@@ -71,7 +71,7 @@
       { key: 'vb', label: 'Box volume (net, internal)', type: 'range', min: 1, max: 400, step: 0.5, value: d0.vb, unit: 'L' },
       { key: 'fb', label: 'Box tuning Fb (vented only)', type: 'range', min: 15, max: 120, step: 0.5, value: d0.fb, unit: 'Hz' },
       { key: 'pd', label: 'Port inside diameter (vented only)', type: 'range', min: 2, max: 20, step: 0.5, value: d0.pd, unit: 'cm' },
-      { key: 'pw', label: 'Amplifier power applied', type: 'range', min: 0, max: 3, step: 0.01, value: Math.log10(40), fmt: (v) => fmt(P10(v), 0) + ' W' },
+      { key: 'pw', label: 'Amplifier power applied', type: 'range', min: 0, max: 3, step: 0.01, value: Math.log10(20), fmt: (v) => fmt(P10(v), 0) + ' W' },
       { key: 'ft', label: 'Animation frequency', type: 'range', min: 15, max: 150, step: 1, value: 40, unit: 'Hz' },
     ], (s) => { if (s.drv !== lastDrv) { lastDrv = s.drv; const d = DRIVERS[s.drv][1]; Object.keys(d).forEach((k) => st.set(k, d[k], true)); } upd(); });
     let lastDrv = 'mid';
@@ -132,13 +132,13 @@
       caption: 'Cut-away of the box at the animation frequency: the cone stroke is drawn relative to its linear limit, and in a vented box the arrows in the port show how hard and in which direction the air plug is moving. Near the tuning frequency the cone almost stops and the port does the work; well below it, port and cone fight each other.',
       draw(ctx, w, h, t) {
         if (!M) return; const tt = Math.max(0, t), r = M.at(st.ft), ph = TAU * 1.1 * tt;
-        const bw = Math.min(260, w * 0.6), bx = (w - bw) / 2, by = 18, bh = h - 40;
+        const bw = Math.min(300, w - 30), bx = (w - bw) / 2, by = 18, bh = h - 40;
         rr(ctx, bx, by, bw, bh, 4, A.css('panel2'), A.css('text'));
         const cm = cabs(r.cone) || 1e-9, amp = Math.min(1.5, r.x / (st.xmax / 1000)), cph = Math.atan2(r.cone[1], r.cone[0]);
         const dx = -amp * 12 * Math.cos(ph + cph), cy = by + bh * 0.38, ch = Math.min(34, bh * 0.3);
         ctx.strokeStyle = amp > 1 ? A.css('bad') : A.css('accent'); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(bx + 1, cy - ch); ctx.lineTo(bx + 20 + dx, cy - 8); ctx.lineTo(bx + 20 + dx, cy + 8); ctx.lineTo(bx + 1, cy + ch); ctx.stroke();
         rr(ctx, bx + 20 + dx, cy - 10, 26, 20, 3, A.css('muted'));
-        ctx.lineWidth = 1; A.text(ctx, 'cone ' + fmt(r.x * 1000, 1) + ' mm', bx - 6, cy + 4, { align: 'right', size: 11, color: amp > 1 ? A.css('bad') : A.css('text') });
+        ctx.lineWidth = 1; A.text(ctx, 'cone ' + fmt(r.x * 1000, 1) + ' mm', bx + bw - 8, cy + 4, { align: 'right', size: 11, color: amp > 1 ? A.css('bad') : A.css('text') });
         void cm;
         if (M.vented) {
           const py = by + bh * 0.8, pl = Math.min(bw * 0.4, 70);
@@ -146,8 +146,8 @@
           const pa = Math.min(1.4, r.v / 17), pph = Math.atan2(r.port[1], r.port[0]), s = -pa * 22 * Math.cos(ph + pph), col = r.v > 17 ? A.css('bad') : A.css('c3');
           const x0 = bx + pl * 0.45; ctx.fillStyle = col; ctx.strokeStyle = col; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x0, py); ctx.lineTo(x0 + s, py); ctx.stroke();
           if (Math.abs(s) > 3) { const d = Math.sign(s); ctx.beginPath(); ctx.moveTo(x0 + s + d * 6, py); ctx.lineTo(x0 + s, py - 5); ctx.lineTo(x0 + s, py + 5); ctx.fill(); }
-          ctx.lineWidth = 1; A.text(ctx, 'port air ' + fmt(r.v, 1) + ' m/s', bx - 6, py + 4, { align: 'right', size: 11, color: col });
-        } else A.text(ctx, 'air inside acts as a spring', bx + bw / 2 + 20, by + bh * 0.82, { align: 'center', size: 11, color: A.css('muted') });
+          ctx.lineWidth = 1; A.text(ctx, 'port air ' + fmt(r.v, 1) + ' m/s', bx + bw - 8, py + 4, { align: 'right', size: 11, color: col });
+        } else A.text(ctx, 'air inside acts as a spring', bx + bw / 2 + 24, by + bh * 0.82, { align: 'center', size: 11, color: A.css('muted') });
         A.text(ctx, fmtHz(st.ft) + ' · ' + fmt(dB(r.g), 1) + ' dB', bx + bw - 6, by + 16, { align: 'right', size: 11, weight: 700 });
       },
     });
@@ -210,7 +210,7 @@
         A.plotLine(ctx, ax, fr.map((f) => [f, resp(f, false, 0)]), A.css('muted'), 2, [3, 3]);
         A.plotLine(ctx, ax, fr.map((f) => [f, resp(f, st.wallOn, st.comp) + (st.comp > 0 ? 0 : 0)]), A.css('accent'), 2.5);
         const x = ax.X(f3()); line(ctx, x, ax.y1, x, ax.y0, A.css('c3'), 1.5, [4, 3]); A.text(ctx, 'step ≈ ' + fmtHz(f3()), Math.min(x + 5, ax.x1 - 90), ax.y1 + 14, { size: 11, weight: 700, color: A.css('c3') });
-        A.text(ctx, 'radiates forward only', ax.x1 - 6, ax.Y(0) - 6, { size: 10, align: 'right', color: A.css('muted') }); A.text(ctx, 'radiates all round: −6 dB', ax.x0 + 6, ax.Y(-6) + 14, { size: 10, color: A.css('muted') });
+        A.text(ctx, 'treble: radiates forward only (0 dB)', ax.x1 - 6, ax.Y(3.2), { size: 10, align: 'right', color: A.css('muted') }); A.text(ctx, 'bass: radiates all round (−6 dB)', ax.x0 + 6, ax.Y(-6) + 14, { size: 10, color: A.css('muted') });
       },
     });
     host.appendChild(A.legend([[A.css('muted'), 'Bare baffle, open space', true], [A.css('accent'), 'With your wall and compensation']]));
@@ -271,7 +271,7 @@
       draw(ctx, w, h) {
         if (!M) return;
         const ax = A.axes(ctx, w, h, { x: { min: 10, max: 20000, log: true, label: 'Frequency (Hz)' }, y: { min: 0, max: M.top, label: 'Impedance (Ω)' } });
-        line(ctx, ax.x0, ax.Y(M.nom), ax.x1, ax.Y(M.nom), A.css('c3'), 1.5, [6, 4]); A.text(ctx, 'nominal ' + M.nom + ' Ω', ax.x1 - 6, ax.Y(M.nom) - 5, { size: 10, align: 'right', color: A.css('c3'), weight: 700 });
+        line(ctx, ax.x0, ax.Y(M.nom), ax.x1, ax.Y(M.nom), A.css('c3'), 1.5, [6, 4]); A.text(ctx, 'nominal ' + M.nom + ' Ω', ax.x1 - 6, ax.Y(M.nom) - 16, { size: 10, align: 'right', color: A.css('c3'), weight: 700 });
         A.plotLine(ctx, ax, M.pts.map((p) => [p[0], M.top / 2 + (p[2] / 90) * (M.top / 2)]), A.css('muted'), 1.5, [2, 3]);
         A.plotLine(ctx, ax, M.pts.map((p) => [p[0], p[1]]), A.css('accent'), 2.5);
         M.peaks.forEach((p) => { ctx.fillStyle = A.css('c2'); ctx.beginPath(); ctx.arc(ax.X(p[0]), ax.Y(Math.min(p[1], M.top)), 4, 0, TAU); ctx.fill(); A.text(ctx, fmtHz(p[0]), ax.X(p[0]) + 6, Math.max(ax.y1 + 12, ax.Y(Math.min(p[1], M.top)) + 4), { size: 10, weight: 700 }); });
@@ -397,7 +397,7 @@
         const res = (x, y, wd, ht, lab, horiz) => { rr(ctx, x - wd / 2, y - ht / 2, wd, ht, 3, A.css('panel2'), ac); A.text(ctx, lab, x, horiz ? y - ht / 2 - 6 : y + 4, { align: horiz ? 'center' : 'left', size: 11, weight: 700, color: ac }); };
         ctx.lineWidth = 2;
         line(ctx, xl, yt, xr, yt, tx, 2); line(ctx, xl, yb, xr, yb, tx, 2);
-        const xm = isT ? w / 2 : w * 0.62, x1 = isT ? xl + (xm - xl) * 0.5 : xl + (xm - xl) * 0.5;
+        const xm = isT || w < 420 ? w / 2 : w * 0.62, x1 = xl + (xm - xl) * 0.5;
         ctx.lineWidth = 2; res(x1, yt, 54, 18, fmtOhm(M.vals[0][1]), true);
         if (bal) res(x1, yb, 54, 18, fmtOhm(M.vals[0][1]), true);
         if (isT) res(xm + (xr - xm) * 0.5, yt, 54, 18, fmtOhm(M.vals[1][1]), true);
@@ -525,9 +525,9 @@
         hist.forEach((p, i) => { const yy = Math.min(1, p) * (hh - 4); ctx.fillRect(x0 + i * bwid, hy + hh - yy, Math.max(1, bwid), yy); });
         A.text(ctx, 'signal peaks, last 4 seconds', x0 + 6, hy + 14, { size: 10, color: A.css('muted') });
         const vuDb = dB(s.v2 / (0.637 * al)), bars = [
-          ['Averaging (VU-type) meter', s.v2 / 0.637, (vuDb >= 0 ? '+' : '') + fmt(Math.max(-30, vuDb), 1) + ' VU', A.css('good')],
-          ['Peak-programme-type meter', s.ppm, (dB(s.ppm / al) >= 0 ? '+' : '') + fmt(Math.max(-40, dB(s.ppm / al)), 1) + ' dB re alignment', A.css('c3')],
-          ['Digital sample-peak meter', s.pk, fmt(D(s.hold), 1) + ' dBFS (held)', A.css('accent')],
+          [w < 520 ? 'Averaging (VU-type)' : 'Averaging (VU-type) meter', s.v2 / 0.637, (vuDb >= 0 ? '+' : '') + fmt(Math.max(-30, vuDb), 1) + ' VU', A.css('good')],
+          [w < 520 ? 'Peak-programme type' : 'Peak-programme-type meter', s.ppm, (dB(s.ppm / al) >= 0 ? '+' : '') + fmt(Math.max(-40, dB(s.ppm / al)), 1) + (w < 520 ? ' dB' : ' dB re alignment'), A.css('c3')],
+          [w < 520 ? 'Digital sample peak' : 'Digital sample-peak meter', s.pk, fmt(D(s.hold), 1) + (w < 520 ? ' dBFS' : ' dBFS (held)'), A.css('accent')],
         ];
         bars.forEach(([lab, v, read, col], i) => {
           const y = hy + hh + 34 + i * 66; A.text(ctx, lab, x0, y - 6, { size: 12, weight: 700 }); A.text(ctx, read, x1, y - 6, { size: 12, align: 'right', weight: 700, color: col });
@@ -648,12 +648,12 @@
       caption: 'Upper panel: the measured impulse response — the tall spike is the direct sound, later spikes are reflections. The shaded span is what the gate keeps. Lower panel: the frequency response computed from everything (thin, ragged trace), from the gated part only (bold trace), and the loudspeaker\'s true response (dotted). Left of the vertical guide the gated result cannot be trusted.',
       draw(ctx, w, h) {
         if (!M) return; const h1 = Math.round(h * 0.36);
-        const ax = A.axes(ctx, w, h1, { x: { min: 0, max: 60, label: '', fmt: (v) => v + ' ms' }, y: { min: -0.6, max: 1.05, ticks: [0], fmt: () => '0' }, pad: { b: 22, l: 52 } });
+        const ax = A.axes(ctx, w, h1, { x: { min: -3, max: 60, label: '', ticks: [0, 10, 20, 30, 40, 50, 60], fmt: (v) => v + ' ms' }, y: { min: -0.6, max: 1.1, ticks: [0], fmt: () => '0' }, pad: { b: 22, l: 52 } });
         ctx.fillStyle = A.alpha(A.css('good'), 0.16); ctx.fillRect(ax.X(0), ax.y1, ax.X(Math.min(60, st.gate)) - ax.X(0), ax.y0 - ax.y1);
         const pk = M.pk; const pts = []; for (let i = 0; i < 0.06 * SR; i += 2) { let a = M.ir[i], b = M.ir[i + 1] || 0; pts.push([((i - 24) / SR) * 1000, (Math.abs(a) > Math.abs(b) ? a : b) / pk]); }
         A.plotLine(ctx, ax, pts, A.css('accent'), 1.5);
         A.text(ctx, 'gate', Math.min(ax.X(Math.min(60, st.gate)) - 4, ax.x1 - 4), ax.y1 + 14, { size: 11, align: 'right', color: A.css('good'), weight: 700 });
-        A.text(ctx, 'floor', ax.X(st.fl) + 4, ax.Y(0.75), { size: 10, color: A.css('muted') });
+        A.text(ctx, 'floor', ax.X(st.fl) + 4, ax.Y(0.8), { size: 10, color: A.css('muted') }); A.text(ctx, 'direct', ax.X(0) + 5, ax.Y(-0.42), { size: 10, color: A.css('muted') });
         ctx.save(); ctx.translate(0, h1);
         const ax2 = A.axes(ctx, w, h - h1, { x: { min: 20, max: 20000, log: true, label: 'Frequency (Hz)' }, y: { min: -30, max: 12, label: 'Level (dB)' }, pad: { t: 8 } });
         const fv = 1000 / st.gate; if (fv > 20) { ctx.fillStyle = A.alpha(A.css('bad'), 0.1); ctx.fillRect(ax2.x0, ax2.y1, ax2.X(Math.min(20000, fv)) - ax2.x0, ax2.y0 - ax2.y1); const x = ax2.X(Math.min(20000, fv)); line(ctx, x, ax2.y1, x, ax2.y0, A.css('bad'), 1.5, [5, 3]); A.text(ctx, 'valid above ' + fmtHz(fv), Math.min(x + 5, ax2.x1 - 110), ax2.y0 - 8, { size: 11, weight: 700, color: A.css('bad') }); }
@@ -780,7 +780,7 @@
       height: 400,
       caption: 'Upper left: the transfer curve — a straight diagonal would be a perfect device; the highlighted span is how much of it the signal is using. Upper right: the output wave (bold) over the ideal one (dotted). Lower panel: the spectrum — the test tones are the tallest bars, everything else has been created by the non-linearity.',
       draw(ctx, w, h) {
-        if (!M) return; const h1 = Math.round(h * 0.42), sq = Math.min(h1 - 24, w * 0.3), x0 = 14, y0 = 12;
+        if (!M) return; const sq = Math.min(h * 0.42 - 24, w * 0.34), h1 = Math.round(sq + 26), x0 = 14, y0 = 12;
         rr(ctx, x0, y0, sq, sq, 4, A.css('panel2'));
         line(ctx, x0, y0 + sq / 2, x0 + sq, y0 + sq / 2, A.css('line')); line(ctx, x0 + sq / 2, y0, x0 + sq / 2, y0 + sq, A.css('line'));
         const lim = Math.max(1.2, M.span * 1.15), tx = (v) => x0 + sq / 2 + (v / lim) * (sq / 2), ty = (v) => y0 + sq / 2 - (v / lim) * (sq / 2);
@@ -870,7 +870,7 @@
           const b = dir(a, R + 3); rr(ctx, b[0] - 6, b[1] - 6, 12, 12, 2, A.css('panel2'), A.css('text'));
         });
         const sp = dir(src, R * 0.86), pu = 5 + 2 * Math.sin(tt * 5); ctx.fillStyle = A.css('bad'); ctx.beginPath(); ctx.arc(sp[0], sp[1], pu, 0, TAU); ctx.fill();
-        A.text(ctx, 'front', cx, cy - R - (wide ? 44 : 40), { align: 'center', size: 10, color: A.css('muted') });
+        A.text(ctx, '↑ front', wide ? 14 : 10, 16, { size: 11, color: A.css('muted'), weight: 700 });
         // component bars
         const bx = wide ? w * 0.62 : 20, bw = wide ? w * 0.34 : w - 40, by = wide ? 60 : cy + R + 62, vmv = vm(e, st.mic, st.pat);
         const rows = [['W (all-round)', e.w, A.css('muted')], ['X (front–back)', e.x, A.css('c3')], ['Y (left–right)', e.y, A.css('good')], ['Virtual mic output', vmv, A.css('accent')]];
@@ -931,10 +931,10 @@
       height: 360, animate: true,
       caption: 'Signal flow of a bass-management stage. Each channel on the left is split at the crossover: everything above goes straight to its own loudspeaker; the bass of every “small” channel is added to the LFE channel and sent to the subwoofer. Moving dots show where low-frequency energy is travelling; thicker flow means more level.',
       draw(ctx, w, h, t) {
-        if (!M) return; const tt = Math.max(0, t), xa = 12, bwd = Math.min(64, w * 0.16), xm = w * 0.46, xs = w - bwd - 12, rowH = (h - 70) / 6, tx = A.css('text');
+        if (!M) return; const tt = Math.max(0, t), xa = 12, bwd = Math.min(64, w * 0.16), xm = w * 0.46, xs = w - bwd - 12, rowH = (h - 96) / 6, tx = A.css('text');
         const busX = xm + (xs - xm) * 0.45, subY = h - 28;
         CH.forEach((c, i) => {
-          const y = 22 + i * rowH, r = M.route[c], act = r.lv > -90, lvl = act ? A.clamp((r.lv + (c === 'LFE' ? st.lfe : 0) + 30) / 36, 0.12, 1.2) : 0;
+          const y = 46 + i * rowH, r = M.route[c], act = r.lv > -90, lvl = act ? A.clamp((r.lv + (c === 'LFE' ? st.lfe : 0) + 30) / 36, 0.12, 1.2) : 0;
           rr(ctx, xa, y - 12, bwd, 24, 4, A.css('panel2'), tx); A.text(ctx, c, xa + bwd / 2, y + 4, { align: 'center', size: 12, weight: 700 });
           if (c !== 'LFE') {
             rr(ctx, xs, y - 12, bwd, 24, 4, A.css('panel2'), small(c) ? A.css('muted') : A.css('good')); A.text(ctx, small(c) ? 'small' : 'LARGE', xs + bwd / 2, y + 4, { align: 'center', size: 10, weight: 700, color: small(c) ? A.css('muted') : A.css('good') });
@@ -950,11 +950,11 @@
             }
           }
         });
-        line(ctx, busX, 22, busX, subY, A.css('accent'), 2.5);
-        A.text(ctx, 'crossover ' + st.xo + ' Hz', busX, 12, { align: 'center', size: 10, color: A.css('muted') });
+        line(ctx, busX, 32, busX, subY, A.css('accent'), 2.5);
+        A.text(ctx, 'crossover ' + st.xo + ' Hz', busX, 22, { align: 'center', size: 10, color: A.css('muted') });
         rr(ctx, busX - 58, subY - 13, 116, 26, 5, st.sub ? A.alpha(A.css('accent'), 0.2) : A.alpha(A.css('bad'), 0.2), st.sub ? A.css('accent') : A.css('bad'));
         A.text(ctx, st.sub ? 'SUBWOOFER' : 'NO SUB — LOST', busX, subY + 4, { align: 'center', size: 11, weight: 700, color: st.sub ? A.css('accent') : A.css('bad') });
-        A.text(ctx, 'loudspeakers', xs + bwd / 2, 12, { align: 'center', size: 10, color: A.css('muted') });
+        A.text(ctx, w < 420 ? 'speakers' : 'loudspeakers', xs + bwd / 2, 22, { align: 'center', size: 10, color: A.css('muted') });
       },
     });
     const tip = el('div'); host.appendChild(tip);

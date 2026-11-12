@@ -89,7 +89,7 @@
     if (_music) return _music;
     const n = SR * 4, x = new Float32Array(n);
     const seq = [[0, 220], [0.25, 277.2], [0.5, 329.6], [0.75, 440], [1, 196], [1.25, 246.9], [1.5, 293.7], [1.75, 392], [2, 174.6], [2.25, 220], [2.5, 261.6], [2.75, 349.2], [3, 164.8], [3.25, 207.7]];
-    for (const [t0, f] of seq) { const i0 = Math.round(t0 * SR), i1 = Math.min(n, i0 + Math.round(1.1 * SR)); for (let i = i0; i < i1; i++) { const tt = (i - i0) / SR; let s = 0; for (let k = 1; k <= 6; k++) s += Math.sin(TAU * f * k * tt) / k * Math.exp(-tt * (2.5 + 1.3 * k)); x[i] += s * Math.min(1, tt / 0.004) * 0.5; } }
+    for (const [t0, f] of seq) { const i0 = Math.round(t0 * SR), i1 = Math.min(n, i0 + Math.round(1.1 * SR)); for (let i = i0; i < i1; i++) { const tt = (i - i0) / SR; let s = 0; for (let k = 1; k <= 10; k++) s += Math.sin(TAU * f * k * tt) / k * Math.exp(-tt * (2.5 + 1.1 * k)); x[i] += s * Math.min(1, tt / 0.004) * 0.5; } }
     for (const [t0, f] of [[0, 110], [1, 98], [2, 87.3], [3, 82.4]]) { const i0 = Math.round(t0 * SR), i1 = Math.min(n, i0 + Math.round(0.95 * SR)); for (let i = i0; i < i1; i++) { const tt = (i - i0) / SR; x[i] += (Math.sin(TAU * f * tt) + 0.3 * Math.sin(TAU * 2 * f * tt)) * Math.exp(-tt * 2.2) * Math.min(1, tt / 0.006) * 0.6; } }
     for (let i = Math.round(3.5 * SR); i < n; i++) x[i] *= Math.max(0, 1 - (i / SR - 3.5) / 0.12);
     const p = peakOf(x); for (let i = 0; i < n; i++) x[i] *= 0.5 / p;
@@ -170,7 +170,7 @@
     }
     const play = player(host, [['clean', 'Clean source'], ['tape', 'Through the tape model']], (id) => {
       const n = SR * 2, x = new Float32Array(n);
-      for (let b = 0; b < 4; b++) { const i0 = Math.round(b * 0.5 * SR); for (let i = 0; i < 0.3 * SR; i++) { const tt = i / SR, f = 50 + 90 * Math.exp(-tt * 30); x[i0 + i] += Math.sin(TAU * (50 * tt + 3 * (1 - Math.exp(-tt * 30)))) * Math.exp(-tt * 11) * (f ? 1 : 1); } const j0 = i0 + Math.round(0.25 * SR); for (let i = 0; i < 0.22 * SR; i++) { const tt = i / SR; x[j0 + i] += (Math.sin(TAU * 330 * tt) + 0.5 * Math.sin(TAU * 495 * tt) + 0.3 * Math.sin(TAU * 1320 * tt)) * Math.exp(-tt * 14) * 0.35; } }
+      for (let b = 0; b < 4; b++) { const i0 = Math.round(b * 0.5 * SR); for (let i = 0; i < 0.3 * SR; i++) { const tt = i / SR, f = 50 + 90 * Math.exp(-tt * 30); x[i0 + i] += Math.sin(TAU * (50 * tt + 3 * (1 - Math.exp(-tt * 30)))) * Math.exp(-tt * 11); void f; } const j0 = i0 + Math.round(0.25 * SR); for (let i = 0; i < 0.22 * SR; i++) { const tt = i / SR; x[j0 + i] += (Math.sin(TAU * 330 * tt) + 0.5 * Math.sin(TAU * 495 * tt) + 0.3 * Math.sin(TAU * 1320 * tt)) * Math.exp(-tt * 14) * 0.35; } }
       const p = peakOf(x); for (let i = 0; i < n; i++) x[i] *= A0 / p;
       if (id === 'clean') return scaled(x, 0.22 / A0);
       const g = lin(st.level), w = whiteArr(), nz = A0 * lin(M.noise) * 1.7; let y = new Float32Array(n);
@@ -201,7 +201,7 @@
         const hx = lw + 30, hw = w - hx - 10, bw = hw / 7;
         ctx.strokeStyle = C('line'); ctx.strokeRect(hx + 0.5, 12.5, hw, ph);
         M.h.forEach((v, k) => { const d = clamp(dB(v / Math.max(M.h[0], 1e-9)), -70, 0), bh = (d + 70) / 70 * (ph - 30); ctx.fillStyle = k === 0 ? C('muted') : k % 2 === 0 ? C('warn') : C('c3'); ctx.fillRect(hx + k * bw + bw * 0.2, 12 + ph - 16 - bh, bw * 0.6, bh); A.text(ctx, k === 0 ? 'f' : (k + 1) + 'f', hx + k * bw + bw / 2, 12 + ph - 4, { size: 10, align: 'center', color: C('muted') }); if (k && d > -68) A.text(ctx, Math.round(d) + '', hx + k * bw + bw / 2, 12 + ph - 20 - bh, { size: 9, align: 'center', color: C('muted') }); });
-        A.text(ctx, 'harmonics (dB re. fundamental)', hx + 6, 26, { size: 10, color: C('muted') });
+        A.text(ctx, 'harmonics, dB re. fundamental', hx + hw - 6, 26, { size: 10, align: 'right', color: C('muted') });
         // dynamic-range bar
         const by = ph + 44, bx0 = 12, bx1 = w - 12, X = (d) => bx0 + (clamp(d, -75, 18) + 75) / 93 * (bx1 - bx0);
         ctx.fillStyle = C('panel2'); ctx.fillRect(bx0, by, bx1 - bx0, 28);
@@ -266,7 +266,7 @@
         sub(ctx, 0, 222, () => {
           const ax = A.axes(ctx, w, 215, { x: { min: 20, max: 20000, log: true, label: 'Frequency (Hz)' }, y: { min: -40, max: 40, label: 'swing, dB' } });
           A.plotLine(ctx, ax, freqs.map((f) => [f, -20 * Math.log10(f / 1000)]), C('muted'), 2, [5, 4]);
-          A.plotLine(ctx, ax, freqs.map((f) => [f, -20 * Math.log10(f / 1000) - replay(f) + (f < 120 ? st.bass : 0)]), C('c3'), 2.5);
+          A.plotLine(ctx, ax, freqs.map((f) => [f, -20 * Math.log10(f / 1000) - replay(f) + st.bass / (1 + Math.pow(f / 110, 4))]), C('c3'), 2.5);
         });
       },
     });
@@ -308,7 +308,7 @@
      3. Perceptual coder lab
      ====================================================================== */
   V.codecLab = function (host) {
-    const NEED = { tonal: 112, dense: 176, transient: 224, speech: 72 };
+    const NEED = { tonal: 80, dense: 128, transient: 176, speech: 56 };
     const st = A.controls(host, [
       { key: 'rate', label: 'Bit rate (stereo)', type: 'range', min: 32, max: 320, step: 8, value: 128, unit: 'kbit/s' },
       { key: 'content', label: 'Programme material', type: 'select', value: 'dense', options: [['tonal', 'Solo instrument (tonal)'], ['dense', 'Dense full mix'], ['transient', 'Castanets / applause (transients)'], ['speech', 'Speech']] },
@@ -357,7 +357,7 @@
       const list = comps(st.content); list.forEach((c) => (c.z = bark(c.f)));
       const bw = bwOf(st.rate), off = Math.max(0, 18 * Math.log2(NEED[st.content] / st.rate));
       list.forEach((c) => { c.state = c.f > bw ? 'cut' : c.L < maskAt(list, c.f, c) + off ? 'mask' : 'keep'; });
-      const curve = []; for (let f = 40; f <= 20000; f *= 1.07) curve.push([f, maskAt(list, f, null)]);
+      const curve = []; for (let f = 40; f <= 20000; f *= 1.07) curve.push([f, Math.min(95, maskAt(list, f, null))]);
       const kept = list.filter((c) => c.state === 'keep').length;
       M = { list, bw, off, curve };
       const risk = off < 2 ? 0 : off < 8 ? 1 : 2;
@@ -468,7 +468,7 @@
       height: 280,
       caption: 'Average spectrum of the recording. The closer the “after” line sits to the clean original — without dropping below it — the better the repair.',
       draw(ctx, w, h) {
-        const ax = A.axes(ctx, w, h, { x: { min: 31.5, max: 16000, log: true, label: 'Frequency (Hz)' }, y: { min: -100, max: -20, label: 'Level (dB)' } });
+        const ax = A.axes(ctx, w, h, { x: { min: 31.5, max: 16000, log: true, label: 'Frequency (Hz)' }, y: { min: -100, max: -10, label: 'Level (dB)' } });
         if (!R) return;
         A.plotFill(ctx, ax, R.sNoisy, A.alpha(C('muted'), 0.25)); A.plotLine(ctx, ax, R.sNoisy, C('muted'), 1.5);
         A.plotLine(ctx, ax, R.sOut, C('accent'), 2.5); A.plotLine(ctx, ax, cleanSpec, C('good'), 1.8, [5, 4]);
@@ -540,7 +540,7 @@
       const resp = []; for (let f = 30; f <= 2000; f *= 1.004) resp.push([f, clamp(dB(H(f)), -80, 6)]);
       let before = 0, after = 0; for (let k = 1; k <= 12; k++) { const p = Math.pow(10, humL(k) / 10); before += p; after += k <= st.harm ? 0 : p; }
       let notes = 0; for (let m = 21; m <= 96; m++) { const f = 440 * Math.pow(2, (m - 69) / 12); if (H(f) < 0.707) notes++; }
-      let tot = 0, lost = 0; for (const [f, v] of spec) { const p = Math.pow(10, v / 10); tot += p; lost += p * (1 - H(f) ** 2); }
+      let tot = 0, lost = 0; for (const [f, v] of spec) { const p = Math.pow(10, v / 10); for (let j = 0; j < 60; j++) { const ff = f * Math.pow(2, (j - 29.5) / 360); tot += p; lost += p * (1 - H(ff) ** 2); } }
       M = { resp };
       const red = after > 0 ? 10 * Math.log10(before / after) : 60;
       stats(A.statBox('Hum reduced by', (after > 0 ? fmt(red, 0) : '>40') + ' dB', after > 0 ? 'upper harmonics remain' : 'every listed harmonic covered', red > 15 ? 'good' : 'warn')
@@ -631,7 +631,7 @@
     function phrase() {
       const n = SR * 3;
       if (!tone) { tone = new Float32Array(n); for (const [t0, d, L] of SYL) { const i0 = Math.round(t0 * SR), a = lin(L); for (let i = 0; i < (d + 0.25) * SR && i0 + i < n; i++) { const tt = i / SR, e = Math.min(1, tt / 0.012) * (tt < d ? 1 : Math.exp(-(tt - d) / (d > 0.5 ? 0.09 : 0.03))); let s = 0; for (let k = 1; k <= 8; k++) s += Math.sin(TAU * 140 * k * tt) * (k === 4 || k === 5 ? 0.9 : 0.4) / Math.sqrt(k); tone[i0 + i] += s * e * a * 0.42; } } }
-      const w = whiteArr(), x = new Float32Array(n), nz = lin(st.noise) * 1.6;
+      const w = whiteArr(), x = new Float32Array(n), nz = lin(st.noise);
       for (let i = 0; i < n; i++) x[i] = tone[i] + w[i] * nz * (1 + 0.45 * Math.sin(i / SR * 9) * Math.sin(i / SR * 2.3));
       return x;
     }
@@ -754,7 +754,7 @@
       if (st.lfoTo === 'cutoff') lfoG.connect(flt.detune);
       flt.connect(vg); vg.connect(master);
       vg.gain.setValueAtTime(0, t); vg.gain.linearRampToValueAtTime(pk, t + st.a / 1000); vg.gain.setTargetAtTime(pk * st.s, t + st.a / 1000, Math.max(0.005, st.d / 3000));
-      voices[m] = { oscs, flt, vg }; order.push(m); keyEl[m] && keyEl[m].classList.add('on'); paintKeys();
+      voices[m] = { oscs, flt, vg }; order.push(m); paintKeys();
     }
     function noteOff(m) {
       const v = voices[m]; if (!v) return; delete voices[m]; order = order.filter((x) => x !== m);
@@ -827,13 +827,13 @@
      ====================================================================== */
   V.adsrShape = function (host) {
     const PRE = { pluck: [3, 250, 0, 250, 400], pad: [700, 600, 0.8, 1200, 1800], organ: [5, 10, 1, 40, 900], perc: [1, 90, 0, 90, 150], brass: [70, 200, 0.7, 180, 900] };
-    host.appendChild(A.seg([['pluck', 'Pluck'], ['pad', 'Pad'], ['organ', 'Organ'], ['perc', 'Percussive'], ['brass', 'Brass-like']], 'pluck', (v) => { const p = PRE[v]; ['a', 'd', 's', 'r', 'hold'].forEach((k, i) => st.set(k, p[i], true)); update(); }));
+    host.appendChild(A.seg([['brass', 'Brass-like'], ['pluck', 'Pluck'], ['pad', 'Pad'], ['organ', 'Organ'], ['perc', 'Percussive']], 'brass', (v) => { const p = PRE[v]; ['a', 'd', 's', 'r', 'hold'].forEach((k, i) => st.set(k, p[i], true)); update(); }));
     const st = A.controls(host, [
-      { key: 'a', label: 'Attack', type: 'range', min: 1, max: 1500, step: 1, value: 3, unit: 'ms' },
-      { key: 'd', label: 'Decay', type: 'range', min: 10, max: 1500, step: 10, value: 250, unit: 'ms' },
-      { key: 's', label: 'Sustain level', type: 'range', min: 0, max: 1, step: 0.05, value: 0, fmt: (v) => Math.round(v * 100) + ' %' },
-      { key: 'r', label: 'Release', type: 'range', min: 10, max: 2500, step: 10, value: 250, unit: 'ms' },
-      { key: 'hold', label: 'Key held for', type: 'range', min: 50, max: 3000, step: 50, value: 400, unit: 'ms' },
+      { key: 'a', label: 'Attack', type: 'range', min: 1, max: 1500, step: 1, value: 70, unit: 'ms' },
+      { key: 'd', label: 'Decay', type: 'range', min: 10, max: 1500, step: 10, value: 200, unit: 'ms' },
+      { key: 's', label: 'Sustain level', type: 'range', min: 0, max: 1, step: 0.05, value: 0.7, fmt: (v) => Math.round(v * 100) + ' %' },
+      { key: 'r', label: 'Release', type: 'range', min: 10, max: 2500, step: 10, value: 180, unit: 'ms' },
+      { key: 'hold', label: 'Key held for', type: 'range', min: 50, max: 3000, step: 50, value: 900, unit: 'ms' },
     ], update);
     const levelAt = (ms) => { const { a, d, s, r, hold } = st; const pre = (t) => (t < a ? t / a : t < a + d ? 1 - (1 - s) * (t - a) / d : s); return ms <= hold ? pre(ms) : Math.max(0, pre(hold) * (1 - (ms - hold) / r)); };
     const S = session(); const bar = el('div', { class: 'row' }); host.appendChild(bar);
@@ -1255,7 +1255,6 @@
     const bitsOf = () => clamp(Math.round(8 - st.drive / 6), 2, 8);
     const shape = (x) => { switch (st.shape) { case 'tube': return (Math.tanh(x + 0.35) - Math.tanh(0.35)) * 1.12; case 'hard': return clamp(x, -1, 1); case 'fold': { const p = ((x + 1) % 4 + 4) % 4; return p < 2 ? p - 1 : 3 - p; } case 'crush': { const L = Math.pow(2, bitsOf() - 1); return Math.round(clamp(x, -1, 1) * L) / L; } default: return Math.tanh(x); } };
     const gIn = () => (st.shape === 'crush' ? 0.9 : 0.35 * lin(st.drive));
-    const proc = (x) => st.mix * shape(x * gIn() / 0.35 * (st.shape === 'crush' ? 0.35 : 0.35)) + (1 - st.mix) * x;
     let M = { h: [] };
     const play = player(host, [['clean', 'Clean'], ['proc', 'Processed']], (id) => {
       const x = scaled(music().subarray(0, SR * 2), 0.7); if (id === 'clean') return scaled(x, 0.5 / 0.7);

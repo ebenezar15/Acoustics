@@ -49,11 +49,11 @@
       caption: 'Octave-band levels of the same source: measured 10 m away, then at your distance with spreading loss only, and finally with the air’s own absorption added. Spreading lowers every band equally; the air takes extra from the top end only, so far-away sound is always duller.',
       draw(ctx, w, h) {
         if (!R) return;
-        const hi = Math.ceil((Math.max(...R.ref) + 5) / 10) * 10;
-        const ax = A.axes(ctx, w, h, { x: { min: 45, max: 11000, log: true, ticks: OCT, fmt: octFmt, label: 'Octave band (Hz)' }, y: { min: hi - 90, max: hi, label: 'Level (dB)' } });
+        const hi = Math.ceil((Math.max(...R.ref) + 5) / 10) * 10, lo = Math.max(hi - 130, Math.min(hi - 60, Math.floor((R.far[6] - 8) / 10) * 10));
+        const ax = A.axes(ctx, w, h, { x: { min: 45, max: 11000, log: true, ticks: OCT, fmt: octFmt, label: 'Octave band (Hz)' }, y: { min: lo, max: hi, label: 'Level (dB)' } });
         A.plotLine(ctx, ax, OCT.map((f, i) => [f, R.ref[i]]), A.css('muted'), 2, [5, 4]);
         A.plotLine(ctx, ax, OCT.map((f, i) => [f, R.spread[i]]), A.css('accent2'), 2);
-        A.plotFill(ctx, ax, OCT.map((f, i) => [f, R.far[i]]), A.alpha(A.css('accent'), 0.18), hi - 90);
+        A.plotFill(ctx, ax, OCT.map((f, i) => [f, Math.max(lo, R.far[i])]), A.alpha(A.css('accent'), 0.18), lo);
         A.plotLine(ctx, ax, OCT.map((f, i) => [f, R.far[i]]), A.css('accent'), 2.5);
         OCT.forEach((f, i) => { if (R.air[i] >= 1) A.text(ctx, '−' + fmt(R.air[i], 0), ax.X(f), Math.max(ax.y1 + 12, ax.Y(R.far[i]) - 6), { size: 10, align: 'center', color: A.css('accent') }); });
       },
@@ -121,7 +121,7 @@
         A.text(ctx, 'source', X(0), gy + 18, { size: 10, align: 'center', color: A.css('muted') }); A.text(ctx, 'listener', X(W), gy + 18, { size: 10, align: 'center', color: A.css('muted') });
         A.text(ctx, R.delta > 0 ? 'shadow zone' : 'line of sight — no shadow', X(st.ds + st.dr * 0.5), gy - 8, { size: 10, align: 'center', color: A.css('muted') });
         // bars
-        const by0 = h - 30, by1 = gy + 40, bw = (w - 2 * mx) / 8;
+        const by0 = h - 30, by1 = gy + 58, bw = (w - 2 * mx) / 8;
         A.text(ctx, 'Insertion loss per octave band (dB)', mx, by1 - 10, { size: 11, color: A.css('muted') });
         OCT.forEach((f, i) => {
           const v = R.il[i], bh = (v / 25) * (by0 - by1), x = mx + i * bw;
@@ -208,7 +208,7 @@
         if (R.day) { ctx.fillStyle = A.alpha(A.css('c1'), 0.13); ctx.fillRect(ax.X(0), ax.y1, ax.X(7) - ax.X(0), ax.y0 - ax.y1); ctx.fillRect(ax.X(23), ax.y1, ax.X(24) - ax.X(23), ax.y0 - ax.y1); ctx.fillStyle = A.alpha(A.css('c6'), 0.13); ctx.fillRect(ax.X(19), ax.y1, ax.X(23) - ax.X(19), ax.y0 - ax.y1); A.text(ctx, 'night +10', ax.X(3.5), ax.y1 + 12, { size: 10, align: 'center', color: A.css('muted') }); if (w > 480) A.text(ctx, 'evening +5', ax.X(21), ax.y1 + 12, { size: 10, align: 'center', color: A.css('muted') }); }
         const pts = []; for (let i = 0; i < R.n; i++) pts.push([(i / R.n) * xm, R.L[i]]);
         A.plotLine(ctx, ax, pts, A.css('accent'), 1.2);
-        [[R.l10, 'c5', 'L10'], [R.leq, 'good', 'Leq'], [R.l90, 'accent2', 'L90']].forEach(([v, c, l]) => { seg(ctx, ax.x0, ax.Y(v), ax.x1, ax.Y(v), A.css(c), 1.6, [6, 4]); A.text(ctx, l + ' ' + fmt(v, 0), ax.x1 - 4, ax.Y(v) - 4, { size: 10, align: 'right', color: A.css(c), weight: 700 }); });
+        [[R.l10, 'c5', 'L10'], [R.leq, 'good', 'Leq'], [R.l90, 'accent2', 'L90']].forEach(([v, c, l]) => { seg(ctx, ax.x0, ax.Y(v), ax.x1, ax.Y(v), A.css(c), 1.6, [6, 4]); A.text(ctx, l + ' ' + fmt(v, 0), ax.x1 - 4, ax.Y(v) + (l === 'Leq' && Math.abs(R.l10 - R.leq) < 6 ? 13 : -4), { size: 10, align: 'right', color: A.css(c), weight: 700, bg: A.alpha(A.css('bg') || '#ffffff', 0.7) }); });
         const i = Math.floor(((t * 0.06) % 1) * R.n), x = ax.X((i / R.n) * xm);
         seg(ctx, x, ax.y1, x, ax.y0, A.css('text'), 1); dot(ctx, x, ax.Y(R.L[i]), 4, A.css('text'));
         A.text(ctx, fmt(R.L[i], 0) + ' dBA', Math.min(x + 6, ax.x1 - 50), ax.y0 - 8, { size: 11, weight: 700 });
@@ -268,7 +268,7 @@
       caption: 'Predicted level against distance from the stage, in dB(A) and dB(C). The gap between the two curves widens with distance because air, ground and barriers remove mid and high frequencies but leave the bass — so the far-away neighbour hears mostly the low end. The vertical marker is the neighbour; the horizontal line is the dB(A) limit.',
       draw(ctx, w, h) {
         if (!R) return;
-        const ax = A.axes(ctx, w, h, { x: { min: 30, max: 5000, log: true, fmt: (v) => (v >= 1000 ? v / 1000 + ' km' : v + ' m'), label: 'Distance from the stage' }, y: { min: 30, max: 115, label: 'Level (dB)' } });
+        const ax = A.axes(ctx, w, h, { x: { min: 30, max: 5000, log: true, ticks: w > 520 ? undefined : [50, 200, 1000, 5000], fmt: (v) => (v >= 1000 ? v / 1000 + ' km' : v + ' m'), label: 'Distance from the stage' }, y: { min: 30, max: 115, label: 'Level (dB)' } });
         const pa = [], pc = []; for (let e = log10(30); e <= log10(5000); e += 0.03) { const d = Math.pow(10, e), r = at(d); pa.push([d, r.dba]); pc.push([d, r.dbc]); }
         A.plotLine(ctx, ax, pc, A.css('c5'), 2); A.plotLine(ctx, ax, pa, A.css('accent'), 2.5);
         seg(ctx, ax.x0, ax.Y(st.limit), ax.x1, ax.Y(st.limit), A.css('bad'), 1.5, [6, 4]); A.text(ctx, 'limit ' + st.limit + ' dBA', ax.x0 + 6, ax.Y(st.limit) - 5, { size: 10, color: A.css('bad') });
@@ -405,8 +405,8 @@
       caption: 'Top: a plate carrying a bending wave at the driving frequency, with the air above it. Below the critical frequency the ripples are shorter than the wavelength in air, neighbouring bumps cancel each other and little sound escapes. Above it, the ripples launch strong plane waves at an angle. Bottom: bending-wave speed against frequency; where it crosses the speed of sound in air is the critical frequency.',
       draw(ctx, w, h, t) {
         if (!R) return; t = tp(t);
-        const py = 120, x0 = 16, x1 = w - 16, scale = (x1 - x0) / 6;            // 6 m of plate shown (clamped below)
-        const lamB = A.clamp(R.lamB * scale, 14, (x1 - x0) * 1.5), lamA = A.clamp(R.lamA * scale, 14, (x1 - x0) * 2);
+        const py = 120, x0 = 16, x1 = w - 16, scale = ((x1 - x0) / 5) / Math.max(R.lamB, R.lamA);   // the longer wavelength spans a fifth of the view
+        const lamB = Math.max(6, R.lamB * scale), lamA = Math.max(6, R.lamA * scale);
         const ph = t * 5;
         if (R.above) {
           const th = Math.asin(Math.min(1, R.c / R.cb)), nx = Math.sin(th), ny = -Math.cos(th);
@@ -415,10 +415,10 @@
           const adv = ((ph / TAU) % 1) * lamA;
           for (let k = -20; k < 30; k++) { const s = k * lamA + adv, cx = x0 + s * nx, cy = py + s * ny; ctx.beginPath(); ctx.moveTo(cx - 800 * ny, cy + 800 * nx); ctx.lineTo(cx + 800 * ny, cy - 800 * nx); ctx.stroke(); }
           ctx.restore();
-          A.text(ctx, `strong radiation at ${fmt((th * 180) / Math.PI, 0)}° from the plate normal`, x0 + 4, 20, { size: 11, color: A.css('accent'), bg: A.css('panel') || undefined });
+          A.text(ctx, `strong radiation at ${fmt((th * 180) / Math.PI, 0)}°` + (w > 430 ? ' from the plate normal' : ''), x0 + 4, 20, { size: 11, color: A.css('accent'), bg: A.css('panel') || undefined });
         } else {
           for (let x = x0; x < x1; x += 3) { const a = Math.cos((TAU * (x - x0)) / lamB - ph); const r = Math.abs(a) * 12 * R.sigma + Math.abs(a) * 5; ctx.fillStyle = A.alpha(a > 0 ? A.css('accent') : A.css('accent2'), 0.25); ctx.fillRect(x, py - 6 - r, 3, r); }
-          A.text(ctx, 'bumps and hollows cancel — air just sloshes sideways', x0 + 4, 20, { size: 11, color: A.css('muted') });
+          A.text(ctx, w > 430 ? 'bumps and hollows cancel — air just sloshes sideways' : 'bumps and hollows cancel', x0 + 4, 20, { size: 11, color: A.css('muted') });
         }
         ctx.strokeStyle = A.css('text'); ctx.lineWidth = 4; ctx.beginPath();
         for (let x = x0; x <= x1; x += 2) { const y = py + 6 * Math.sin((TAU * (x - x0)) / lamB - ph); if (x === x0) ctx.moveTo(x, y); else ctx.lineTo(x, y); } ctx.stroke();
@@ -478,7 +478,7 @@
         const fl = A.clamp(R.T, 0.03, 2.5) * 16 * Math.abs(Math.sin(TAU * vis * t));
         const col = R.T < 0.2 ? A.css('good') : R.T < 1 ? A.css('warn') : A.css('bad');
         seg(ctx, cx, fy + 6, cx, fy + 6 + fl + 2, col, 4); A.text(ctx, 'force into floor', cx, h - 6, { size: 10, align: 'center', color: A.css('muted') });
-        const ax = A.axes(ctx, w, h, { pad: { l: split + 46 }, x: { min: 0.2, max: 10, log: true, ticks: [0.2, 0.5, 1, 1.41, 2, 5, 10], fmt: (v) => String(v), label: 'Running frequency ÷ natural frequency' }, y: { min: -40, max: 25, label: 'Transmitted (dB)' } });
+        const ax = A.axes(ctx, w, h, { pad: { l: split + 46 }, x: { min: 0.2, max: 10, log: true, ticks: w > 520 ? [0.2, 0.5, 1, 1.41, 2, 5, 10] : [0.2, 1, 3, 10], fmt: (v) => String(v), label: w > 520 ? 'Running frequency ÷ natural frequency' : 'Speed ÷ natural freq.' }, y: { min: -40, max: 25, label: 'Transmitted (dB)' } });
         const pts = []; for (let e = log10(0.2); e <= 1; e += 0.01) { const r = Math.pow(10, e); pts.push([r, 20 * log10(P.transmissibility(r, R.z))]); }
         ctx.fillStyle = A.alpha(A.css('bad'), 0.1); ctx.fillRect(ax.x0, ax.y1, ax.X(1.414) - ax.x0, ax.y0 - ax.y1);
         seg(ctx, ax.x0, ax.Y(0), ax.x1, ax.Y(0), A.css('muted'), 1, [4, 4]);
@@ -538,7 +538,6 @@
         const mx = Math.max(2.5, Math.ceil(Math.max(...R.e) * 2) / 2);
         const ax = A.axes(ctx, w, h, { x: { min: 100, max: 5000, log: true, ticks: B, fmt: octFmt, label: 'Octave band (Hz)' }, y: { min: 0, max: mx, label: 'Reverberation time (s)' } });
         A.plotFill(ctx, ax, B.map((f, i) => [f, R.e[i]]), A.alpha(A.css('accent2'), 0.12), 0);
-        A.plotFill(ctx, ax, B.map((f, i) => [f, R.f[i]]), A.alpha(A.css('panel') || '#000', 0.6), 0);
         A.plotLine(ctx, ax, B.map((f, i) => [f, R.e[i]]), A.css('accent2'), 2, [6, 4]);
         A.plotLine(ctx, ax, B.map((f, i) => [f, R.f[i]]), A.css('good'), 2, [2, 3]);
         A.plotLine(ctx, ax, B.map((f, i) => [f, R.n[i]]), A.css('accent'), 3);
@@ -566,7 +565,7 @@
      9. Curtains and drapes
      ====================================================================== */
   V.curtainAbsorber = function (host) {
-    const FAB = { sheer: ['Sheer voile (≈ 80 g/m²)', 60], cotton: ['Light cotton (≈ 200 g/m²)', 160], serge: ['Wool serge / medium velour (≈ 500 g/m²)', 480], velour: ['Heavy velour (≈ 700 g/m²)', 850], lined: ['Lined blackout / coated (airtight)', 6000] };
+    const FAB = { sheer: ['Sheer voile (≈ 80 g/m²)', 60, 0.08], cotton: ['Light cotton (≈ 200 g/m²)', 160, 0.2], serge: ['Wool serge / medium velour (≈ 500 g/m²)', 480, 0.5], velour: ['Heavy velour (≈ 700 g/m²)', 850, 0.7], lined: ['Lined blackout / coated (airtight)', 6000, 0.9] };
     const st = A.controls(host, [
       { key: 'fab', label: 'Fabric', type: 'select', value: 'serge', options: Object.entries(FAB).map(([k, v]) => [k, v[0]]) },
       { key: 'full', label: 'Fullness (extra fabric gathered in folds)', type: 'range', min: 0, max: 200, step: 10, value: 100, unit: '%' },
@@ -575,10 +574,16 @@
     const out = stats(host), tip = el('div');
     let R = null;
     function alphaAt(f, r, gapM, depthM) {
-      let s = 0; const n = 14;
+      let s = 0; const n = 14, mass = FAB[st.fab][2];
       for (let i = 0; i < n; i++) {
         const D = gapM + depthM * (i + 0.5) / n + 0.004;
-        let a = 0; for (let j = -2; j <= 2; j++) { const ff = f * Math.pow(2, j / 9), kD = (TAU * ff / P.C) * D, sn = Math.sin(kD), ct = Math.abs(sn) < 1e-4 ? 1e4 : Math.cos(kD) / sn; a += (4 * r) / ((1 + r) * (1 + r) + ct * ct); }
+        let a = 0;
+        for (let j = -2; j <= 2; j++) {
+          const ff = f * Math.pow(2, j / 9), kD = (TAU * ff / P.C) * D, sn = Math.sin(kD), ct = Math.abs(sn) < 1e-4 ? 1e4 : Math.cos(kD) / sn;
+          // a light cloth is dragged along by the air at low frequencies: resistance in parallel with its own mass
+          const x = (TAU * ff * mass) / 413, den = r * r + x * x, re = (r * x * x) / den, im = (r * r * x) / den;
+          a += (4 * re) / ((1 + re) * (1 + re) + (im - ct) * (im - ct));
+        }
         s += a / 5;
       }
       return A.clamp(s / n * 0.95 + 0.02, 0, 1);
@@ -680,9 +685,9 @@
   V.metaAbsorber = function (host) {
     const st = A.controls(host, [
       { key: 'th', label: 'Panel thickness available', type: 'range', min: 30, max: 250, step: 5, value: 100, unit: 'mm' },
-      { key: 'side', label: 'Length of each pass (panel width)', type: 'range', min: 200, max: 1200, step: 20, value: 600, unit: 'mm' },
+      { key: 'side', label: 'Length of each pass (panel width)', type: 'range', min: 200, max: 1200, step: 20, value: 400, unit: 'mm' },
       { key: 'ch', label: 'Channel width', type: 'range', min: 3, max: 40, step: 1, value: 12, unit: 'mm' },
-      { key: 'folds', label: 'Number of passes (folds)', type: 'range', min: 1, max: 14, step: 1, value: 5, fmt: (v) => String(v) },
+      { key: 'folds', label: 'Number of passes (folds)', type: 'range', min: 1, max: 14, step: 1, value: 4, fmt: (v) => String(v) },
     ], () => upd());
     const out = stats(host), tip = el('div');
     let R = null;
@@ -941,8 +946,8 @@
       }
       const tm = Math.min(0.12, 0.0018 * Math.sqrt(g.Vm)), gTail = 0.5 * refl * (0.35 + 0.65 * st.scat) * Math.min(1, 3 / d0 + 0.25);
       for (let n = 1; n < len; n++) { const tt = n / fs; hbuf[n] += (rnd() * 2 - 1) * gTail * Math.min(1, tt / tm) * Math.exp((-6.91 * tt) / g.rt); }
-      const fl = 1 - st.scat;
-      if (fl > 0.4) { const perS = (2 * Math.min(g.Lx, g.Ly)) / P.C; for (let m = 1; m * perS < len / fs; m++) { const n = Math.round(m * perS * fs); if (n < len) hbuf[n] += 0.55 * fl * fl * Math.exp((-6.91 * m * perS) / (g.rt * 1.6)) * (m % 2 ? 1 : -1); } }
+      const fl = Math.pow(Math.max(0, 1 - st.scat / 0.3), 0.75);
+      if (fl > 0) { const perS = (2 * Math.min(g.Lx, g.Ly)) / P.C; for (let m = 1; m * perS < len / fs; m++) { const n = Math.round(m * perS * fs); if (n < len) hbuf[n] += 0.55 * fl * fl * Math.exp((-6.91 * m * perS) / (g.rt * 1.6)) * (m % 2 ? 1 : -1); } }
       return { h: hbuf, g, first: first ? ((first - d0) / P.C) * 1000 : 0 };
     }
     function signal(fs) {
