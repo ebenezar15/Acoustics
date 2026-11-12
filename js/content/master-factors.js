@@ -28,7 +28,7 @@
     <text x="245" y="300" text-anchor="middle" font-size="10" fill="var(--muted)">Treatment is only one of them — and it works best after the others are right.</text>
   </svg>`;
 
-  const SVG_RANGES = `<svg class="gsvg" viewBox="0 0 640 190" role="img" aria-label="Three frequency regions and the treatment for each">
+  const SVG_RANGES = `<svg class="gsvg" viewBox="0 0 640 198" role="img" aria-label="Three frequency regions and the treatment for each">
     <text x="320" y="16" text-anchor="middle" font-size="13" font-weight="700">Sort every problem by frequency first</text>
     <rect x="20" y="34" width="190" height="96" rx="8" fill="color-mix(in srgb, var(--bad) 12%, var(--panel))" stroke="var(--bad)"/>
     <rect x="216" y="34" width="150" height="96" rx="8" fill="color-mix(in srgb, var(--warn) 12%, var(--panel))" stroke="var(--warn)"/>
@@ -47,14 +47,14 @@
       <text x="80" y="40" text-anchor="middle" font-size="11" font-weight="700">${t}</text>
       ${i < 2 ? `<rect x="30" y="54" width="12" height="100" fill="var(--muted)"/><rect x="${42 + g}" y="60" width="26" height="88" fill="var(--c4)" opacity=".85"/>
       <path d="M42 154 C 80 150, 110 120, 150 70" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/><text x="152" y="66" font-size="9" fill="var(--accent)">air speed</text>`
-      : `<path d="M30 54 v100 h110" fill="none" stroke="var(--muted)" stroke-width="12"/><path d="M40 70 L 124 148" stroke="var(--c4)" stroke-width="22" opacity=".85"/><text x="64" y="138" font-size="9" fill="var(--muted)">deep air behind</text>`}
+      : `<path d="M30 54 v100 h110" fill="none" stroke="var(--muted)" stroke-width="12"/><path d="M40 70 L 124 148" stroke="var(--c4)" stroke-width="22" opacity=".85"/><text x="38" y="140" font-size="9" fill="var(--muted)">air</text>`}
       <text x="80" y="180" text-anchor="middle" font-size="10" fill="var(--${c})">${n}</text></g>`; }).join('')}
     <text x="320" y="196" text-anchor="middle" font-size="10" fill="var(--muted)">Air barely moves at the wall, so a panel pushed out into moving air absorbs lower.</text>
   </svg>`;
 
   const SVG_HIDDEN = `<svg class="gsvg" viewBox="0 0 640 220" role="img" aria-label="Hidden treatment behind a stretched fabric wall">
     <text x="320" y="16" text-anchor="middle" font-size="13" font-weight="700">Hidden treatment: a fabric wall with everything behind it (plan section)</text>
-    <rect x="20" y="36" width="600" height="18" fill="var(--muted)"/><text x="320" y="49" text-anchor="middle" font-size="10" fill="var(--panel)">structural / isolation wall — sealed, untouched</text>
+    <rect x="20" y="36" width="600" height="18" fill="var(--muted)"/><text x="320" y="49" text-anchor="middle" font-size="10" fill="#fff">structural / isolation wall — sealed, untouched</text>
     <rect x="20" y="54" width="110" height="96" fill="var(--c4)" opacity=".8"/><text x="75" y="106" text-anchor="middle" font-size="10">corner trap</text>
     <rect x="140" y="54" width="150" height="64" fill="var(--c4)" opacity=".55"/><text x="215" y="90" text-anchor="middle" font-size="10">100 mm wool + gap</text>
     <rect x="300" y="54" width="130" height="40" fill="var(--accent2)" opacity=".7"/><rect x="300" y="94" width="130" height="24" fill="none" stroke="var(--accent2)"/><text x="365" y="78" text-anchor="middle" font-size="10">membrane trap</text>

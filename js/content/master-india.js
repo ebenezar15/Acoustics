@@ -34,16 +34,16 @@
     <text x="350" y="16" text-anchor="middle" font-size="13" font-weight="700">An RCC-frame building: where sound really travels</text>
     <rect x="60" y="34" width="14" height="216" fill="var(--text)"/><rect x="340" y="34" width="14" height="216" fill="var(--text)"/><rect x="620" y="34" width="14" height="216" fill="var(--text)"/>
     <rect x="60" y="34" width="574" height="12" fill="var(--text)"/><rect x="60" y="136" width="574" height="12" fill="var(--text)"/><rect x="60" y="238" width="574" height="12" fill="var(--text)"/>
-    <rect x="74" y="148" width="266" height="90" fill="color-mix(in srgb, var(--accent) 12%, var(--panel))"/><text x="207" y="196" text-anchor="middle" font-size="12" font-weight="700">Your studio</text>
+    <rect x="74" y="148" width="266" height="90" fill="color-mix(in srgb, var(--accent) 12%, var(--panel))"/><text x="170" y="224" text-anchor="middle" font-size="12" font-weight="700">Your studio</text>
     <rect x="354" y="148" width="266" height="90" fill="var(--panel2)"/><text x="487" y="196" text-anchor="middle" font-size="11">Neighbour (same floor)</text>
     <rect x="74" y="46" width="266" height="90" fill="var(--panel2)"/><text x="207" y="94" text-anchor="middle" font-size="11">Neighbour above</text>
     <rect x="354" y="46" width="266" height="90" fill="var(--panel2)"/>
     <rect x="336" y="150" width="22" height="86" fill="#b5533c" opacity=".85"/><text x="347" y="262" text-anchor="middle" font-size="9" fill="var(--muted)">infill wall</text>
-    <rect x="56" y="170" width="22" height="40" fill="var(--c3)" opacity=".6"/><text x="48" y="192" text-anchor="end" font-size="9" fill="var(--c3)">window</text>
-    <path class="leak-pulse" d="M300 190 H336" stroke="var(--good)" stroke-width="3"/><text x="300" y="182" text-anchor="end" font-size="9" fill="var(--good)">① through the wall (usually OK)</text>
+    <rect x="56" y="170" width="22" height="40" fill="var(--c3)" opacity=".6"/><text x="84" y="166" font-size="9" fill="var(--c3)">window</text>
+    <path class="leak-pulse" d="M300 190 H336" stroke="var(--good)" stroke-width="3"/><text x="330" y="182" text-anchor="end" font-size="9" fill="var(--good)">① through the wall (usually OK)</text>
     <path class="leak-pulse" d="M250 236 Q250 252 350 252 T450 236" fill="none" stroke="var(--bad)" stroke-width="3"/><text x="450" y="230" font-size="9" fill="var(--bad)">② along the shared slab</text>
     <path class="leak-pulse" d="M200 150 V120" stroke="var(--bad)" stroke-width="3"/><text x="210" y="128" font-size="9" fill="var(--bad)">③ up through the slab</text>
-    <path class="leak-pulse" d="M80 190 H40 Q20 150 40 100 H74" fill="none" stroke="var(--bad)" stroke-width="3"/><text x="18" y="150" font-size="9" fill="var(--bad)" transform="rotate(-90 18 150)" text-anchor="middle">④ window to window</text>
+    <path class="leak-pulse" d="M80 190 H40 Q20 150 40 100 H74" fill="none" stroke="var(--bad)" stroke-width="3"/><text x="10" y="150" font-size="9" fill="var(--bad)" transform="rotate(-90 10 150)" text-anchor="middle">④ window to window</text>
     <path class="leak-pulse" d="M330 152 Q347 140 364 152" fill="none" stroke="var(--warn)" stroke-width="3"/><text x="372" y="162" font-size="9" fill="var(--warn)">⑤ gap at beam / unsealed top course</text>
     <text x="350" y="276" text-anchor="middle" font-size="10" fill="var(--muted)">Heavy masonry is a gift. The slab, the windows and unsealed junctions decide the result.</text>
   </svg>`;
