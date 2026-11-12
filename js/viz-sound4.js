@@ -107,7 +107,7 @@
   /** downward expander / gate; returns processed signal and gain trace (dB) */
   function expand(x, p) {
     const n = x.length, y = new Float32Array(n), g = new Float32Array(n), lv = new Float32Array(n);
-    const dAtt = Math.exp(-1 / (0.001 * SR)), dRel = Math.exp(-1 / (0.03 * SR)), ca = Math.exp(-1 / (Math.max(0.05, p.att) / 1000 * SR)), cr = Math.exp(-1 / (Math.max(1, p.rel) / 1000 * SR));
+    const dAtt = Math.exp(-1 / (0.001 * SR)), dRel = Math.exp(-1 / (0.01 * SR)), ca = Math.exp(-1 / (Math.max(0.05, p.att) / 1000 * SR)), cr = Math.exp(-1 / (Math.max(1, p.rel) / 1000 * SR));
     let env = 0, gd = p.range;
     for (let i = 0; i < n; i++) {
       const a = Math.abs(x[i]); env = a > env ? a + (env - a) * dAtt : a + (env - a) * dRel;
@@ -355,8 +355,8 @@
     const tip = tipBox(host);
     function update() {
       const list = comps(st.content); list.forEach((c) => (c.z = bark(c.f)));
-      const bw = bwOf(st.rate), off = Math.max(0, 18 * Math.log2(NEED[st.content] / st.rate));
-      list.forEach((c) => { c.state = c.f > bw ? 'cut' : c.L < maskAt(list, c.f, c) + off ? 'mask' : 'keep'; });
+      const bw = bwOf(st.rate), off = Math.max(0, 14 * Math.log2(NEED[st.content] / st.rate));
+      list.forEach((c) => { c.state = c.f > bw ? 'cut' : c.L < maskAt(list, c.f, c) + off * 0.4 ? 'mask' : 'keep'; });
       const curve = []; for (let f = 40; f <= 20000; f *= 1.07) curve.push([f, Math.min(95, maskAt(list, f, null))]);
       const kept = list.filter((c) => c.state === 'keep').length;
       M = { list, bw, off, curve };
@@ -483,7 +483,7 @@
       const sD = bandSpec(dmg, 0, e); let ch = 0, cn = 0; cleanSpec.forEach(([f, v], i) => { if (f > 90 && f < 12000) { ch += Math.abs(sD[i][1] - v); cn++; } }); ch /= cn;
       const nb = dB(rms(noisy, g0, g1)), na = dB(rms(out, g0, g1));
       R = { noisy, out, sNoisy: bandSpec(noisy, 0, e), sOut: bandSpec(out, 0, e) };
-      const lvl = ch < 1 ? 0 : ch < 2.5 ? 1 : 2;
+      const lvl = ch < 1.2 ? 0 : ch < 3 ? 1 : 2;
       stats(A.statBox('Noise in the pauses', fmt(nb, 0) + ' dB', 'before repair')
         + A.statBox('After repair', fmt(na, 0) + ' dB', fmt(Math.max(0, nb - na), 0) + ' dB quieter', nb - na > 6 ? 'good' : '')
         + A.statBox('Change to the music', fmt(ch, 1) + ' dB', 'average shift across the spectrum', ['good', 'warn', 'bad'][lvl])
@@ -658,10 +658,10 @@
     function update() {
       const x = phrase(), r = expand(x, st), env = [], envOut = [], gain = [], step = 256;
       for (let i = 0; i < x.length; i += step) { const tt = i / SR; env.push([tt, Math.max(-80, r.lv[i])]); envOut.push([tt, Math.max(-80, r.lv[i] + r.g[i])]); gain.push([tt, r.g[i]]); }
-      let opens = 0, open = r.g[0] > -3; for (let i = 0; i < x.length; i += 16) { const o = open ? r.g[i] > Math.max(st.range * 0.6, -9) : r.g[i] > -3; if (o && !open) opens++; open = o; }
-      let clipped = 0; for (const [t0] of SYL.slice(0, 5)) { const i0 = Math.round(t0 * SR); let s = 0; for (let i = 0; i < 0.015 * SR; i++) s += r.g[i0 + i]; if (s / (0.015 * SR) < -6) clipped++; }
+      let opens = 0, open = r.g[0] > -3; for (let i = 0; i < x.length; i += 16) { const o = open ? r.g[i] > Math.max(st.range * 0.5, -6) : r.g[i] > -2; if (o && !open) opens++; open = o; }
+      let clipped = 0; for (const [t0] of SYL.slice(0, 5)) { const i0 = Math.round(t0 * SR); let s = 0; const a0 = Math.round(0.006 * SR), n0 = Math.round(0.016 * SR); for (let i = 0; i < n0; i++) s += r.g[i0 + a0 + i]; if (s / n0 < -6) clipped++; }
       const lastOpen = r.g[Math.round((2.55 + 0.1) * SR)] > -6, tailCut = r.g[Math.round((1.82 + 0.55 + 0.1) * SR)] < -12;
-      const g0 = Math.round(1.2 * SR), g1 = Math.round(1.45 * SR), nRed = dB(rms(x, g0, g1)) - dB(rms(r.y, g0, g1));
+      const g0 = Math.round(1.32 * SR), g1 = Math.round(1.48 * SR), nRed = dB(rms(x, g0, g1)) - dB(rms(r.y, g0, g1));
       M = { x, y: r.y, env, envOut, gain };
       const chatter = opens > 9;
       stats(A.statBox('Noise in the pauses', '−' + fmt(Math.max(0, nRed), 0) + ' dB', nRed > 10 ? 'clearly quieter' : 'little change', nRed > 10 ? 'good' : 'warn')
@@ -917,13 +917,13 @@
       const fm = st.fc * st.ratio, map = new Map(), N = Math.ceil(st.index + 7);
       for (let n = -N; n <= N; n++) { let f = st.fc + n * fm, a = bessel(Math.abs(n), st.index) * (n < 0 && n % 2 ? -1 : 1), neg = false; if (f < 0) { f = -f; a = -a; neg = true; } const k = Math.round(f * 2) / 2; const e = map.get(k) || { f: k, a: 0, neg: false }; e.a += a; e.neg = e.neg || neg; map.set(k, e); }
       M.comps = [...map.values()].filter((c) => Math.abs(c.a) > 0.01 && c.f > 0);
-      let harmonic = false; for (let k = 1; k <= 4; k++) if (Math.abs(st.ratio * k - Math.round(st.ratio * k)) < 1e-6) harmonic = true;
+      const whole = (k) => Math.abs(st.ratio * k - Math.round(st.ratio * k)) < 1e-6, harmonic = whole(1), semi = !harmonic && (whole(2) || whole(3) || whole(4));
       stats(A.statBox('Modulator', fmtHz(fm), 'spacing of the sidebands')
         + A.statBox('Audible components', String(M.comps.length), st.index < 0.3 ? 'almost a pure sine' : st.index < 3 ? 'mellow' : 'bright and dense')
         + A.statBox('Rough bandwidth', fmtHz(2 * fm * (st.index + 1)), '2 × modulator × (index + 1)')
-        + A.statBox('Tuning', harmonic ? 'Harmonic' : 'Inharmonic', harmonic ? 'clear pitch' : 'bell- or metal-like', harmonic ? 'good' : 'warn'));
+        + A.statBox('Tuning', harmonic ? 'Harmonic' : semi ? 'Hollow, still pitched' : 'Inharmonic', harmonic ? 'clear pitch' : semi ? 'partials fit a lower note' : 'bell- or metal-like', harmonic ? 'good' : 'warn'));
       const tips = [];
-      tips.push(harmonic ? 'A simple whole-number ratio puts every sideband on a harmonic, so the ear hears one pitched note with a changing tone colour.' : 'A non-whole ratio scatters the sidebands between the harmonics. That clangour is how bells, chimes and metallic percussion are made.');
+      tips.push(harmonic ? 'A simple whole-number ratio puts every sideband on a harmonic, so the ear hears one pitched note with a changing tone colour.' : semi ? 'A simple fraction such as 1.5 or 2.5 puts the sidebands on the harmonics of a lower note, with many of them missing: pitched, but hollow and reedy.' : 'A non-whole ratio scatters the sidebands between the harmonics. That clangour is how bells, chimes and metallic percussion are made.');
       if (st.index > 6) tips.push('High index = many strong sidebands = bright and buzzy. Above about 10 on high notes the top sidebands can fold back as aliasing.');
       if (st.decay) tips.push('Letting the index fall during the note makes it start bright and end mellow — exactly what a struck or plucked instrument does.');
       else tips.push('Tick the box to let the depth die away: a static index sounds like an organ stop; a falling one sounds struck.');

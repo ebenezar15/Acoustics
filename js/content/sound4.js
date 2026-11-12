@@ -575,7 +575,7 @@
         ${SVG_FM}
         <p>In FM, two numbers decide everything:</p>
         <ul>
-          <li><b>Ratio</b> (modulator ÷ carrier frequency). Whole-number ratios (1, 2, 3…) put the new partials on harmonics → a clear pitched tone. Other ratios (1.41, 3.5…) scatter them → bells, gongs, clangs.</li>
+          <li><b>Ratio</b> (modulator ÷ carrier frequency). Whole-number ratios (1, 2, 3…) put the new partials on harmonics → a clear pitched tone. Other ratios (1.41, 2.76…) scatter them → bells, gongs, clangs.</li>
           <li><b>Index</b> (depth of modulation). Zero gives a plain sine. Raising it brings in more and stronger sidebands — it acts as a <i>brightness</i> control. Put an envelope on the index and the sound starts bright and mellows, like a struck string.</li>
         </ul>
         <div class="formula"><span class="lbl">Rough bandwidth</span> ≈ 2 × modulator frequency × (index + 1)</div>`, viz: 'fmLab' },
@@ -637,7 +637,7 @@
           ['Pluck', 'Saw or pulse', 'Low-pass swept quickly down by an envelope', 'Instant attack, 100–300 ms decay, zero sustain', 'Short delay or reverb'],
           ['Brass-like', 'Saw', 'Low-pass opened by an envelope with a 50–100 ms attack', 'Slight attack, high sustain', 'Velocity to brightness; slight detune'],
           ['Strings-like', 'Detuned saws or pulse with moving width', 'Low-pass 2–3 kHz, gentle high-pass', 'Attack 100–300 ms, release 300–600 ms', 'Chorus or ensemble effect'],
-          ['Bell', 'FM, non-whole ratio (e.g. 3.5)', 'None', 'Instant attack, long decay; index decays faster than level', 'Reverb'],
+          ['Bell', 'FM, non-whole ratio (e.g. 1.4 or 3.55)', 'None', 'Instant attack, long decay; index decays faster than level', 'Reverb'],
           ['Kick', 'Sine with fast pitch drop', '—', 'Instant attack, 150–400 ms decay', 'Click layer; tune to the key'],
           ['Snare', 'Triangle ~200 Hz + noise', 'High-pass the noise', 'Tone 80 ms; noise 120–250 ms', 'Short room reverb'],
           ['Hi-hat', 'Noise', 'High-pass 6–9 kHz', '30–60 ms (closed)', 'Vary velocity for groove'],
