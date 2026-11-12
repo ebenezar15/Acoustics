@@ -484,3 +484,6 @@ details[open] > summary { margin-bottom: 8px; }
 .std-card p { margin: 0 0 6px; font-size: .88rem; }
 .std-use { font-size: .82rem; color: var(--muted); }
 table.mode-targets tr[data-i] { cursor: pointer; } table.mode-targets tr.sel td { background: color-mix(in srgb, var(--accent) 10%, var(--panel)); }
+
+select { max-width: 100%; }
+.ctrl { min-width: 0; }

@@ -69,3 +69,11 @@ A set of common acoustics Q&As (pressure vs velocity at walls, λ/4 and λ/2, ro
 ### Acoustic doors, seals, studio windows, resonance & budget isolation (Master Class M9A)
 
 How to plan and build doors, seals and glass between rooms: door anatomy, seal types and leak tests, sound locks, studio-window rules, where resonances occur (mass–air–mass, coincidence, triple-leaf, cavity) and how to move or damp them, and the cheapest upgrades per decibel. Animated SVG diagrams plus four tools in `js/viz-doors.js` (Physics Lab → “Doors, Windows & Resonance”): door builder, studio-window lab, resonance finder and a budget isolation optimiser. Costs and ratings are simplified teaching estimates.
+
+### Design playbook, room-to-room connections and standards (Master Class M29–M31)
+
+- **M29 The Studio Design Playbook** — interactive checklist (home / professional, saved locally), animated order of work, rules-of-thumb sheets, twenty mistakes to avoid, cost method with an indicative cost calculator, and the cheapest effective upgrades.
+- **M30 Connecting Studio and Control Room** — what crosses the wall, pathways that keep the isolation (offset panels, sealed conduits, trenches), near/far/other-building strategies, panels and patchbays, talkback and cue, the interconnection standards (AES48, AES3, AES10, AES67, ISO/IEC 11801 …).
+- **M31 Acoustic Standards Explained** — ISO 3382, 354, 11654, 10140, 16283, 717, 12354, 1996, BS 8233, BS 4142, Approved Document E and more, with a searchable explorer and an animated ISO 717-1 rating fit.
+- New sections in existing lessons: calculating target modes from room dimensions, length-wise vs width-wise layouts, diffusers in small rooms.
+- Tools in `js/viz-playbook.js` (Physics Lab → “Design Playbook Tools”). Costs and ratings are indicative teaching estimates; always check the current edition of any standard.

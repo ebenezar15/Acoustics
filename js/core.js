@@ -253,7 +253,7 @@
       if (!running) return;
       const dt = Math.min(0.05, (now - last) / 1000 || 0.016);
       last = now;
-      if (visible && !api.paused) draw((now - t0) / 1000, dt);
+      if (visible && !api.paused) draw(Math.max(0, (now - t0) / 1000), dt);
       raf = requestAnimationFrame(frame);
     }
     function draw(t = (performance.now() - t0) / 1000, dt = 0) {

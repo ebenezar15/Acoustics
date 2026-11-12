@@ -38,7 +38,7 @@
     <circle class="hot" cx="${fx(37.3)}" cy="50" r="9" fill="none" stroke="var(--bad)" stroke-width="2"/><text x="${fx(37.3)}" y="172" text-anchor="middle" font-size="10" fill="var(--bad)">lowest, alone</text>
     <circle class="hot" cx="${fx(50.4)}" cy="90" r="9" fill="none" stroke="var(--bad)" stroke-width="2"/><text x="${fx(50.4) + 8}" y="186" text-anchor="middle" font-size="10" fill="var(--bad)">seat in its null</text>
     ${[30, 40, 50, 60, 80, 100, 150, 200].map((f) => `<text x="${fx(f)}" y="206" text-anchor="middle" font-size="9" fill="var(--muted)">${f}</text>`).join('')}<text x="630" y="206" text-anchor="end" font-size="9" fill="var(--muted)">Hz</text>
-    <line x1="${fx(175)}" y1="30" x2="${fx(175)}" y2="194" stroke="var(--good)" stroke-dasharray="4 4"/><text x="${fx(175) + 4}" y="40" font-size="9" fill="var(--good)">Schroeder ≈ 175</text>
+    <line x1="${fx(175)}" y1="30" x2="${fx(175)}" y2="194" stroke="var(--good)" stroke-dasharray="4 4"/><text x="${fx(175) + 4}" y="176" font-size="9" fill="var(--good)">Schroeder ≈ 175</text>
   </svg>`;
 
   const layout = (x, title, deep, col) => {
