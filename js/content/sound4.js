@@ -95,10 +95,10 @@
     <rect x="60" y="30" width="580" height="170" fill="var(--panel2)" stroke="var(--line)"/>
     <text x="50" y="42" text-anchor="end" font-size="10" fill="var(--muted)">high</text><text x="50" y="198" text-anchor="end" font-size="10" fill="var(--muted)">low</text><text x="350" y="218" text-anchor="middle" font-size="10" fill="var(--muted)">time →</text>
     <rect x="60" y="30" width="580" height="60" fill="var(--muted)" opacity=".3"/><text x="70" y="46" font-size="10">hiss — everywhere, all the time, strongest to the ear up high</text>
-    <g stroke="var(--warn)" stroke-width="3"><line x1="60" y1="186" x2="640" y2="186"/><line x1="60" y1="174" x2="640" y2="174" opacity=".8"/><line x1="60" y1="162" x2="640" y2="162" opacity=".6"/><line x1="60" y1="150" x2="640" y2="150" opacity=".4"/></g><text x="70" y="144" font-size="10" fill="var(--warn)">hum and buzz — steady horizontal lines at the mains frequency and its multiples</text>
-    <g stroke="var(--bad)" stroke-width="2.5"><line class="leak-pulse" x1="210" y1="30" x2="210" y2="200"/><line class="leak-pulse" x1="388" y1="30" x2="388" y2="200"/><line class="leak-pulse" x1="402" y1="30" x2="402" y2="200"/><line class="leak-pulse" x1="560" y1="30" x2="560" y2="200"/></g><text x="216" y="108" font-size="10" fill="var(--bad)">clicks — vertical lines: every frequency, for an instant</text>
-    <path d="M60 196 q40 -10 80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t20 0" fill="none" stroke="var(--c3)" stroke-width="5" opacity=".7"/><text x="470" y="198" font-size="10" fill="var(--c3)">rumble, wind, thumps</text>
-    <g fill="var(--accent)" opacity=".8"><rect x="100" y="96" width="80" height="6"/><rect x="100" y="112" width="70" height="5"/><rect x="250" y="88" width="110" height="6"/><rect x="250" y="104" width="100" height="5"/><rect x="250" y="120" width="80" height="4"/><rect x="430" y="100" width="100" height="6"/><rect x="430" y="116" width="90" height="5"/></g><text x="100" y="128" font-size="10" fill="var(--accent)">the music you want to keep</text>
+    <g stroke="var(--warn)" stroke-width="3"><line x1="60" y1="186" x2="640" y2="186"/><line x1="60" y1="174" x2="640" y2="174" opacity=".8"/><line x1="60" y1="162" x2="640" y2="162" opacity=".6"/><line x1="60" y1="150" x2="640" y2="150" opacity=".4"/></g><text x="70" y="142" font-size="10" fill="var(--warn)">hum and buzz — steady horizontal lines at the mains frequency and its multiples</text>
+    <g stroke="var(--bad)" stroke-width="2.5"><line class="leak-pulse" x1="210" y1="30" x2="210" y2="200"/><line class="leak-pulse" x1="388" y1="30" x2="388" y2="200"/><line class="leak-pulse" x1="402" y1="30" x2="402" y2="200"/><line class="leak-pulse" x1="606" y1="30" x2="606" y2="200"/></g><text x="216" y="80" font-size="10" fill="var(--bad)">clicks — vertical lines: every frequency, for an instant</text>
+    <path d="M60 196 q40 -10 80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t80 0 t20 0" fill="none" stroke="var(--c3)" stroke-width="5" opacity=".7"/><text x="470" y="214" font-size="10" fill="var(--c3)">↑ rumble, wind, thumps</text>
+    <g fill="var(--accent)" opacity=".8"><rect x="100" y="96" width="80" height="6"/><rect x="100" y="112" width="70" height="5"/><rect x="250" y="88" width="110" height="6"/><rect x="250" y="104" width="100" height="5"/><rect x="250" y="120" width="80" height="4"/><rect x="430" y="100" width="100" height="6"/><rect x="430" y="116" width="90" height="5"/></g><text x="536" y="112" font-size="10" fill="var(--accent)">the music</text>
   </svg>`;
 
   const SVG_COMPAND = `<svg class="gsvg" viewBox="0 0 680 210" role="img" aria-label="Companding: compress before the noisy medium, expand after">
@@ -131,7 +131,7 @@
   const SVG_ORDER = `<svg class="gsvg" viewBox="0 0 680 150" role="img" aria-label="Order of restoration operations">
     <text x="340" y="16" text-anchor="middle" font-size="13" font-weight="700">Repair in this order — each step makes the next one's job easier</text>
     <g font-size="10" text-anchor="middle">
-      ${[['Transfer', 'flat, high-res, untouched copy', 'var(--muted)'], ['Clicks', 'shortest, sharpest faults first', 'var(--bad)'], ['Hum', 'narrow notches or hum removal', 'var(--warn)'], ['Broadband', 'hiss: gentle spectral reduction', 'var(--accent2)'], ['Tone & level', 'EQ, dynamics, loudness last', 'var(--good)']].map(([t, d, c], i) => `<g><rect x="${20 + i * 132}" y="44" width="116" height="64" rx="8" fill="var(--panel2)" stroke="${c}" stroke-width="2"/><text x="${78 + i * 132}" y="70" font-weight="700">${i + 1} · ${t}</text><text x="${78 + i * 132}" y="88" font-size="9" fill="var(--muted)">${d}</text>${i < 4 ? `<path class="lock-wave${i % 2 ? ' d2' : ''}" d="M${136 + i * 132} 76 h16" stroke="var(--text)" stroke-width="2"/>` : ''}</g>`).join('')}
+      ${[['Transfer', 'flat, untouched copy', 'var(--muted)'], ['Clicks', 'sharpest faults first', 'var(--bad)'], ['Hum', 'narrow notches', 'var(--warn)'], ['Hiss', 'gentle reduction', 'var(--accent2)'], ['Tone & level', 'EQ, dynamics last', 'var(--good)']].map(([t, d, c], i) => `<g><rect x="${20 + i * 132}" y="44" width="116" height="64" rx="8" fill="var(--panel2)" stroke="${c}" stroke-width="2"/><text x="${78 + i * 132}" y="70" font-weight="700">${i + 1} · ${t}</text><text x="${78 + i * 132}" y="88" font-size="9" fill="var(--muted)">${d}</text>${i < 4 ? `<path class="lock-wave${i % 2 ? ' d2' : ''}" d="M${136 + i * 132} 76 h16" stroke="var(--text)" stroke-width="2"/>` : ''}</g>`).join('')}
       <text x="340" y="134" fill="var(--muted)">Always work on a copy. Keep the untouched transfer and a note of every setting you used.</text>
     </g>
   </svg>`;
@@ -140,7 +140,7 @@
   window.LESSONS.push({
     id: 'r-formats', n: 'R11', track: 'recording', title: 'Formats and Media: Tape, Vinyl, Optical Disc, Files and Data-Compressed Audio', level: 'Core', mins: 34,
     summary: 'Where the music actually lives once it is recorded — magnetic tape, a vinyl groove, pits on a disc, a PCM file or a data-compressed stream — what each one does to the sound, and how to prepare, deliver and archive for every one of them.',
-    tags: ['tape', 'vinyl', 'RIAA', 'optical disc', 'PCM', 'WAV', 'lossless', 'lossy', 'codec', 'bit rate', 'archive', 'checksum', 'delivery'],
+    tags: ['tape', 'vinyl', 'replay curve', 'optical disc', 'PCM', 'WAV', 'lossless', 'lossy', 'codec', 'bit rate', 'archive', 'checksum', 'delivery'],
     sections: [
       { h: 'Why the medium matters', html: `
         <p>A recording is only as good as the thing it is stored on. Every storage medium is a <b>window</b>: there is a floor of noise at the bottom, a ceiling at the top where it overloads, and a limited range of frequencies it can hold in between. Your job is to fit the music inside the window — and to know what the frame adds.</p>
@@ -432,7 +432,7 @@
     </g>
   </svg>`;
 
-  const SVG_FM = `<svg class="gsvg" viewBox="0 0 680 200" role="img" aria-label="FM: a modulator wobbles the carrier frequency and creates sidebands">
+  const SVG_FM = `<svg class="gsvg" viewBox="0 0 680 212" role="img" aria-label="FM: a modulator wobbles the carrier frequency and creates sidebands">
     <text x="340" y="16" text-anchor="middle" font-size="13" font-weight="700">FM: wobble one oscillator's pitch with another, very fast → new partials appear</text>
     <g font-size="10" text-anchor="middle">
       <circle cx="80" cy="70" r="30" fill="var(--panel2)" stroke="var(--warn)" stroke-width="2"/><text x="80" y="66" font-weight="700">Modulator</text><text x="80" y="80" font-size="9">not heard</text>
@@ -442,7 +442,7 @@
       <path d="M180 150 ${Array.from({ length: 60 }, (_, i) => { const t = i / 60, ph = 2 * Math.PI * 4 * t + 2.2 * Math.sin(2 * Math.PI * 1 * t * 2); return `L${(180 + t * 170).toFixed(1)} ${(150 - Math.sin(ph) * 26).toFixed(1)}`; }).join(' ')}" fill="none" stroke="var(--accent)" stroke-width="2"/>
       <line x1="400" y1="170" x2="660" y2="170" stroke="var(--muted)"/>
       ${[[0, 0.22], [1, 0.58], [2, 0.35], [3, 0.13], [-1, 0.58], [-2, 0.35], [-3, 0.13]].map(([n, a]) => `<line x1="${530 + n * 34}" y1="170" x2="${530 + n * 34}" y2="${170 - a * 150}" stroke="${n === 0 ? 'var(--accent)' : 'var(--accent2)'}" stroke-width="5"/>`).join('')}
-      <text x="530" y="186">carrier</text><text x="598" y="186" fill="var(--muted)">+1, +2, +3 × modulator</text><text x="456" y="186" fill="var(--muted)">−1, −2, −3 ×</text>
+      ${[-3, -2, -1, 0, 1, 2, 3].map((n) => `<text x="${530 + n * 34}" y="186" fill="${n ? 'var(--muted)' : 'var(--accent)'}">${n === 0 ? 'carrier' : (n > 0 ? '+' : '−') + Math.abs(n)}</text>`).join('')}<text x="530" y="204" fill="var(--muted)">steps of one modulator frequency away from the carrier</text>
       <text x="530" y="40" font-size="10">sidebands: spaced by the modulator frequency;</text><text x="530" y="54" font-size="10">more depth → more and stronger sidebands</text>
     </g>
   </svg>`;
@@ -489,14 +489,14 @@
       <text x="${124 + i * 220}" y="178" text-anchor="middle" font-size="11" font-weight="700">${name}</text><text x="${124 + i * 220}" y="194" text-anchor="middle" font-size="9.5" fill="var(--muted)">${note}</text></g>`).join('')}
   </svg>`;
 
-  const SVG_GRAINS = `<svg class="gsvg" viewBox="0 0 680 200" role="img" aria-label="Time stretching by overlapping grains">
+  const SVG_GRAINS = `<svg class="gsvg" viewBox="0 0 680 218" role="img" aria-label="Time stretching by overlapping grains">
     <text x="340" y="16" text-anchor="middle" font-size="13" font-weight="700">Time-stretching with grains: cut into overlapping slices, lay them out again further apart</text>
     <text x="20" y="50" font-size="10" fill="var(--muted)">original</text>
     <path d="M70 62 ${Array.from({ length: 100 }, (_, i) => `L${70 + i * 3} ${62 - Math.sin(i * 0.55) * 14 * (0.5 + 0.5 * Math.sin(i * 0.07))}`).join(' ')}" fill="none" stroke="var(--text)" stroke-width="1.5"/>
     ${Array.from({ length: 6 }, (_, k) => `<path d="M${70 + k * 50} 84 q40 -44 80 0" fill="var(--accent2)" opacity=".28" stroke="var(--accent2)"/>`).join('')}
     <text x="20" y="150" font-size="10" fill="var(--muted)">stretched</text>
-    ${Array.from({ length: 6 }, (_, k) => `<g><path d="M${70 + k * 84} 172 q40 -44 80 0" fill="var(--accent)" opacity=".28" stroke="var(--accent)"/><path class="lock-wave${k % 2 ? ' d2' : ''}" d="M${110 + k * 50} 88 L${110 + k * 84} 128" stroke="var(--muted)" stroke-width="1.5"/></g>`).join('')}
-    <text x="340" y="194" text-anchor="middle" font-size="10" fill="var(--muted)">Each grain keeps its own pitch. Spacing them out makes the sound longer; replaying the result faster then raises pitch without changing length.</text>
+    ${Array.from({ length: 6 }, (_, k) => `<g><path d="M${70 + k * 84} 172 q40 -44 80 0" fill="var(--accent)" opacity=".28" stroke="var(--accent)"/><path d="M${110 + k * 50} 88 L${110 + k * 84} 128" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 3"/></g>`).join('')}
+    <text x="340" y="194" text-anchor="middle" font-size="10" fill="var(--muted)">Each grain keeps its own pitch, so spacing them out makes the sound longer, not lower.</text><text x="340" y="210" text-anchor="middle" font-size="10" fill="var(--muted)">Replaying that result faster then raises the pitch and brings the length back.</text>
   </svg>`;
 
   const SVG_VOC = `<svg class="gsvg" viewBox="0 0 680 220" role="img" aria-label="Vocoder: voice bands control carrier bands">

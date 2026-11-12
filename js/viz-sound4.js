@@ -201,7 +201,7 @@
         const hx = lw + 30, hw = w - hx - 10, bw = hw / 7;
         ctx.strokeStyle = C('line'); ctx.strokeRect(hx + 0.5, 12.5, hw, ph);
         M.h.forEach((v, k) => { const d = clamp(dB(v / Math.max(M.h[0], 1e-9)), -70, 0), bh = (d + 70) / 70 * (ph - 30); ctx.fillStyle = k === 0 ? C('muted') : k % 2 === 0 ? C('warn') : C('c3'); ctx.fillRect(hx + k * bw + bw * 0.2, 12 + ph - 16 - bh, bw * 0.6, bh); A.text(ctx, k === 0 ? 'f' : (k + 1) + 'f', hx + k * bw + bw / 2, 12 + ph - 4, { size: 10, align: 'center', color: C('muted') }); if (k && d > -68) A.text(ctx, Math.round(d) + '', hx + k * bw + bw / 2, 12 + ph - 20 - bh, { size: 9, align: 'center', color: C('muted') }); });
-        A.text(ctx, 'harmonics, dB re. fundamental', hx + hw - 6, 26, { size: 10, align: 'right', color: C('muted') });
+        A.text(ctx, hw > 200 ? 'harmonics, dB re. fundamental' : 'harmonics, dB', hx + hw - 6, 26, { size: 10, align: 'right', color: C('muted') });
         // dynamic-range bar
         const by = ph + 44, bx0 = 12, bx1 = w - 12, X = (d) => bx0 + (clamp(d, -75, 18) + 75) / 93 * (bx1 - bx0);
         ctx.fillStyle = C('panel2'); ctx.fillRect(bx0, by, bx1 - bx0, 28);
@@ -619,20 +619,20 @@
      ====================================================================== */
   V.expanderGate = function (host) {
     const st = A.controls(host, [
-      { key: 'thr', label: 'Threshold', type: 'range', min: -60, max: -10, step: 1, value: -40, unit: 'dB' },
+      { key: 'thr', label: 'Threshold', type: 'range', min: -60, max: -10, step: 1, value: -38, unit: 'dB' },
       { key: 'ratio', label: 'Ratio', type: 'range', min: 1.5, max: 20, step: 0.5, value: 3, fmt: (v) => (v >= 10 ? 'gate (' + v + ':1)' : '1:' + v) },
       { key: 'att', label: 'Attack', type: 'range', min: 0.1, max: 50, step: 0.1, value: 2, unit: 'ms' },
-      { key: 'rel', label: 'Release', type: 'range', min: 10, max: 1000, step: 10, value: 200, unit: 'ms' },
+      { key: 'rel', label: 'Release', type: 'range', min: 10, max: 1000, step: 10, value: 120, unit: 'ms' },
       { key: 'range', label: 'Range (maximum cut)', type: 'range', min: -80, max: -6, step: 2, value: -40, unit: 'dB' },
       { key: 'noise', label: 'Noise floor of the recording', type: 'range', min: -60, max: -30, step: 1, value: -46, unit: 'dB' },
     ], update);
-    const SYL = [[0.15, 0.28, -12], [0.5, 0.22, -16], [0.8, 0.34, -10], [1.5, 0.25, -14], [1.82, 0.55, -17], [2.55, 0.2, -31]];
-    let M = null, tone = null;
+    const SYL = [[0.12, 0.2, -12], [0.52, 0.18, -16], [0.92, 0.28, -10], [1.5, 0.2, -14], [1.9, 0.36, -17], [2.56, 0.2, -31]];
+    let M = null, tone = null, pause = null;
     function phrase() {
       const n = SR * 3;
-      if (!tone) { tone = new Float32Array(n); for (const [t0, d, L] of SYL) { const i0 = Math.round(t0 * SR), a = lin(L); for (let i = 0; i < (d + 0.25) * SR && i0 + i < n; i++) { const tt = i / SR, e = Math.min(1, tt / 0.012) * (tt < d ? 1 : Math.exp(-(tt - d) / (d > 0.5 ? 0.09 : 0.03))); let s = 0; for (let k = 1; k <= 8; k++) s += Math.sin(TAU * 140 * k * tt) * (k === 4 || k === 5 ? 0.9 : 0.4) / Math.sqrt(k); tone[i0 + i] += s * e * a * 0.42; } } }
+      if (!tone) { tone = new Float32Array(n); for (const [t0, d, L] of SYL) { const i0 = Math.round(t0 * SR), a = lin(L); for (let i = 0; i < (d + 0.25) * SR && i0 + i < n; i++) { const tt = i / SR, e = Math.min(1, tt / 0.012) * (tt < d ? 1 : Math.exp(-(tt - d) / (d > 0.3 ? 0.06 : 0.025))); let s = 0; for (let k = 1; k <= 8; k++) s += Math.sin(TAU * 140 * k * tt) * (k === 4 || k === 5 ? 0.9 : 0.4) / Math.sqrt(k); tone[i0 + i] += s * e * a * 0.42; } } pause = new Uint8Array(n); let ev = 0; for (let i = 0; i < n; i++) { ev = Math.max(Math.abs(tone[i]), ev * 0.9995); pause[i] = ev < 0.0015 ? 1 : 0; } }
       const w = whiteArr(), x = new Float32Array(n), nz = lin(st.noise);
-      for (let i = 0; i < n; i++) x[i] = tone[i] + w[i] * nz * (1 + 0.45 * Math.sin(i / SR * 9) * Math.sin(i / SR * 2.3));
+      for (let i = 0; i < n; i++) x[i] = tone[i] + w[i] * nz * (1 + 0.6 * Math.sin(i / SR * 40) * Math.sin(i / SR * 7));
       return x;
     }
     const play = player(host, [['in', 'Before'], ['out', 'After the expander']], (id) => (M ? scaled(id === 'in' ? M.x : M.y, 0.8) : null));
@@ -658,13 +658,13 @@
     function update() {
       const x = phrase(), r = expand(x, st), env = [], envOut = [], gain = [], step = 256;
       for (let i = 0; i < x.length; i += step) { const tt = i / SR; env.push([tt, Math.max(-80, r.lv[i])]); envOut.push([tt, Math.max(-80, r.lv[i] + r.g[i])]); gain.push([tt, r.g[i]]); }
-      let opens = 0, open = false; for (let i = 0; i < x.length; i += 16) { const o = open ? r.lv[i] > st.thr - 3 : r.lv[i] >= st.thr; if (o && !open) opens++; open = o; }
+      let opens = 0, open = false; for (let i = 0; i < x.length; i += 16) { const o = open ? r.lv[i] > st.thr - 1.5 : r.lv[i] >= st.thr; if (o && !open) opens++; open = o; }
       let clipped = 0; for (const [t0] of SYL.slice(0, 5)) { const i0 = Math.round(t0 * SR); let s = 0; const a0 = Math.round(0.006 * SR), n0 = Math.round(0.016 * SR); for (let i = 0; i < n0; i++) s += r.g[i0 + a0 + i]; if (s / n0 < -6) clipped++; }
-      const lastOpen = r.g[Math.round((2.55 + 0.1) * SR)] > -6, tailCut = r.g[Math.round((1.82 + 0.55 + 0.1) * SR)] < -12;
-      const g0 = Math.round(1.32 * SR), g1 = Math.round(1.48 * SR), nRed = dB(rms(x, g0, g1)) - dB(rms(r.y, g0, g1));
+      const lastOpen = r.g[Math.round((2.56 + 0.1) * SR)] > -6, tailCut = r.g[Math.round((1.9 + 0.36 + 0.08) * SR)] < -12;
+      let gs = 0, gn = 0; for (let i = 0; i < x.length; i += 8) if (pause[i]) { gs += r.g[i]; gn++; } const nRed = -gs / Math.max(1, gn);
       M = { x, y: r.y, env, envOut, gain };
-      const chatter = opens > 10;
-      stats(A.statBox('Noise in the pauses', '−' + fmt(Math.max(0, nRed), 0) + ' dB', nRed > 10 ? 'clearly quieter' : 'little change', nRed > 10 ? 'good' : 'warn')
+      const chatter = opens > 7;
+      stats(A.statBox('Noise in the pauses', '−' + fmt(Math.max(0, nRed), 0) + ' dB', nRed > 8 ? 'clearly quieter' : 'little change', nRed > 8 ? 'good' : 'warn')
         + A.statBox('Times it opened', String(opens), chatter ? 'chattering' : 'the phrase has 6 words', chatter ? 'bad' : 'good')
         + A.statBox('Word starts clipped', clipped + ' of 5', clipped ? 'attack too slow' : 'onsets intact', clipped ? 'bad' : 'good')
         + A.statBox('Quiet last word', lastOpen ? 'Kept' : 'Lost', lastOpen ? '' : 'it is below the threshold', lastOpen ? 'good' : 'warn'));
@@ -674,7 +674,7 @@
       if (!lastOpen) tips.push('The quiet final word never crosses the threshold. A gentler ratio and smaller range would turn it down a little instead of removing it.');
       if (tailCut && st.rel < 80) tips.push('A short release chops the natural decay of the long word. Let the release follow the way the sound dies away.');
       if (st.ratio >= 10 && st.range < -50) tips.push('A hard gate to silence makes the noise pump in and out with every word, which draws attention to it. 10–15 dB of range usually sounds more natural.');
-      if (nRed < 4 && !chatter) tips.push('The threshold is below the noise floor, so nothing is being turned down.');
+      if (nRed < 3 && !chatter) tips.push('The threshold is at or below the noise floor, so almost nothing is being turned down.');
       if (!tips.length) tips.push('A good setting: the noise drops between words, every word start is intact and the tails die away naturally.');
       tip(tips, chatter || clipped ? 'warn' : 'mentor'); play.refresh();
     }
@@ -1277,7 +1277,7 @@
         ctx.strokeStyle = C('accent'); ctx.lineWidth = 2.2; ctx.beginPath(); const hold = st.shape === 'crush' ? 1 + Math.floor(st.drive / 6) * 2 : 1; let hv = 0; for (let i = 0; i <= 200; i++) { if (i % hold === 0) hv = Math.sin(TAU * 2 * i / 200); const s = st.shape === 'crush' ? hv * 0.9 : Math.sin(TAU * 2 * i / 200) * g; const v = st.mix * shape(s) + (1 - st.mix) * Math.sin(TAU * 2 * i / 200) * 0.9; const px = wx + ww * i / 200, py = cy - clamp(v, -1.25, 1.25) * sy * 0.9; i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); } ctx.stroke();
         const y1 = ph + 34, y0 = h - 22, bw = (w - 16) / 10; ctx.fillStyle = C('panel2'); ctx.fillRect(8, y1, w - 16, y0 - y1);
         M.h.forEach((v, k) => { const d = clamp(dB(v / Math.max(M.h[0], 1e-9)), -70, 0), bh = (d + 70) / 70 * (y0 - y1 - 14); ctx.fillStyle = k === 0 ? C('muted') : k % 2 ? C('warn') : C('c3'); ctx.fillRect(8 + k * bw + bw * 0.22, y0 - bh, bw * 0.56, bh); A.text(ctx, k === 0 ? 'f' : (k + 1) + 'f', 8 + k * bw + bw / 2, h - 8, { size: 10, align: 'center', color: C('muted') }); if (k && d > -66) A.text(ctx, String(Math.round(d)), 8 + k * bw + bw / 2, y0 - bh - 3, { size: 9, align: 'center', color: C('muted') }); });
-        A.text(ctx, 'harmonics, dB re. fundamental — even ones and odd ones are shaded differently', 12, y1 - 6, { size: 10, color: C('muted') });
+        A.text(ctx, w > 480 ? 'harmonics, dB re. fundamental — even and odd ones are shaded differently' : 'harmonics, dB re. fundamental', 12, y1 - 6, { size: 10, color: C('muted') });
       },
     });
     const tip = tipBox(host);
