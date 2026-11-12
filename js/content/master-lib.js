@@ -34,6 +34,12 @@
     ['Coincidence dip', 'Loss of isolation where the sound wavelength matches a panel’s bending wavelength; reduced by damping and laminated or mismatched layers.'],
     ['Triple-leaf trap', 'Adding a third leaf inside a double wall, creating two small stiff cavities and worse bass isolation than two leaves with one deep cavity.'],
     ['Laminated glass', 'Two glass sheets bonded with a plastic interlayer that damps bending waves, softening the coincidence dip.'],
+    ['Tie-line', 'A permanently installed audio, data or video line between rooms, ending on wall panels or patchbays.'],
+    ['Rw / DnT,w', 'ISO 717-1 single-number airborne ratings: Rw for a building element in the laboratory, DnT,w for the level difference between real rooms (standardised to 0.5 s reverberation).'],
+    ['C and Ctr', 'Spectrum adaptation terms added to Rw or DnT,w for pink-noise-like sources (C) and bass-heavy sources such as traffic or music (Ctr).'],
+    ['L′nT,w', 'ISO 717-2 single-number impact sound level in the field; lower is better.'],
+    ['LAeq / LA90', 'A-weighted equivalent continuous level (the energy average) and the level exceeded for 90 % of the time (the background).'],
+    ['αw', 'ISO 11654 weighted sound absorption coefficient: one number (and class A–E) from an ISO 354 test.'],
     ['ADR', 'Automated dialogue replacement: re-recording actors’ lines to picture in a quiet, controlled room.'],
   );
   LIB.formulas.push(

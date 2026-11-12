@@ -129,6 +129,7 @@
         ['Master Class: isolation & rooms', 'm-iso-basics,m-walls,m-doors-windows,m-door-build,m-floors,m-large-rooms,m-small-rooms', 'Requirements, walls, doors, windows, floors, large and small rooms.'],
         ['Master Class: studio rooms', 'm-control,m-tracking,m-music-booths,m-vo-booths,m-foley,m-treat-designs,m-flowres', 'Control rooms, tracking rooms, booths, Foley/ADR and treatment designs.'],
         ['Master Class: systems & PLANS', 'm-speakers,m-electrical,m-lowvolt,m-hvac,m-daylight,m-plan-bedroom,m-plan-basement,m-plan-detached,m-plan-pro', 'Speakers, wiring, HVAC, daylight and four studio plans.'],
+        ['Master Class: putting it together', 'm-playbook,m-connect,m-standards', 'Design checklist, order of work, costs, tie-lines between rooms, and the standards.'],
       ];
       stages.forEach(([t, ids, d], i) => {
         const list = ids.split(',').map((id) => (window.LESSONS || []).find((l) => l.id === id)).filter(Boolean);
