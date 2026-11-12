@@ -4,10 +4,10 @@
   const { el, html } = A;
 
   const TRACKS = [
-    ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Twenty-five chapters from “what is sound” to concert halls: waves, fundamentals and harmonics, decibels, RT60 and octave bands, flat response, hearing, room modes and how to treat them, absorption, diffusion, isolation, hidden and integrated design, vibration, floating floors, studios, halls and measurement.'],
-    ['audio', 'Audio Engineering & Sound Systems', 'Fifteen courses on the electrical and digital side: signals and levels, transducers, consoles and signal flow, digital audio, networking (Dante, AVB, AES67), DSP, crossovers, amplifiers, hum & grounding, arrays, PA design, installation, tuning with RTA and transfer functions, feedback and production workflows.'],
-    ['recording', 'Recording, Mixing & Mastering', 'Ten practical courses on the craft side: choosing and placing microphones, stereo and surround techniques, miking instruments, running a session, DAW/MIDI/sync, building a mix (balance, panning, EQ, dynamics, space), monitoring, loudness and mastering — with tools you can hear.'],
-    ['master', 'Studio Design Master Class', 'Forty-two practical courses from first principles to finished buildings: myths and the scientific method, matter and energy, how absorbers work, lab testing, isolation (walls, doors, windows, floating floors), large and small rooms, control rooms, tracking rooms, booths, Foley/ADR, treatment designs, flow resistivity, speakers and flush-mounting, electrical and low-voltage wiring, HVAC, day-lighting, four dimensioned studio PLANS, a design playbook with checklist and costs, room-to-room tie-lines, and the ISO/British standards explained.'],
+    ['acoustics', 'Acoustics, Soundproofing & Room Design', 'Chapters from “what is sound” to concert halls: waves, vibration and musical instruments, fundamentals and harmonics, decibels, RT60 and octave bands, flat response, hearing, room modes and how to treat them, absorption, diffusion, isolation, hidden and integrated design, vibration, floating floors, studios, halls, measurement, hearing protection, outdoor and environmental noise, impact sound and computer modelling.'],
+    ['audio', 'Audio Engineering & Sound Systems', 'Twenty-one courses on the electrical and digital side: signals and levels, electronics basics, transducers, consoles and signal flow, digital audio, networking (Dante, AVB, AES67), DSP, crossovers, amplifiers, hum & grounding, arrays, PA design, installation, tuning with RTA and transfer functions, measurement in depth, loudspeaker enclosures, feedback, intelligibility, monitoring, immersive audio and production workflows.'],
+    ['recording', 'Recording, Mixing & Mastering', 'Fourteen practical courses on the craft side: choosing and placing microphones, stereo and surround techniques, miking instruments, running a session, DAW/MIDI/sync, building a mix (balance, panning, EQ, dynamics, space), monitoring, loudness and mastering, formats and media, restoration, synthesis and creative effects — with tools you can hear.'],
+    ['master', 'Studio Design Master Class', 'Forty-three practical courses from first principles to finished buildings: myths and the scientific method, matter and energy, how absorbers work, lab testing, isolation (walls, doors, windows, floating floors), large and small rooms, control rooms, tracking rooms, booths, Foley/ADR, treatment designs, flow resistivity, speakers and flush-mounting, electrical and low-voltage wiring, HVAC, day-lighting, four dimensioned studio PLANS, a design playbook with checklist and costs, room-to-room tie-lines, and the ISO/British standards explained.'],
   ];
   function progress() { return A.store.get('progress', {}); }
   function saveProgress(id, patch) {
@@ -116,11 +116,11 @@
     // prev / next
     const nav = el('div', { class: 'row', style: { justifyContent: 'space-between', marginTop: '20px' } });
     const prev = LESSONS[idx - 1], next = LESSONS[idx + 1];
-    nav.appendChild(prev ? html(`<a class="btn" href="#/academy/${prev.id}">← ${prev.title}</a>`) : el('span'));
+    nav.appendChild(prev ? html(`<a class="btn" style="white-space:normal;max-width:46%" href="#/academy/${prev.id}">← ${prev.title}</a>`) : el('span'));
     const mark = el('button', {}, prog[L.id] && prog[L.id].done ? '✓ Completed' : 'Mark as complete');
     mark.onclick = () => { saveProgress(L.id, { done: true }); mark.textContent = '✓ Completed'; };
     nav.appendChild(mark);
-    nav.appendChild(next ? html(`<a class="btn primary" href="#/academy/${next.id}">${next.title} →</a>`) : html(`<a class="btn primary" href="#/guides">Go design something →</a>`));
+    nav.appendChild(next ? html(`<a class="btn primary" style="white-space:normal;max-width:46%" href="#/academy/${next.id}">${next.title} →</a>`) : html(`<a class="btn primary" href="#/guides">Go design something →</a>`));
     body.appendChild(nav);
   }
 

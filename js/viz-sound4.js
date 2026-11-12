@@ -107,7 +107,7 @@
   /** downward expander / gate; returns processed signal and gain trace (dB) */
   function expand(x, p) {
     const n = x.length, y = new Float32Array(n), g = new Float32Array(n), lv = new Float32Array(n);
-    const dAtt = Math.exp(-1 / (0.001 * SR)), dRel = Math.exp(-1 / (0.01 * SR)), ca = Math.exp(-1 / (Math.max(0.05, p.att) / 1000 * SR)), cr = Math.exp(-1 / (Math.max(1, p.rel) / 1000 * SR));
+    const dAtt = Math.exp(-1 / (0.001 * SR)), dRel = Math.exp(-1 / (0.03 * SR)), ca = Math.exp(-1 / (Math.max(0.05, p.att) / 1000 * SR)), cr = Math.exp(-1 / (Math.max(1, p.rel) / 1000 * SR));
     let env = 0, gd = p.range;
     for (let i = 0; i < n; i++) {
       const a = Math.abs(x[i]); env = a > env ? a + (env - a) * dAtt : a + (env - a) * dRel;
@@ -658,19 +658,19 @@
     function update() {
       const x = phrase(), r = expand(x, st), env = [], envOut = [], gain = [], step = 256;
       for (let i = 0; i < x.length; i += step) { const tt = i / SR; env.push([tt, Math.max(-80, r.lv[i])]); envOut.push([tt, Math.max(-80, r.lv[i] + r.g[i])]); gain.push([tt, r.g[i]]); }
-      let opens = 0, open = r.g[0] > -3; for (let i = 0; i < x.length; i += 16) { const o = open ? r.g[i] > Math.max(st.range * 0.5, -6) : r.g[i] > -2; if (o && !open) opens++; open = o; }
+      let opens = 0, open = false; for (let i = 0; i < x.length; i += 16) { const o = open ? r.lv[i] > st.thr - 3 : r.lv[i] >= st.thr; if (o && !open) opens++; open = o; }
       let clipped = 0; for (const [t0] of SYL.slice(0, 5)) { const i0 = Math.round(t0 * SR); let s = 0; const a0 = Math.round(0.006 * SR), n0 = Math.round(0.016 * SR); for (let i = 0; i < n0; i++) s += r.g[i0 + a0 + i]; if (s / n0 < -6) clipped++; }
       const lastOpen = r.g[Math.round((2.55 + 0.1) * SR)] > -6, tailCut = r.g[Math.round((1.82 + 0.55 + 0.1) * SR)] < -12;
       const g0 = Math.round(1.32 * SR), g1 = Math.round(1.48 * SR), nRed = dB(rms(x, g0, g1)) - dB(rms(r.y, g0, g1));
       M = { x, y: r.y, env, envOut, gain };
-      const chatter = opens > 9;
+      const chatter = opens > 10;
       stats(A.statBox('Noise in the pauses', '−' + fmt(Math.max(0, nRed), 0) + ' dB', nRed > 10 ? 'clearly quieter' : 'little change', nRed > 10 ? 'good' : 'warn')
         + A.statBox('Times it opened', String(opens), chatter ? 'chattering' : 'the phrase has 6 words', chatter ? 'bad' : 'good')
         + A.statBox('Word starts clipped', clipped + ' of 5', clipped ? 'attack too slow' : 'onsets intact', clipped ? 'bad' : 'good')
         + A.statBox('Quiet last word', lastOpen ? 'Kept' : 'Lost', lastOpen ? '' : 'it is below the threshold', lastOpen ? 'good' : 'warn'));
       const tips = [];
       if (chatter) tips.push('The threshold sits inside the noise, so the gate flickers open and shut. Raise the threshold a few dB above the noise or lengthen the release.');
-      if (clipped) tips.push('A slow attack shaves the first consonant off each word. Use 1 ms or less for speech and drums.');
+      if (clipped) tips.push(st.att > 3 ? 'A slow attack shaves the first consonant off each word. Use 1 ms or less for speech and drums.' : 'The threshold is so high that the soft start of each word sits below it and is turned down. Lower the threshold.');
       if (!lastOpen) tips.push('The quiet final word never crosses the threshold. A gentler ratio and smaller range would turn it down a little instead of removing it.');
       if (tailCut && st.rel < 80) tips.push('A short release chops the natural decay of the long word. Let the release follow the way the sound dies away.');
       if (st.ratio >= 10 && st.range < -50) tips.push('A hard gate to silence makes the noise pump in and out with every word, which draws attention to it. 10–15 dB of range usually sounds more natural.');

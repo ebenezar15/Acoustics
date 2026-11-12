@@ -110,3 +110,13 @@ A fourth Academy track and further lessons written from general knowledge of the
 - **Wave physics (5A)**, **Diffuser design in depth (M18E)**, **Workbook of practice problems (21)**.
 - **Acoustics by building type (M33)**, **Building services noise and project workflow (M34)**, **Speech intelligibility, voice alarm and assistive listening (A13A)**, **Stage monitoring, in-ears and intercom (A13B)**.
 - Thirty new tools in `js/viz-recording.js`, `js/viz-mixing.js`, `js/viz-psycho.js`, `js/viz-physics2.js`, `js/viz-buildings.js`, grouped in five new Physics Lab tabs.
+
+### Second batch: everything else on sound and acoustics
+
+Fifteen more lessons and fifty-odd tools, again written from general knowledge of the field (no text taken from any book; no authors named):
+
+- **Acoustics** — vibration and musical instruments (1B), hearing in depth and hearing protection (4D), Doppler, shock waves, ultrasound and underwater sound (5B), outdoor and environmental sound (5C), structure-borne and impact sound (13A), computer modelling and auralisation (18A).
+- **Studio Design Master Class** — special absorbers: audiences and seats, curtains, micro-perforated, metamaterial and active (M18F).
+- **Audio** — electronics for audio people (A1A), loudspeaker drivers and enclosures (A9A), measurement in depth (A12A), surround, immersive and binaural audio (A15).
+- **Recording** — formats and media (R11), noise reduction and restoration (R12), synthesis and electronic instruments (R13), creative processing (R14).
+- Tools live in `js/viz-sound1.js` … `js/viz-sound4.js` and are grouped in thirteen new Physics Lab tabs.

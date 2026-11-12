@@ -790,3 +790,15 @@
     ],
   });
 })();
+
+/* Keep the M18 family in numeric order: M18E and M18F follow M18D. */
+(function () {
+  const L = window.LESSONS; if (!L) return;
+  const after = L.findIndex((l) => l.id === 'm-waveguides'); if (after < 0) return;
+  ['m-diffuser-depth', 'm-special-absorbers'].forEach((id) => {
+    const i = L.findIndex((l) => l.id === id); if (i < 0) return;
+    const item = L.splice(i, 1)[0];
+    const j = L.findIndex((l) => l.id === (id === 'm-diffuser-depth' ? 'm-waveguides' : 'm-diffuser-depth'));
+    L.splice(j + 1, 0, item);
+  });
+})();
