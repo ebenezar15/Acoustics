@@ -77,3 +77,10 @@ How to plan and build doors, seals and glass between rooms: door anatomy, seal t
 - **M31 Acoustic Standards Explained** — ISO 3382, 354, 11654, 10140, 16283, 717, 12354, 1996, BS 8233, BS 4142, Approved Document E and more, with a searchable explorer and an animated ISO 717-1 rating fit.
 - New sections in existing lessons: calculating target modes from room dimensions, length-wise vs width-wise layouts, diffusers in small rooms.
 - Tools in `js/viz-playbook.js` (Physics Lab → “Design Playbook Tools”). Costs and ratings are indicative teaching estimates; always check the current edition of any standard.
+
+### Factors & aesthetics, activated carbon, and studio design in India (Master Class M29A, M18A, M32)
+
+- **M29A What Shapes a Room's Sound** — the factors that affect acoustics and treatment performance, a treatment design method, and finishes that look good without losing absorption (factor board and finish designer tools).
+- **M18A Activated Carbon for Low-Frequency Absorption** — evidence vs marketing, where it helps (inside sealed resonant traps), materials, build and tuning process, with a carbon-trap simulator. Multipliers are indicative.
+- **M32 Studio Design in India** — RCC/masonry buildings, local materials, climate, air-conditioning, power and earthing, codes and noise limits, process, indicative budgets in rupees, with an India wall builder.
+- Tools in `js/viz-factors.js` (Physics Lab → “Factors, Finishes, Carbon & India Walls”).
