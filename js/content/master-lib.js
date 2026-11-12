@@ -28,6 +28,12 @@
     ['Pressure-gradient microphone', 'A microphone (figure-8, ribbon, most directional types) responding to the pressure difference across its diaphragm, i.e. to particle velocity.'],
     ['House curve / target curve', 'The in-room frequency response a system is tuned toward; usually a gentle downward tilt with a small bass rise.'],
     ['Subwoofer crawl', 'Placing the sub at the listening seat and listening at candidate floor positions to find where the bass is smoothest, then swapping.'],
+    ['Drop seal (automatic door bottom)', 'A seal that lowers onto the floor as the door closes, closing the gap under the door without a threshold.'],
+    ['Compression seal', 'A soft bulb or blade seal squeezed between door and stop; needs even compression all round to be airtight.'],
+    ['Mass–air–mass resonance', 'Resonance of two leaves (wall layers, doors, panes) on the air between them; isolation is poor near it. f₀ ≈ 60·√((m₁+m₂)/(m₁·m₂·d)).'],
+    ['Coincidence dip', 'Loss of isolation where the sound wavelength matches a panel’s bending wavelength; reduced by damping and laminated or mismatched layers.'],
+    ['Triple-leaf trap', 'Adding a third leaf inside a double wall, creating two small stiff cavities and worse bass isolation than two leaves with one deep cavity.'],
+    ['Laminated glass', 'Two glass sheets bonded with a plastic interlayer that damps bending waves, softening the coincidence dip.'],
     ['ADR', 'Automated dialogue replacement: re-recording actors’ lines to picture in a quiet, controlled room.'],
   );
   LIB.formulas.push(
