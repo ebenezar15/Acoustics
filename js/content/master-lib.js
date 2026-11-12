@@ -47,6 +47,12 @@
     ['Redirector (angled reflector / deflector)', 'A hard panel set at an angle to steer a reflection away from the listener toward an absorber or diffuser; it only steers wavelengths clearly smaller than itself.'],
     ['Limiting frequency of a reflector', 'The frequency above which a finite panel reflects like a mirror: f ≈ c·a* / (2·(w·cos θ)²), with a* = 2·a₁·a₂/(a₁+a₂) from the source and receiver distances.'],
     ['Reflection-free zone (RFZ)', 'A region around the listener kept free of strong early reflections by angling or absorbing the surfaces that would create them.'],
+    ['Hanger (hanging bass trap)', 'Absorbent-wrapped boards hung freely in a deep cavity behind a fabric wall or ceiling; a deep, broadband low-frequency absorber.'],
+    ['Isolation hanger', 'A spring or rubber element from which a ceiling (or duct, or pipe) is hung so that structure-borne vibration is not passed on.'],
+    ['Acoustic waveguide', 'A channel that carries sound in a controlled way: in a trap, lined guide panels lead sound into depth where it is absorbed; on a loudspeaker, a shaped flare sets how widely the sound spreads.'],
+    ['Cut-off frequency (duct)', 'Below c/(2w) only a plane wave travels along a channel of width w; above it, cross-modes appear.'],
+    ['Constant directivity', 'A loudspeaker whose coverage angle stays the same over a wide frequency range, usually thanks to a waveguide.'],
+    ['Pattern-control frequency', 'The lowest frequency at which a waveguide or horn holds its coverage angle: about 10⁶ / (angle in degrees × mouth width in mm).'],
     ['ADR', 'Automated dialogue replacement: re-recording actors’ lines to picture in a quiet, controlled room.'],
   );
   LIB.formulas.push(
