@@ -90,3 +90,7 @@ How to plan and build doors, seals and glass between rooms: door anatomy, seal t
 - **M20A Building Speaker Stands and the Studio Desk** — stand height, mass, damping and decoupling; five build recipes; the desk bounce and desk design; ergonomics; subwoofer and equipment isolation.
 - **Which mode, which place** — new section in Treating Room Modes, Small-Room Acoustics and Room Treatment Designs: where each mode family has its pressure peaks, best and useless trap positions, worked example.
 - Tools in `js/viz-stands.js` (Physics Lab → “Stands, Desk & Trap Placement”): stand builder, desk-bounce lab, trap placer with before/after modal decay.
+
+### Sound redirectors and absorber calculation (Master Class M18B)
+
+Angled reflector panels (redirectors / deflectors) that steer reflections past the listener: the mirror rule (tilt θ → reflection turns 2θ), the limiting frequency set by panel size, step-by-step design, flat / convex / slatted / wedge-backed hybrids, and how to size porous, membrane, slot, perforated and quarter-wave absorbers for a target frequency. Tools in `js/viz-redirect.js` (Physics Lab → “Redirectors & Absorber Calculator”).

@@ -44,6 +44,9 @@
     ['Sorption', 'Air molecules sticking to (adsorbing) and leaving (desorbing) a surface as pressure rises and falls; the mechanism behind activated carbon’s low-frequency effect.'],
     ['AAC block', 'Autoclaved aerated concrete: a light masonry block (≈ 550–700 kg/m³). Good thermal insulation, modest sound isolation for its thickness.'],
     ['Acoustically transparent fabric', 'Open-weave cloth that lets sound through to the absorber behind; test by blowing through it.'],
+    ['Redirector (angled reflector / deflector)', 'A hard panel set at an angle to steer a reflection away from the listener toward an absorber or diffuser; it only steers wavelengths clearly smaller than itself.'],
+    ['Limiting frequency of a reflector', 'The frequency above which a finite panel reflects like a mirror: f ≈ c·a* / (2·(w·cos θ)²), with a* = 2·a₁·a₂/(a₁+a₂) from the source and receiver distances.'],
+    ['Reflection-free zone (RFZ)', 'A region around the listener kept free of strong early reflections by angling or absorbing the surfaces that would create them.'],
     ['ADR', 'Automated dialogue replacement: re-recording actors’ lines to picture in a quiet, controlled room.'],
   );
   LIB.formulas.push(
