@@ -33,19 +33,19 @@
     ${T(350, 50, 'JUDGEMENT', `${mid} font-size="14" font-weight="700" fill="var(--accent)"`)}
     ${[['Physics', '&amp; maths'], ['Building', '&amp; materials'], ['Measuring', '&amp; instruments'], ['Audio', '&amp; loudspeakers'], ['Drawing', '&amp; writing'], ['Business', '&amp; ethics']].map(([a, b], i) => {
       const x = 62 + i * 100;
-      return `<rect x="${x}" y="66" width="76" height="140" fill="var(--panel2)" stroke="var(--text)" stroke-width="1.5"/><rect class="hot" x="${x}" y="66" width="76" height="140" fill="var(--c${i + 1})" opacity=".35" style="animation-delay:${i * 0.35}s"/>
+      return `<rect x="${x}" y="66" width="76" height="140" fill="var(--panel2)" stroke="var(--text)" stroke-width="1.5"/><rect x="${x}" y="66" width="76" height="140" fill="var(--c${i + 1})" opacity=".3"><animate attributeName="opacity" values=".15;.5;.15" dur="3s" begin="${i * 0.5}s" repeatCount="indefinite"/></rect>
       ${T(x + 38, 128, a, `${mid} font-size="12" font-weight="700"`)}${T(x + 38, 144, b, `${mid} font-size="10.5" fill="var(--muted)"`)}`;
     }).join('')}
     <rect x="40" y="206" width="620" height="14" fill="var(--muted)"/>
     ${T(350, 240, 'Take one pillar away and the roof still comes down — on site, in front of the client.', `${mid} font-size="11" fill="var(--muted)"`)}`);
 
-  const SVG_STAIRS = S('700 240', 'Five stages from listener to independent practice shown as steps', `
+  const SVG_STAIRS = S('700 262', 'Five stages from listener to independent practice shown as steps', `
     ${T(350, 18, 'Five stages, each with proof you can show', `${mid} font-size="13" font-weight="700"`)}
     ${[['Stage 0', 'Listener', 'your own room, measured'], ['Stage 1', 'Foundations', 'sums match measurements'], ['Stage 2', 'Tools', 'a full drawing set'], ['Stage 3', 'Supervised', 'three built projects'], ['Stage 4', 'Independent', 'repeat clients']].map(([a, b, c], i) => {
-      const x = 30 + i * 130, y = 190 - i * 34;
-      return `<rect x="${x}" y="${y}" width="130" height="${222 - y}" fill="var(--panel2)" stroke="var(--text)" stroke-width="1.5"/>${T(x + 65, y + 18, a, `${mid} font-size="10" fill="var(--muted)"`)}${T(x + 65, y + 34, b, `${mid} font-size="12" font-weight="700"`)}${T(x + 65, y - 8, c, `${mid} font-size="9.5" fill="var(--accent)"`)}`;
+      const x = 30 + i * 130, y = 204 - i * 34;
+      return `<rect x="${x}" y="${y}" width="130" height="${252 - y}" fill="var(--panel2)" stroke="var(--text)" stroke-width="1.5"/>${T(x + 65, y + 18, a, `${mid} font-size="10" fill="var(--muted)"`)}${T(x + 65, y + 34, b, `${mid} font-size="12" font-weight="700"`)}${T(x + 65, y - 8, c, `${mid} font-size="9.5" fill="var(--accent)"`)}`;
     }).join('')}
-    <circle r="8" fill="var(--accent)"><animateMotion dur="8s" repeatCount="indefinite" path="M95 180 L95 180 L225 146 L355 112 L485 78 L615 44"/></circle>`);
+    <circle r="8" fill="var(--accent)"><animateMotion dur="8s" repeatCount="indefinite" path="M95 172 L225 138 L355 104 L485 70 L615 40"/></circle>`);
 
   const SVG_KIT = S('700 210', 'A measurement chain: source, room, microphone, interface, software, with a calibrator and a loopback check', `
     ${T(350, 18, 'Trust the chain only after you have checked every link', `${mid} font-size="13" font-weight="700"`)}
@@ -89,11 +89,10 @@
   const SVG_MONEY = S('700 190', 'Order of spending: what cannot be changed later is paid for first', `
     ${T(350, 18, 'Spend first on what you can never change later', `${mid} font-size="13" font-weight="700"`)}
     ${[['1', 'Shell, doors', 'and floor'], ['2', 'Air and', 'quiet plant'], ['3', 'Geometry and', 'bass control'], ['4', 'Wiring and', 'tie-lines'], ['5', 'Finishes', 'and fabric'], ['6', 'Furniture and', 'equipment']].map(([n, a, b], i) => {
-      const x = 16 + i * 114, hh = 120 - i * 14;
+      const x = 16 + i * 114, hh = 98 - i * 11;
       return `<rect x="${x}" y="${150 - hh}" width="100" height="${hh}" rx="6" fill="var(--c${i + 1})" opacity="${0.9 - i * 0.08}"/>${T(x + 50, 172 - hh, n, `${mid} font-size="15" font-weight="700" fill="var(--bg)"`)}${T(x + 50, 166, a, `${mid} font-size="10" font-weight="700"`)}${T(x + 50, 180, b, `${mid} font-size="10" font-weight="700"`)}`;
     }).join('')}
-    ${T(690, 40, 'hard to change', 'text-anchor="end" font-size="9.5" fill="var(--muted)" transform="rotate(0)"')}
-    <path d="M30 26 L670 62" stroke="var(--muted)" stroke-dasharray="4 4" fill="none"/>${T(40, 36, 'impossible to change later', 'font-size="9.5" fill="var(--muted)"')}${T(660, 76, 'easy to upgrade later', 'text-anchor="end" font-size="9.5" fill="var(--muted)"')}`);
+    ${T(20, 40, 'impossible to change later', 'font-size="9.5" fill="var(--muted)"')}${T(680, 40, 'easy to upgrade later', 'text-anchor="end" font-size="9.5" fill="var(--muted)"')}<path class="leak-pulse" d="M170 37 L560 37 m-8 -4 l8 4 l-8 4" stroke="var(--muted)" stroke-width="1.2" fill="none"/>`);
 
   const SVG_TEAM = S('700 240', 'Who does what: consultant at the centre of client, architect, engineers and trades', `
     ${T(350, 18, 'Who does what — and who must talk to whom', `${mid} font-size="13" font-weight="700"`)}

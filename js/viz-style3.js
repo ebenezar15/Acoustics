@@ -111,13 +111,13 @@
         M.months.forEach((m, i) => {
           const y = 28 + i * (rowH + 8), xa = sx(acc), xb = sx(acc + m);
           rr(ctx, xa, y, Math.max(6, xb - xa), rowH, 6, cols[i]);
-          const label = STAGES[i][0] + ' · ' + fmt(m, m < 10 ? 1 : 0) + ' mo';
+          const label = (w < 460 ? 'Stage ' + i : STAGES[i][0]) + ' · ' + fmt(m, m < 10 ? 1 : 0) + ' mo';
           ctx.font = FONT(11, 700); const tw = ctx.measureText(label).width;
           if (xb + tw + 8 < x1) txt(ctx, label, xb + 6, y + 19, { bold: true }); else txt(ctx, label, Math.max(x0, xa - 6), y + 19, { bold: true, align: xa - 6 - tw > x0 ? 'right' : 'left', color: xa - 6 - tw > x0 ? css('text') : css('bg') });
           acc += m;
         });
         const y4 = 28 + 4 * (rowH + 8); ctx.save(); ctx.setLineDash([6, 4]); rr(ctx, sx(acc), y4, x1 - sx(acc), rowH, 6, null, cols[4], 2); ctx.restore();
-        txt(ctx, STAGES[4][0] + ' →', sx(acc) - 6, y4 + 19, { bold: true, align: 'right' });
+        txt(ctx, (w < 460 ? 'Stage 4' : STAGES[4][0]) + ' →', sx(acc) - 6, y4 + 19, { bold: true, align: 'right' });
         line(ctx, x0, 22, x1, 22, css('line'), 1);
         const step = tot > 40 ? 12 : tot > 16 ? 6 : 3;
         for (let m = 0; m <= tot * 1.12; m += step) { line(ctx, sx(m), 18, sx(m), 26, css('muted'), 1); txt(ctx, m ? m + ' mo' : 'start', sx(m), 13, { size: 9.5, color: css('muted'), align: m ? 'center' : 'left' }); }
@@ -215,12 +215,12 @@
       height: 170, caption: 'Each project counts only when all four kinds of evidence exist. A portfolio is proof, not a list of names.',
       draw(ctx, w, h) {
         const done = S.filter((p) => p.every(Boolean)).length, ticks = S.reduce((a, p) => a + p.filter(Boolean).length, 0), frac = ticks / (PROJECTS.length * 4);
-        const cx = Math.min(90, w * 0.24), cy = h / 2, R = 58;
-        ctx.lineWidth = 14; ctx.strokeStyle = css('line'); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.stroke();
+        const nar = w < 460, R = nar ? 38 : 58, cx = nar ? R + 14 : Math.min(90, w * 0.24), cy = h / 2;
+        ctx.lineWidth = nar ? 10 : 14; ctx.strokeStyle = css('line'); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.stroke();
         ctx.strokeStyle = css('accent'); ctx.lineCap = 'round'; ctx.beginPath(); ctx.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + TAU * Math.max(0.001, frac)); ctx.stroke(); ctx.lineCap = 'butt';
-        txt(ctx, Math.round(frac * 100) + '%', cx, cy + 4, { size: 22, bold: true, align: 'center' }); txt(ctx, 'evidence', cx, cy + 20, { size: 10, color: css('muted'), align: 'center' });
-        const gx = cx + R + 28, cw = Math.max(14, Math.min(30, (w - gx - 10) / 10 - 4));
-        txt(ctx, done + ' of 10 projects complete', gx, 22, { bold: true, size: 12 });
+        txt(ctx, Math.round(frac * 100) + '%', cx, cy + 4, { size: nar ? 16 : 22, bold: true, align: 'center' }); txt(ctx, 'evidence', cx, cy + 20, { size: 10, color: css('muted'), align: 'center' });
+        const gx = cx + R + (nar ? 16 : 28), cw = Math.max(8, Math.min(30, (w - gx - 10) / 10 - 4));
+        txt(ctx, done + ' of 10 complete', gx, 22, { bold: true, size: nar ? 11 : 12 });
         S.forEach((p, i) => { p.forEach((v, j) => rr(ctx, gx + i * (cw + 4), 36 + j * 24, cw, 20, 4, v ? css('accent') : css('panel2'), css('line'), 1)); txt(ctx, String(i + 1), gx + i * (cw + 4) + cw / 2, 36 + 4 * 24 + 12, { size: 10, align: 'center', color: css('muted') }); });
       },
     });
@@ -384,14 +384,15 @@
       height: 330, animate: true, caption: 'A stage-by-stage programme. Diamonds are hold points: work must stop for inspection before it is covered up.',
       draw(ctx, w, h, t) {
         t = Math.max(0, t); const M = model(); const lab = w < 480 ? 0 : 210, x0 = 10 + lab, x1 = w - 10, top = 30, rh = (h - top - 14) / 8; let acc = 0; const sx = (wk) => x0 + (wk / M.weeks) * (x1 - x0);
-        const stepW = M.weeks > 40 ? 8 : M.weeks > 20 ? 4 : 2;
+        let stepW = M.weeks > 40 ? 8 : M.weeks > 20 ? 4 : 2; while (((x1 - x0) / M.weeks) * stepW < 42) stepW *= 2;
         for (let wk = 0; wk <= M.weeks; wk += stepW) { line(ctx, sx(wk), top - 6, sx(wk), h - 10, css('line'), 1); txt(ctx, 'wk ' + wk, sx(wk), 14, { size: 9.5, color: css('muted'), align: !wk ? 'left' : sx(wk) > x1 - 16 ? 'right' : 'center' }); }
         const now = ((t * 0.07) % 1) * M.weeks;
         M.dur.forEach((d, i) => {
           const y = top + i * rh, xa = sx(acc), xb = sx(acc + d), active = now >= acc && now < acc + d;
-          rr(ctx, xa, y + 4, Math.max(5, xb - xa), rh - 9, 4, i === 6 ? css('c3') : css('accent'), active ? css('text') : null, 2);
-          if (lab) txt(ctx, PST[i], 10, y + rh / 2 + 4, { size: 11, bold: active }); else { ctx.font = FONT(10); const tw = ctx.measureText(PST[i]).width; txt(ctx, PST[i], xb + tw + 8 < x1 ? xb + 5 : xa - 5, y + rh / 2 + 4, { size: 10, align: xb + tw + 8 < x1 ? 'left' : 'right', bold: active }); }
-          if (i === 6) M.hold.forEach(([f]) => { const hx = xa + (xb - xa) * f, hy = y + rh / 2; ctx.save(); ctx.translate(hx, hy); ctx.rotate(Math.PI / 4); ctx.fillStyle = css('bad'); ctx.strokeStyle = css('bg'); ctx.lineWidth = 1.5; ctx.fillRect(-5, -5, 10, 10); ctx.strokeRect(-5, -5, 10, 10); ctx.restore(); });
+          const by = lab ? y + 4 : y + 14, bh = lab ? rh - 9 : rh - 17;
+          rr(ctx, xa, by, Math.max(5, xb - xa), bh, 4, i === 6 ? css('c3') : css('accent'), active ? css('text') : null, 2);
+          if (lab) txt(ctx, PST[i], 10, y + rh / 2 + 4, { size: 11, bold: active }); else txt(ctx, PST[i], 10, y + 10, { size: 9.5, bold: active, color: active ? css('text') : css('muted') });
+          if (i === 6) M.hold.forEach(([f]) => { const hx = xa + (xb - xa) * f, hy = by + bh / 2; ctx.save(); ctx.translate(hx, hy); ctx.rotate(Math.PI / 4); ctx.fillStyle = css('bad'); ctx.strokeStyle = css('bg'); ctx.lineWidth = 1.5; ctx.fillRect(-5, -5, 10, 10); ctx.strokeRect(-5, -5, 10, 10); ctx.restore(); });
           acc += d;
         });
         line(ctx, sx(now), top - 4, sx(now), h - 10, css('text'), 1.5, [4, 3]);
@@ -617,7 +618,7 @@
     const cv = A.canvas(host, {
       height: 380, caption: 'Suggested order from top to bottom: things you touch at hand height, heavy and hot units low, with a vent space above each hot unit.',
       draw(ctx, w, h) {
-        const M = model(); const maxU = Math.max(12, M.U), uh = Math.min(22, (h - 30) / maxU), rw = Math.min(260, w * 0.55), x = 20, top = 14; const T = css('text');
+        const M = model(); const maxU = Math.max(12, M.U), uh = Math.min(22, (h - 30) / maxU), rw = w < 460 ? w - 40 : Math.min(260, w * 0.55), x = 20, top = 14; const T = css('text');
         rr(ctx, x - 6, top - 6, rw + 12, maxU * uh + 12, 4, css('panel2'), T, 2);
         let u = 0; M.slots.forEach((s) => { const y = top + u * uh; rr(ctx, x, y + 1, rw, s.u * uh - 2, 2, s.vent ? css('bg') : s.hot ? css('c3') : css('accent'), css('line'), 1); if (s.vent) for (let q = 0; q < 10; q++) line(ctx, x + 12 + q * (rw - 24) / 9, y + 4, x + 12 + q * (rw - 24) / 9, y + uh - 4, css('muted'), 1.5); else if (s.u * uh >= 12) txt(ctx, s.n + (s.w ? ' · ' + s.w + ' W' : ''), x + 8, y + (s.u * uh) / 2 + 4, { size: Math.min(11, uh * 0.6 + 3), bold: true, color: css('bg') }); u += s.u; });
         for (let i = u; i < maxU; i++) rr(ctx, x, top + i * uh + 1, rw, uh - 2, 2, null, css('line'), 1);
