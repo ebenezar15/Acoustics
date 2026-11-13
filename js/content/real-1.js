@@ -121,7 +121,7 @@
       <line x1="470" y1="190" x2="450" y2="222" stroke="var(--muted)" stroke-width="3"/><line x1="530" y1="190" x2="550" y2="222" stroke="var(--muted)" stroke-width="3"/>
       ${T(500, 246, 'snare drum')}
       <g data-step="=1">${T(300, 60, 'the drum has a favourite speed: 190 Hz')}</g>
-      <g data-step="2-3"><path d="${wave(160, 150, 250, 14, 3)}" fill="none" stroke="var(--c2)" stroke-width="2.5" class="rl-flow"/></g>
+      <g data-step="=2"><path d="${wave(160, 150, 250, 14, 3)}" fill="none" stroke="var(--c2)" stroke-width="2.5" class="rl-flow"/></g>
       <g data-step="=2">${T(290, 110, 'note E, 165 Hz: wrong rhythm', 'fill="var(--c2)"')}${T(500, 120, 'still')}</g>
       <g data-step="3-5"><path d="${wave(160, 150, 250, 14, 4)}" fill="none" stroke="var(--accent)" stroke-width="2.5" class="rl-flow"/></g>
       <g data-step="3-4"><g class="rl-shake"><ellipse cx="500" cy="150" rx="70" ry="12" fill="none" stroke="var(--accent)" stroke-width="3"/></g>${rings(500, 150, 'var(--accent)', 2, 40)}</g>
@@ -169,14 +169,14 @@
       <g data-step="=2"><text x="551" y="70" text-anchor="middle" font-size="20" font-weight="700">83 dB</text></g>
       <g data-step="=3"><text x="551" y="70" text-anchor="middle" font-size="20" font-weight="700">90 dB</text></g>
       <g data-step="=4"><text x="551" y="70" text-anchor="middle" font-size="20" font-weight="700">77 dB</text></g>
-      <g data-step="1-3"><rect x="300" y="172" width="54" height="40" rx="5" fill="var(--c1)"/>${rings(327, 190, 'var(--c1)', 2, 30)}</g>
+      <g data-step="1-3"><rect x="298" y="172" width="54" height="40" rx="5" fill="var(--c1)"/>${rings(327, 190, 'var(--c1)', 2, 30)}</g>
       <g data-step="2-3"><rect x="236" y="172" width="54" height="40" rx="5" fill="var(--c1)"/></g>
-      <g data-step="=3">${Array.from({ length: 8 }, (_, i) => `<rect x="${236 + (i % 4) * 30 - 60}" y="${128 - Math.floor(i / 4) * 44}" width="54" height="40" rx="5" fill="var(--c1)" opacity=".8"/>`).join('')}</g>
+      <g data-step="=3">${Array.from({ length: 8 }, (_, i) => `<rect x="${112 + (i % 4) * 62}" y="${128 - Math.floor(i / 4) * 44}" width="54" height="40" rx="5" fill="var(--c1)"/>`).join('')}</g>
       <g data-step="=4"><rect x="60" y="172" width="54" height="40" rx="5" fill="var(--c1)"/><rect x="124" y="172" width="54" height="40" rx="5" fill="var(--c1)"/>${rings(120, 190, 'var(--c1)', 2, 30)}
         <path d="M190 190 H530" stroke="var(--c1)" stroke-width="2.5" fill="none" class="rl-flow"/>${T(350, 176, '10 m')}</g>
       <g data-step="=1">${T(330, 150, 'one set, 5 m away')}</g>
       <g data-step="=2">${T(300, 150, 'two sets: +3 dB, not +80')}</g>
-      <g data-step="=3">${T(300, 30, 'ten sets: +10 dB = “twice as loud”')}</g>
+      <g data-step="=3">${T(232, 66, 'ten sets: +10 dB = “twice as loud”')}</g>
       <g data-step="=4">${T(330, 120, 'double the distance: −6 dB')}</g>
     </svg>`,
     steps: [
@@ -216,14 +216,14 @@
       <text x="8" y="24" font-size="12">↑ level needed</text>
       <g data-step="=1">${T(330, 52, 'how strong must a tone be to sound equally loud?')}</g>
       <g data-step="2"><path d="M70 60 C150 150 250 196 330 198 S 460 206 500 190 S 570 150 595 130" fill="none" stroke="var(--c2)" stroke-width="3"/>
-        <text x="80" y="50" font-size="13" fill="var(--c2)">quiet listening</text></g>
+        <text x="360" y="186" font-size="13" fill="var(--c2)">quiet listening</text></g>
       <g data-step="3"><path d="M70 62 V178" stroke="var(--c2)" stroke-width="2" class="rl-flow"/><circle cx="330" cy="198" r="6" fill="var(--c2)" class="rl-pulse"/></g>
-      <g data-step="=3">${T(190, 120, 'bass needs ~40 dB more')}</g>
+      <g data-step="=3">${T(250, 100, 'bass needs ~40 dB more')}</g>
       <g data-step="4"><path d="M70 40 C150 80 250 104 330 106 S 460 112 500 100 S 570 74 595 62" fill="none" stroke="var(--accent)" stroke-width="3"/>
         <text x="470" y="60" font-size="13" fill="var(--accent)">loud listening</text></g>
-      <g data-step="=4">${T(250, 150, 'played loud, the curve is flatter')}</g>
+      <g data-step="=4">${T(300, 84, 'played loud, the curve is flatter')}</g>
       <g data-step="5"><line x1="60" y1="150" x2="600" y2="150" stroke="var(--good)" stroke-width="2" stroke-dasharray="6 6"/>
-        ${T(330, 142, 'pick one moderate level and always mix there', 'fill="var(--good)"')}</g>
+        ${T(330, 166, 'pick one moderate level, always mix there', 'fill="var(--good)"')}</g>
     </svg>`,
     steps: [
       ['The question', 'How strong must a tone be, at each pitch, to sound as loud as a mid-range tone?'],
@@ -264,11 +264,11 @@
       <g data-step="1"><path d="M150 196 H482" stroke="var(--accent)" stroke-width="3" fill="none" class="rl-flow"/></g>
       <g data-step="=1">${T(316, 186, 'direct sound: 1.20 m', 'fill="var(--accent)"')}</g>
       <g data-step="2-4"><path d="M150 190 L316 46 L484 188" stroke="var(--c3)" stroke-width="3" fill="none" class="rl-flow"/></g>
-      <g data-step="=2">${T(316, 78, 'bounce: 1.92 m, 2.1 ms late', 'fill="var(--c3)"')}</g>
-      <g data-step="=3">${T(316, 78, 'too early to be an echo')}<circle cx="500" cy="196" r="26" fill="none" stroke="var(--c3)" stroke-width="2.5" class="rl-pulse"/></g>
+      <g data-step="=2">${T(316, 140, 'bounce: 1.92 m, 2.1 ms late', 'fill="var(--c3)"')}</g>
+      <g data-step="=3">${T(316, 140, 'too early to be an echo')}<circle cx="500" cy="196" r="26" fill="none" stroke="var(--c3)" stroke-width="2.5" class="rl-pulse"/></g>
       <g data-step="=4"><path d="M500 150 H440" stroke="var(--bad)" stroke-width="3" marker-end="none"/><path d="M440 150 l12 -7 v14 z" fill="var(--bad)"/>${T(420, 136, 'image pulled towards the wall', 'fill="var(--bad)"')}</g>
       <g data-step="5"><rect x="266" y="46" width="100" height="18" rx="3" fill="var(--good)"/><path d="M150 190 L310 66" stroke="var(--c3)" stroke-width="3" fill="none" class="rl-flow"/>
-        ${T(316, 90, 'absorber at the mirror point', 'fill="var(--good)"')}</g>
+        ${T(480, 84, 'absorber at the mirror point', 'fill="var(--good)"')}</g>
     </svg>`,
     steps: [
       ['The direct sound', 'The shortest path arrives first. The brain uses it to decide where the sound is.'],
@@ -449,8 +449,8 @@
       <g data-step="1-4">${rings(74, 145, 'var(--accent)', 3, 30)}</g>
       <g data-step="=1">${T(330, 60, 'sound spreads over an ever larger sphere')}</g>
       <g data-step="2"><text x="190" y="130" text-anchor="middle" font-size="15" font-weight="700">94</text></g>
-      <g data-step="3"><text x="320" y="130" text-anchor="middle" font-size="15" font-weight="700">88</text><text x="450" y="130" text-anchor="middle" font-size="15" font-weight="700">82</text>
-        <path d="M205 100 Q255 76 305 100" fill="none" stroke="var(--accent)" stroke-width="2"/>${T(255, 74, '−6 dB', 'fill="var(--accent)"')}
+      <g data-step="3"><text x="320" y="130" text-anchor="middle" font-size="15" font-weight="700">88</text><text x="450" y="130" text-anchor="middle" font-size="15" font-weight="700">82</text></g>
+      <g data-step="3-4"><path d="M205 100 Q255 76 305 100" fill="none" stroke="var(--accent)" stroke-width="2"/>${T(255, 74, '−6 dB', 'fill="var(--accent)"')}
         <path d="M335 100 Q385 76 435 100" fill="none" stroke="var(--accent)" stroke-width="2"/>${T(385, 74, '−6 dB', 'fill="var(--accent)"')}</g>
       <g data-step="4"><text x="580" y="130" text-anchor="middle" font-size="15" font-weight="700" fill="var(--bad)">76</text></g>
       <g data-step="=4">${T(385, 40, 'front too loud, back too quiet: 18 dB apart')}</g>
@@ -459,7 +459,7 @@
     </svg>`,
     steps: [
       ['Sound spreads out', 'The same energy has to cover a bigger and bigger surface as it travels away.'],
-      ['Close is loud', 'At 2 m the front row gets 94 dB, as loud as a passing lorry.'],
+      ['Close is loud', 'At 2 m the front row gets 94 dB, about as loud as a power drill at arm’s length.'],
       ['Each doubling costs 6 dB', 'Twice the distance means four times the area, so a quarter of the energy per square metre.'],
       ['The far rows lose out', 'Four doublings later the back row has 24 dB less than at 1 m. No volume setting suits both ends.'],
       ['Shorten the distance', 'A second speaker near the back, delayed to match the first, gives far listeners a nearby source.'],
@@ -498,10 +498,10 @@
       <g data-step="=1">${T(330, 80, 'a shout travels down through the air', 'fill="var(--accent)"')}</g>
       <g data-step="=2"><circle cx="300" cy="150" r="14" fill="none" stroke="var(--text)" stroke-width="3" class="rl-pulse"/>${T(330, 190, 'the surface barely moves')}</g>
       <g data-step="3"><path d="M300 148 L480 40" stroke="var(--accent)" stroke-width="4" fill="none" class="rl-flow"/></g>
-      <g data-step="=3">${T(480, 80, '99.9 % bounces back', 'fill="var(--accent)"')}</g>
+      <g data-step="=3">${T(530, 104, '99.9 % bounces back', 'fill="var(--accent)"')}</g>
       <g data-step="4"><path d="M300 152 L340 250" stroke="var(--good)" stroke-width="1.5" fill="none" class="rl-flow slow"/></g>
       <g data-step="=4">${T(250, 208, '0.1 % gets in: −30 dB', 'fill="var(--good)"')}</g>
-      <g data-step="=5">${T(330, 110, 'a heavy wall does the same to sound in a room')}<rect x="296" y="20" width="10" height="128" fill="var(--muted)"/></g>
+      <g data-step="=5">${T(476, 136, 'a heavy wall does the same in a room')}<rect x="296" y="20" width="10" height="128" fill="var(--muted)"/></g>
     </svg>`,
     steps: [
       ['Sound arrives in air', 'The wave is a small push carried by a very light material.'],
@@ -591,7 +591,7 @@
       <g data-step="=3">${T(390, 100, 'over the top: 0.93 m further', 'fill="var(--accent)"')}</g>
       <g data-step="4"><path d="M164 82 L548 164 L548 220 L164 220 Z" fill="var(--good)" opacity=".14"/></g>
       <g data-step="=4">${T(360, 200, 'shadow zone: mid-range down 18 dB', 'fill="var(--good)"')}</g>
-      <g data-step="=5">${T(380, 110, 'low rumble bends more easily: only 12 dB')}<path d="M157 80 Q360 96 556 165" stroke="var(--c3)" stroke-width="6" fill="none" opacity=".6" class="rl-flow slow"/></g>
+      <g data-step="=5">${T(400, 40, 'low rumble bends more easily: only 12 dB')}<path d="M157 80 Q360 96 556 165" stroke="var(--c3)" stroke-width="6" fill="none" opacity=".6" class="rl-flow slow"/></g>
     </svg>`,
     steps: [
       ['No barrier', 'Sound travels straight from the generator to the window, losing level only through distance.'],
@@ -615,7 +615,7 @@
       'Peek over the top until you can just see the phone: the level jumps the moment the line of sight opens.',
       'Sketch your own noise problem in section, measure the three sides of the triangle, and work out the extra path.',
     ],
-    slip: ['Building a low wall halfway between source and listener, or one with gaps at the bottom.', 'Go high, go close to the source, and seal every gap. A 5 cm slot under a barrier can halve its benefit.'],
+    slip: ['Building a low wall halfway between source and listener, or one with gaps at the bottom.', 'Go high, go close to the source, and seal every gap. A gap under a barrier lets sound straight through and can undo much of its benefit.'],
   });
 
   REAL('interference', {
