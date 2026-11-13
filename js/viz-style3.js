@@ -665,7 +665,7 @@
         const lx = 0.14; // signal: along the left wall
         R.an.push([P.plate, [lx, 2.2], [0.95, 2.2], P.rackL], [P.rackL, [0.95, 2.2], [2, 2.2], P.desk], [[2, 2.2], [3.05, 2.2], P.rackR]);
         R.dg.push(st.closet === 'rear' ? [cl, [3.2, 4.6], [0.3, 4.6], [0.3, 2.35], [1.8, 2.35], [1.8, 1.6]] : [cl, [3.6, 2.9], [3.6, 2.35], [1.8, 2.35], [1.8, 1.6]]);
-        R.sp.push([P.desk, [2, 1.05], [1.15, 1.05], P.spL], [[2, 1.05], [2.85, 1.05], P.spR]);
+        R.sp.push([P.desk, [2, 0.75], P.spL], [[2, 0.75], P.spR]);
       } else {
         R.pw.push([P.db, P.rackR], [P.db, P.spR], [P.db, P.spL], [P.db, P.desk], [P.db, P.rackL], [P.db, cl]);
         R.an.push([P.plate, P.rackL], [P.rackL, P.desk], [P.desk, P.rackR], [P.plate, P.rackR]);

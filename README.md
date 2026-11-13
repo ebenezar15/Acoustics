@@ -120,3 +120,13 @@ Fifteen more lessons and fifty-odd tools, again written from general knowledge o
 - **Audio** — electronics for audio people (A1A), loudspeaker drivers and enclosures (A9A), measurement in depth (A12A), surround, immersive and binaural audio (A15).
 - **Recording** — formats and media (R11), noise reduction and restoration (R12), synthesis and electronic instruments (R13), creative processing (R14).
 - Tools live in `js/viz-sound1.js` … `js/viz-sound4.js` and are grouped in thirteen new Physics Lab tabs.
+
+### Design language, fabric finishes and the consultant's path
+
+Seven Master Class courses written after studying how a contemporary design-and-build studio practice works (no practice, project, person or brand is named):
+
+- **M35 Reading Great Studios** — six room archetypes, what is visible and what is hidden, and where absorbers, diffusers, bass traps and clouds go.
+- **M36 Designing an immersive mix room** and a living-room cinema.
+- **M37 Choosing acoustic fabric, especially in India** and **M38 Installing fabric for a neat finish**.
+- **M39 Study guide: becoming an acoustic consultant**, **M40 The consultant's process**, **M41 Studio furniture and workflow**.
+- Tools live in `js/viz-style1.js` … `js/viz-style3.js`, grouped in six new Physics Lab tabs.
