@@ -19,7 +19,7 @@
       <rect x="60" y="40" width="520" height="190" fill="var(--panel)" stroke="var(--text)" stroke-width="3"/>
       <rect x="96" y="82" width="22" height="26" fill="var(--text)"/><rect x="96" y="162" width="22" height="26" fill="var(--text)"/>
       ${head(270, 135)}
-      ${T(107, 60, 'speakers', { z: 12 })}${T(270, 164, 'you', { z: 12 })}
+      ${T(107, 140, 'speakers', { z: 12 })}${T(270, 164, 'you', { z: 12 })}
       <g data-step="1-3"><rect x="64" y="44" width="512" height="182" fill="var(--bad)" opacity=".16" class="rl-pulse"/></g>
       <g data-step="=1">${T(440, 100, '54 Hz boom fills the room', { c: 'bad' })}${T(440, 180, 'echo between bare walls', { c: 'warn' })}</g>
       <g data-step="1-2"><path d="M118 95 L190 44 L262 128" fill="none" stroke="var(--warn)" stroke-width="2.5" class="rl-flow"/>
@@ -138,9 +138,9 @@
         <path d="M92 160 L196 55 L560 128" stroke="var(--good)" stroke-width="2.5" fill="none" class="rl-flow"/></g>
       <g data-step="=3">${T(300, 62, 'panel tilted 10°', { c: 'c3', a: 'start' })}${T(420, 150, 'reflection turns 20°', { c: 'good' })}</g>
       <g data-step="4"><circle cx="578" cy="132" r="14" fill="none" stroke="var(--c4)" stroke-width="2.5" class="rl-grow"/></g>
-      <g data-step="=4">${T(470, 100, 'passes behind you', { c: 'good' })}${T(470, 120, 'and dies in the absorber', { z: 12 })}</g>
+      <g data-step="=4">${T(480, 176, 'passes behind you', { c: 'good' })}${T(480, 196, 'and dies in the absorber', { z: 12 })}</g>
       <g data-step="=5"><path d="M92 150 Q170 20 300 60 Q380 90 350 185" stroke="var(--warn)" stroke-width="2" fill="none" stroke-dasharray="3 5" class="rl-pulse"/>
-        ${T(430, 110, 'bass is too long to steer:', { c: 'warn' })}${T(430, 130, 'it wraps round the panel', { z: 12 })}</g>
+        ${T(480, 176, 'bass is too long to steer:', { c: 'warn' })}${T(480, 196, 'it wraps round the panel', { z: 12 })}</g>
     </svg>`,
     steps: [
       ['The problem reflection', 'Sound leaves the speaker, hits the flat side wall and arrives at your ear a few milliseconds after the direct sound.'],
@@ -175,10 +175,10 @@
     story: `<p>Farah’s room had a long, slow rumble under every mix. The lowest length mode sat at 31 Hz and everything below 100 Hz took too long to die away. Thin panels on the rear wall had made no difference.</p>
       <p>The room was long enough to give up 0.9 m at the back. Her builder framed a fabric wall, put a 100 mm absorber layer behind the fabric, and hung two rows of wool-wrapped boards in the space, angled and not touching each other. Measured decay below 100 Hz dropped to roughly half.</p>`,
     numbers: [['Lowest length mode', '343 ÷ (2 × 5.5) ≈ 31 Hz'], ['Cavity depth given up', '0.9 m (0.6 m is the least worth building)'], ['Boards', 'two rows, about 150 mm apart'], ['Bass decay below 100 Hz', 'roughly halved (measured)']],
-    svg: `<svg viewBox="0 0 640 270" aria-label="Plan view of a rear-wall cavity with hanging boards absorbing bass">
+    svg: `<svg viewBox="0 0 640 284" aria-label="Plan view of a rear-wall cavity with hanging boards absorbing bass">
       <rect x="590" y="30" width="14" height="210" fill="var(--text)"/><line x1="40" y1="30" x2="604" y2="30" stroke="var(--text)" stroke-width="3"/><line x1="40" y1="240" x2="604" y2="240" stroke="var(--text)" stroke-width="3"/>
       ${head(120, 135)}${T(120, 166, 'mix seat', { z: 12 })}
-      <path d="M360 34 V236" stroke="var(--c5)" stroke-width="3" stroke-dasharray="3 5"/>${T(350, 258, 'fabric', { z: 12 })}
+      <path d="M360 34 V236" stroke="var(--c5)" stroke-width="3" stroke-dasharray="3 5"/>${T(354, 258, 'fabric', { z: 12, a: 'end' })}
       <path d="M150 105 H350 M150 135 H350 M150 165 H350" stroke="var(--accent)" stroke-width="3" fill="none" class="rl-flow"/>
       <g data-step="1-1"><rect x="364" y="34" width="224" height="202" fill="var(--bad)" opacity=".2" class="rl-pulse"/></g>
       <g data-step="=1">${T(474, 130, 'bass piles up at the wall', { c: 'bad' })}</g>
@@ -189,8 +189,8 @@
       <g data-step="=3">${T(210, 70, 'wool-wrapped boards', { c: 'c1' })}${T(210, 90, 'hung free, not touching', { z: 12 })}</g>
       <g data-step="4"><path d="M350 120 H190 M350 150 H190" stroke="var(--good)" stroke-width="1.5" fill="none" class="rl-flow rev slow"/></g>
       <g data-step="=4">${T(230, 205, 'only a weak echo returns', { c: 'good' })}</g>
-      <g data-step="=5"><path d="M364 222 H588" stroke="var(--muted)" stroke-width="1.5"/><path d="M364 216 v12 M588 216 v12" stroke="var(--muted)" stroke-width="1.5"/>
-        ${T(230, 205, 'depth decides how low it works', {})}${T(476, 214, '0.9 m', { z: 12, w: 1 })}</g>
+      <g data-step="=5"><path d="M364 254 H588" stroke="var(--muted)" stroke-width="1.5"/><path d="M364 248 v12 M588 248 v12" stroke="var(--muted)" stroke-width="1.5"/>
+        ${T(230, 205, 'depth decides how low it works', {})}${T(476, 274, '0.9 m', { z: 12, w: 1 })}</g>
     </svg>`,
     steps: [
       ['Bass gathers at the rear wall', 'Room modes put their highest pressure at the walls. That is why the rumble is worst at the back.'],
@@ -225,7 +225,7 @@
     story: `<p>Arjun compared two pairs of monitors. Both were flat when measured straight in front. In his room one pair sounded sharp and the phantom centre wandered; the other was calm and clear.</p>
       <p>The sharp pair had a bare dome tweeter that threw 2–4 kHz almost sideways, straight onto the side wall. The calm pair had a 200 mm waveguide that kept the tweeter to about 90 degrees, matching the woofer where they cross over. The wall reflection became a quieter copy of the direct sound instead of a bright splash.</p>`,
     numbers: [['Waveguide mouth', '200 mm'], ['Coverage', '90°'], ['Holds that pattern down to about', '25 400 000 ÷ (90 × 200) ≈ 1400 Hz'], ['165 mm woofer starts to narrow near', '343 ÷ 0.165 ≈ 2100 Hz'], ['Crossover', '1800 Hz: inside both ranges']],
-    svg: `<svg viewBox="0 0 640 270" aria-label="Plan view of a monitor near a side wall with and without a tweeter waveguide">
+    svg: `<svg viewBox="0 0 640 296" aria-label="Plan view of a monitor near a side wall with and without a tweeter waveguide">
       <line x1="40" y1="34" x2="600" y2="34" stroke="var(--text)" stroke-width="4"/>${T(520, 26, 'bare side wall', { z: 12 })}
       <rect x="70" y="150" width="34" height="44" fill="var(--text)"/>${T(87, 214, 'monitor', { z: 12 })}
       ${head(520, 172)}${T(520, 204, 'you', { z: 12 })}
@@ -240,7 +240,7 @@
       <g data-step="4"><path d="M126 172 L236 62" stroke="var(--c1)" stroke-width="2" stroke-dasharray="5 4"/><path d="M126 172 L236 282" stroke="var(--c1)" stroke-width="2" stroke-dasharray="5 4"/></g>
       <g data-step="=4">${T(390, 80, 'woofer is also about 90° here', { c: 'c1' })}${T(390, 100, 'so the two match at 1800 Hz', { z: 12 })}</g>
       <g data-step="5"><path d="M126 164 L300 36 L505 162" stroke="var(--good)" stroke-width="1.6" fill="none" class="rl-flow slow"/></g>
-      <g data-step="=5">${T(400, 80, 'wall bounce: quieter,', { c: 'good' })}${T(400, 100, 'same tone as the direct sound', { z: 12 })}</g>
+      <g data-step="=5">${T(460, 240, 'wall bounce: quieter,', { c: 'good' })}${T(460, 260, 'same tone as the direct sound', { z: 12 })}</g>
     </svg>`,
     steps: [
       ['Direct sound is only half the story', 'On-axis both monitors are flat. But you also hear everything they throw at the walls.'],
@@ -328,17 +328,17 @@
       <rect x="40" y="186" width="110" height="34" fill="var(--panel2)" stroke="var(--text)" stroke-width="2"/>${T(95, 208, 'stage', { z: 12 })}
       <circle cx="95" cy="160" r="9" fill="var(--c1)"/><rect x="88" y="169" width="14" height="17" fill="var(--c1)"/>
       ${Array.from({ length: 11 }, (_, i) => `<path d="M${190 + i * 36} 220 v-20 h18" fill="none" stroke="var(--text)" stroke-width="3"/>`).join('')}
-      <g data-step="1-1"><path d="M105 158 L300 44 L470 216 L596 120 L420 44 L230 214" fill="none" stroke="var(--bad)" stroke-width="2" class="rl-flow"/></g>
+      <g data-step="1-1"><path d="M105 158 L300 44 L470 216 L596 120 L420 44" fill="none" stroke="var(--bad)" stroke-width="2" class="rl-flow"/></g>
       <g data-step="2-3">${Array.from({ length: 11 }, (_, i) => `<circle cx="${204 + i * 36}" cy="186" r="8" fill="var(--c2)"/><rect x="${197 + i * 36}" y="194" width="14" height="14" fill="var(--c2)"/>`).join('')}
         <path d="M105 158 L300 44 L400 184" fill="none" stroke="var(--good)" stroke-width="2" class="rl-flow"/></g>
       <g data-step="4">${Array.from({ length: 11 }, (_, i) => `<path d="M${188 + i * 36} 221 v-24 h22 v8 h-14 v16 z" fill="var(--c4)" class="rl-pulse ${['', 'd2', 'd3'][i % 3]}"/>`).join('')}</g>
       <g data-step="4-5"><path d="M105 158 L300 44 L400 196" fill="none" stroke="var(--good)" stroke-width="2" class="rl-flow"/></g>
       <rect x="60" y="246" width="520" height="14" rx="7" fill="var(--panel2)"/>
-      <g data-step="=1"><rect x="60" y="246" width="455" height="14" rx="7" fill="var(--bad)"/>${T(320, 80, 'empty, hard chairs: 2.1 s', { c: 'bad', w: 1 })}</g>
-      <g data-step="=2"><rect x="60" y="246" width="360" height="14" rx="7" fill="var(--warn)"/>${T(320, 80, 'each person adds 0.45 m²', {})}</g>
-      <g data-step="=3"><rect x="60" y="246" width="260" height="14" rx="7" fill="var(--good)"/>${T(320, 80, 'full house: 1.2 s', { c: 'good', w: 1 })}</g>
-      <g data-step="=4"><rect x="60" y="246" width="303" height="14" rx="7" fill="var(--good)"/>${T(320, 80, 'padded seats, empty: 1.4 s', { c: 'good', w: 1 })}</g>
-      <g data-step="=5"><rect x="60" y="246" width="275" height="14" rx="7" fill="var(--good)"/>${T(320, 80, 'rehearsal now sounds like the concert', {})}</g>
+      <g data-step="=1"><rect x="60" y="246" width="455" height="14" rx="7" fill="var(--bad)"/>${T(250, 130, 'empty, hard chairs: 2.1 s', { c: 'bad', w: 1 })}</g>
+      <g data-step="=2"><rect x="60" y="246" width="360" height="14" rx="7" fill="var(--warn)"/>${T(480, 110, 'each person adds 0.45 m²', {})}</g>
+      <g data-step="=3"><rect x="60" y="246" width="260" height="14" rx="7" fill="var(--good)"/>${T(480, 110, 'full house: 1.2 s', { c: 'good', w: 1 })}</g>
+      <g data-step="=4"><rect x="60" y="246" width="303" height="14" rx="7" fill="var(--good)"/>${T(480, 110, 'padded seats, empty: 1.4 s', { c: 'good', w: 1 })}</g>
+      <g data-step="=5"><rect x="60" y="246" width="275" height="14" rx="7" fill="var(--good)"/>${T(476, 110, 'rehearsal sounds like the concert', {})}</g>
       ${T(60, 274, 'reverberation time', { z: 12, a: 'start' })}
     </svg>`,
     steps: [
@@ -487,16 +487,16 @@
         <path d="M216 118 L524 110" stroke="var(--accent)" stroke-width="3" fill="none" class="rl-flow"/></g>
       <g data-step="=1">${T(370, 96, 'direct: 1.20 m', {})}</g>
       <g data-step="2-3"><path d="M216 122 L372 166 L524 114" stroke="var(--bad)" stroke-width="2.5" fill="none" class="rl-flow"/></g>
-      <g data-step="=2">${T(372, 196, 'via the desk: 1.47 m', { c: 'bad' })}</g>
-      <g data-step="=3">${T(372, 196, '0.27 m late: 635 Hz cancels', { c: 'bad', w: 1 })}
-        <g class="rl-shake"><path d="M230 160 H470" stroke="var(--warn)" stroke-width="3"/></g>${T(320, 226, 'and the top shakes with the bass', { z: 12, c: 'warn' })}</g>
+      <g data-step="=2">${T(316, 204, 'via the desk: 1.47 m', { c: 'bad' })}</g>
+      <g data-step="=3">${T(316, 204, '0.27 m late: 635 Hz cancels', { c: 'bad', w: 1 })}
+        <g class="rl-shake"><path d="M230 160 H470" stroke="var(--warn)" stroke-width="3"/></g>${T(316, 226, 'and the top shakes with the bass', { z: 12, c: 'warn' })}</g>
       <g data-step="4"><rect x="250" y="176" width="230" height="10" fill="var(--text)"/><path d="M262 186 V250 M468 186 V250" stroke="var(--text)" stroke-width="5"/>
         <rect x="150" y="76" width="46" height="66" fill="var(--text)"/><circle cx="184" cy="96" r="5" fill="var(--accent)"/>
         <rect x="164" y="148" width="18" height="96" fill="var(--c1)"/><rect x="146" y="244" width="54" height="6" fill="var(--c1)"/><rect x="150" y="142" width="46" height="6" fill="var(--c4)"/>
         <path d="M196 98 L524 108" stroke="var(--accent)" stroke-width="3" fill="none" class="rl-flow"/></g>
       <g data-step="=4">${T(350, 84, 'tweeter at ear height', {})}${T(110, 200, 'heavy stand', { z: 12, c: 'c1' })}${T(110, 150, 'soft pad', { z: 12, c: 'c4' })}</g>
       <g data-step="=5"><path d="M196 104 L360 176 L470 146" stroke="var(--good)" stroke-width="2" fill="none" class="rl-flow slow"/>
-        ${T(360, 212, 'the bounce now passes below your ears', { c: 'good' })}${T(350, 84, 'clean mids, no buzz', {})}</g>
+        ${T(330, 270, 'the bounce now passes below your ears', { c: 'good' })}${T(350, 84, 'clean mids, no buzz', {})}</g>
     </svg>`,
     steps: [
       ['Direct sound', 'The tweeter fires straight at your ears across the desk: 1.20 m.'],
@@ -536,7 +536,7 @@
       <rect x="52" y="110" width="30" height="60" fill="var(--text)"/>${T(67, 190, 'board', { z: 12 })}
       <rect x="250" y="44" width="56" height="34" rx="4" fill="var(--c6)"/>${T(278, 66, 'A/C', { z: 12 })}
       <rect x="440" y="190" width="120" height="40" rx="4" fill="var(--panel2)" stroke="var(--text)" stroke-width="2"/>${T(500, 215, 'desk + gear', { z: 12 })}
-      <rect x="500" y="50" width="40" height="30" fill="var(--text)"/>${T(520, 98, 'monitor', { z: 12 })}
+      <rect x="500" y="50" width="40" height="30" fill="var(--text)"/>${T(548, 70, 'monitor', { z: 12, a: 'start' })}
       <g data-step="1-2"><path d="M82 126 H278 V78 M278 126 H470 V190 M470 126 H520 V80" fill="none" stroke="var(--warn)" stroke-width="3"/></g>
       <g data-step="=1">${T(180, 116, 'one shared circuit', { c: 'warn' })}</g>
       <g data-step="=2"><path d="M278 80 V126 H470 V186" fill="none" stroke="var(--bad)" stroke-width="3" class="rl-flow"/>
@@ -550,7 +550,7 @@
         <path d="M82 126 H278 V78" fill="none" stroke="var(--warn)" stroke-width="3"/></g>
       <g data-step="=4">${T(250, 172, 'dedicated audio circuit', { c: 'good' })}</g>
       <g data-step="5"><path d="M518 190 V80 M524 190 V80" fill="none" stroke="var(--good)" stroke-width="2.5"/></g>
-      <g data-step="=5">${T(330, 110, 'power and signal run together:', {})}${T(330, 128, 'no loop, no aerial', { c: 'good' })}</g>
+      <g data-step="=5">${T(250, 196, 'power and signal run together:', {})}${T(250, 214, 'no loop, no aerial', { c: 'good' })}</g>
     </svg>`,
     steps: [
       ['Everything shares one circuit', 'The air conditioner, the monitors and the computer all hang off the same run of wire.'],
@@ -704,7 +704,7 @@
         <path d="M240 140 H410" stroke="var(--accent)" stroke-width="1.5" fill="none" class="rl-flow slow"/></g>
       <g data-step="=4">${T(325, 100, 'soft lining in the reveal', { z: 12, c: 'c5' })}${T(325, 256, 'big air gap = soft spring: 51 Hz', { c: 'good' })}</g>
       <g data-step="5"><path d="M150 44 L215 70" stroke="var(--c4)" stroke-width="6"/><path d="M60 60 L205 118" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 5" class="rl-pulse"/></g>
-      <g data-step="=5">${T(150, 100, 'awning stops the sun', { z: 12, c: 'c4' })}${T(520, 200, 'quiet, bright, cool', { c: 'good' })}</g>
+      <g data-step="=5">${T(120, 200, 'awning stops the sun', { z: 12, c: 'c4' })}${T(520, 200, 'quiet, bright, cool', { c: 'good' })}</g>
     </svg>`,
     steps: [
       ['Ordinary double glazing', 'Two thin panes sealed 12 mm apart. Fine for heat, weak for sound.'],
@@ -796,20 +796,20 @@
       <rect x="60" y="90" width="520" height="14" fill="var(--text)"/>
       <rect x="60" y="104" width="14" height="166" fill="var(--text)"/><rect x="566" y="104" width="14" height="166" fill="var(--text)"/><rect x="60" y="270" width="520" height="10" fill="var(--text)"/>
       <ellipse cx="300" cy="238" rx="34" ry="12" fill="var(--c1)"/><rect x="266" y="238" width="68" height="26" fill="var(--c1)"/><circle cx="300" cy="222" r="22" fill="none" stroke="var(--accent)" stroke-width="2" class="rl-grow"/>
-      ${T(300, 284, 'drums', { z: 12 })}
+      ${T(250, 258, 'drums', { z: 12, a: 'end' })}
       <g data-step="1-1"><path d="M270 214 V60 M300 206 V60 M330 214 V60" stroke="var(--bad)" stroke-width="3" fill="none" class="rl-flow"/>
         ${T(180, 160, 'straight up through the floor', { c: 'bad' })}</g>
       <g data-step="2"><rect x="92" y="138" width="456" height="10" fill="var(--c2)"/>${[130, 220, 310, 400, 490].map((x) => `<path d="M${x} 104 V138" stroke="var(--c4)" stroke-width="3" stroke-dasharray="4 3"/>`).join('')}
         <rect x="92" y="108" width="456" height="26" fill="var(--c5)" opacity=".35"/></g>
-      <g data-step="=2">${T(320, 170, 'new ceiling on springy hangers', { c: 'c2' })}${T(320, 188, '250 mm gap filled with wool', { z: 12 })}</g>
+      <g data-step="=2">${T(446, 172, 'new ceiling on springy hangers', { c: 'c2' })}${T(446, 190, '250 mm gap filled with wool', { z: 12 })}</g>
       <g data-step="3"><rect x="92" y="138" width="10" height="132" fill="var(--c2)"/><rect x="538" y="138" width="10" height="132" fill="var(--c2)"/></g>
-      <g data-step="=3">${T(320, 170, 'new walls stand clear of the old', { c: 'c2' })}${T(86, 205, 'gap', { z: 11, a: 'start' })}</g>
+      <g data-step="=3">${T(446, 172, 'new walls stand clear', { c: 'c2' })}${T(446, 190, 'of the old ones', { z: 12 })}${T(108, 208, '← air gap', { z: 12, a: 'start' })}</g>
       <g data-step="2-5"><path d="M270 214 V152 M300 206 V152 M330 214 V152" stroke="var(--accent)" stroke-width="2.5" fill="none" class="rl-flow"/>
         <path d="M300 100 V66" stroke="var(--good)" stroke-width="1.5" fill="none" class="rl-flow slow"/></g>
       <g data-step="4"><rect x="538" y="206" width="10" height="64" fill="var(--warn)"/><rect x="566" y="206" width="14" height="64" fill="var(--warn)"/></g>
-      <g data-step="=4">${T(440, 200, 'two heavy doors,', { z: 12, c: 'warn' })}${T(440, 216, 'lobby between', { z: 12 })}</g>
+      <g data-step="=4">${T(446, 226, 'two heavy doors,', { z: 12, c: 'warn' })}${T(446, 242, 'lobby between', { z: 12 })}</g>
       <g data-step="5"><path d="M110 148 V170 H170" fill="none" stroke="var(--c5)" stroke-width="8"/><path d="M110 150 V170 H176" fill="none" stroke="var(--panel)" stroke-width="2" class="rl-flow"/></g>
-      <g data-step="=5">${T(200, 196, 'lined duct for fresh air', { z: 12, c: 'c5' })}${T(430, 180, 'upstairs: a faint thud', { c: 'good' })}</g>
+      <g data-step="=5">${T(184, 196, 'lined duct for fresh air', { z: 12, c: 'c5' })}${T(446, 180, 'upstairs: a faint thud', { c: 'good' })}</g>
     </svg>`,
     steps: [
       ['The direct route up', 'Drums shake the air, the air shakes the timber floor above, and the floor acts as a loudspeaker into the living room.'],

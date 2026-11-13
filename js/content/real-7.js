@@ -36,7 +36,7 @@
         <text x="414" y="168" text-anchor="middle" font-size="13" fill="var(--bad)">one door: 70 dB gets out</text></g>
       <g data-step="5"><rect x="310" y="140" width="56" height="74" fill="none" stroke="var(--muted)" stroke-width="5"/>
         <rect x="306" y="150" width="8" height="60" fill="var(--good)"/><rect x="362" y="150" width="8" height="60" fill="var(--good)"/></g>
-      <g data-step="=5"><text x="338" y="130" text-anchor="middle" font-size="13">lobby, two doors</text>
+      <g data-step="=5"><text x="378" y="132" font-size="13">lobby, two doors</text>
         <path d="M376 180 H514" stroke="var(--good)" stroke-width="2" class="rl-flow slow"/>
         <text x="446" y="168" text-anchor="middle" font-size="13" fill="var(--good)">below the background</text></g>
     </svg>`,
@@ -368,7 +368,7 @@
         <text x="480" y="130" text-anchor="middle" font-size="13">25 mm gap, treated battens,</text><text x="480" y="148" text-anchor="middle" font-size="13">polyester fabric</text></g>
       <g data-step="5"><rect x="560" y="50" width="60" height="22" rx="4" fill="var(--c2)"/></g>
       <g data-step="=5"><path d="M570 76 V120 M590 76 V120 M610 76 V120" stroke="var(--c2)" stroke-width="2.5" class="rl-flow slow"/>
-        <text x="470" y="150" text-anchor="middle" font-size="13" fill="var(--good)">AC on dry mode: room at 50–55 %</text></g>
+        <text x="480" y="150" text-anchor="middle" font-size="13" fill="var(--good)">dry mode: room at 50–55 %</text></g>
     </svg>`,
     steps: [
       ['Brick does the isolation', 'A thick plastered brick wall is heavy, and heavy walls block sound. This part of Indian construction is an advantage.'],
@@ -473,14 +473,14 @@
         <text x="270" y="30" text-anchor="middle" font-size="13" fill="var(--bad)">vibration runs through the slab</text></g>
       <g data-step="=4"><rect x="376" y="112" width="24" height="8" fill="var(--bad)"/>
         <path d="M388 124 l-16 30 M388 124 l0 34 M388 124 l16 30" stroke="var(--bad)" stroke-width="2.5" class="rl-pulse"/>
-        <text x="470" y="140" text-anchor="middle" font-size="13" fill="var(--bad)">small grille: 7.5 m/s hiss</text></g>
+        <text x="520" y="98" text-anchor="middle" font-size="13" fill="var(--bad)">small grille: 7.5 m/s hiss</text></g>
       <g data-step="5"><path d="M70 40 q-6 5 0 10 t0 10" fill="none" stroke="var(--good)" stroke-width="3"/><path d="M120 40 q-6 5 0 10 t0 10" fill="none" stroke="var(--good)" stroke-width="3"/>
         <rect x="140" y="74" width="22" height="28" fill="var(--good)" opacity=".7"/>
         <rect x="220" y="70" width="120" height="6" fill="var(--c3)"/><rect x="220" y="100" width="120" height="6" fill="var(--c3)"/>
         <rect x="360" y="112" width="70" height="8" fill="var(--good)"/></g>
       <g data-step="=5"><path d="M370 126 V156 M395 126 V156 M420 126 V156" stroke="var(--good)" stroke-width="2" class="rl-flow slow"/>
         <text x="280" y="130" text-anchor="middle" font-size="12">lined duct</text><text x="150" y="160" text-anchor="middle" font-size="12">flexible sleeve, springs</text>
-        <text x="485" y="140" text-anchor="middle" font-size="13" fill="var(--good)">big grille: 2 m/s, silent</text></g>
+        <text x="525" y="98" text-anchor="middle" font-size="13" fill="var(--good)">big grille: 2 m/s, silent</text></g>
     </svg>`,
     steps: [
       ['Air has to get in', 'A sealed room needs cooled, fresh air. It arrives through a duct from a fan somewhere nearby.'],
