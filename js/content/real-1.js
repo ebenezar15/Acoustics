@@ -223,7 +223,7 @@
         <text x="470" y="60" font-size="13" fill="var(--accent)">loud listening</text></g>
       <g data-step="=4">${T(300, 84, 'played loud, the curve is flatter')}</g>
       <g data-step="5"><line x1="60" y1="150" x2="600" y2="150" stroke="var(--good)" stroke-width="2" stroke-dasharray="6 6"/>
-        ${T(330, 166, 'pick one moderate level, always mix there', 'fill="var(--good)"')}</g>
+        ${T(330, 142, 'pick one moderate level, always mix there', 'fill="var(--good)"')}</g>
     </svg>`,
     steps: [
       ['The question', 'How strong must a tone be, at each pitch, to sound as loud as a mid-range tone?'],

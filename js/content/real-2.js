@@ -316,7 +316,7 @@
       <g data-step="4"><rect x="240" y="40" width="14" height="186" fill="var(--text)"/><rect x="226" y="40" width="14" height="186" fill="var(--text)" opacity=".7"/><rect x="254" y="40" width="52" height="186" fill="var(--warn)" opacity=".45"/>
         <rect x="222" y="36" width="36" height="6" fill="var(--good)"/><rect x="222" y="224" width="36" height="6" fill="var(--good)"/></g>
       <g data-step="=4"><text x="130" y="50" text-anchor="middle" font-size="13" style="fill:var(--good)">2 boards + wool + 50 mm gap</text><text x="130" y="68" text-anchor="middle" font-size="13" style="fill:var(--good)">edges sealed, not touching</text></g>
-      <g data-step="5"><path d="M364 190 H500" stroke="var(--good)" stroke-width="1.5" fill="none" class="rl-flow slow"/><text x="432" y="170" text-anchor="middle" font-size="13" style="fill:var(--good)">about 40 dB: a faint thump</text></g>
+      <g data-step="5"><path d="M364 190 H500" stroke="var(--good)" stroke-width="1.5" fill="none" class="rl-flow slow"/><text x="470" y="170" text-anchor="middle" font-size="13" style="fill:var(--good)">about 40 dB: a faint thump</text></g>
     </svg>`,
     steps: [
       ['Sound shakes the wall', 'Air pressure from the amp pushes the brick wall. The wall moves a tiny amount and pushes the air in the bedroom.'],
