@@ -60,12 +60,12 @@
     <rect x="80" y="40" width="50" height="150" fill="none" stroke="var(--muted)" stroke-dasharray="4 3"/><text x="105" y="206" text-anchor="middle" font-size="10">air gap</text>
     <rect x="130" y="40" width="150" height="150" fill="var(--warn)" opacity=".3" stroke="var(--text)"/><text x="205" y="118" text-anchor="middle" font-size="11" font-weight="700">absorbing core</text><text x="205" y="206" text-anchor="middle" font-size="10">mineral, glass or polyester wool</text>
     <rect x="282" y="40" width="5" height="150" fill="var(--text)"/><text x="296" y="34" font-size="10">liner — holds fibres, sets the colour</text>
-    <rect x="290" y="40" width="14" height="150" fill="var(--c3)" opacity=".3"/><text x="330" y="60" font-size="10" fill="var(--c3)">thin wadding — softens edges (optional)</text>
-    <path d="M308 40 v150" stroke="var(--accent)" stroke-width="4" stroke-dasharray="7 3"/><text x="330" y="86" font-size="10" fill="var(--accent)" font-weight="700">face fabric — the only layer anyone sees</text>
-    <g stroke="var(--accent2)" stroke-width="2" fill="none"><path class="wave-in" d="M640 80 h-320"/><path class="wave-in" d="M640 120 h-320"/><path class="wave-in" d="M640 160 h-320"/></g>
+    <rect x="290" y="40" width="14" height="150" fill="var(--c3)" opacity=".3"/><text x="330" y="58" font-size="10" fill="var(--c3)">thin wadding — softens edges (optional)</text>
+    <path d="M308 40 v150" stroke="var(--accent)" stroke-width="4" stroke-dasharray="7 3"/><text x="330" y="100" font-size="10" fill="var(--accent)" font-weight="700">face fabric — the only layer anyone sees</text>
+    <g stroke="var(--accent2)" stroke-width="2" fill="none"><path class="wave-in" d="M640 76 h-320"/><path class="wave-in" d="M640 120 h-320"/><path class="wave-in" d="M640 162 h-320"/></g>
     <text x="520" y="186" text-anchor="middle" font-size="10" fill="var(--muted)">sound must pass every layer in front of the core</text>
     <g fill="var(--warn)"><circle cx="262" cy="70" r="2"><animate attributeName="cx" values="240;278;240" dur="3s" repeatCount="indefinite"/></circle><circle cx="262" cy="140" r="2"><animate attributeName="cx" values="250;279;250" dur="2.4s" repeatCount="indefinite"/></circle></g>
-    <text x="330" y="112" font-size="10" fill="var(--muted)">loose fibres stop at the liner</text>
+    <text x="330" y="144" font-size="10" fill="var(--muted)">loose fibres stop at the liner</text>
   </svg>`;
 
   const SVG_ROLL = `<svg class="gsvg" viewBox="0 0 680 200" role="img" aria-label="Reading a roll of fabric">
@@ -85,17 +85,17 @@
      ===================================================================== */
   const SVG_FAMILIES = `<svg class="gsvg" viewBox="0 0 680 230" role="img" aria-label="Three ways to put fabric on a room">
     <text x="340" y="18" text-anchor="middle" font-size="13" font-weight="700">Three families of fabric finish</text>
-    <g transform="translate(20,36)"><rect width="200" height="150" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+    <g transform="translate(20,36)"><rect width="200" height="166" rx="8" fill="var(--panel)" stroke="var(--line)"/>
       <rect x="22" y="22" width="60" height="100" fill="var(--accent)" opacity=".35" stroke="var(--text)"/><rect x="100" y="22" width="60" height="100" fill="var(--accent)" opacity=".35" stroke="var(--text)"/>
-      <text x="100" y="142" text-anchor="middle" font-size="11" font-weight="700">A · Wrapped panels</text><text x="100" y="170" text-anchor="middle" font-size="9.5" fill="var(--muted)">made on a table, hung on clips</text></g>
-    <g transform="translate(240,36)"><rect width="200" height="150" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+      <text x="100" y="142" text-anchor="middle" font-size="11" font-weight="700">A · Wrapped panels</text><text x="100" y="157" text-anchor="middle" font-size="9.5" fill="var(--muted)">made on a table, hung on clips</text></g>
+    <g transform="translate(240,36)"><rect width="200" height="166" rx="8" fill="var(--panel)" stroke="var(--line)"/>
       <rect x="14" y="16" width="172" height="110" fill="var(--accent)" opacity=".35" stroke="var(--text)" stroke-width="2"/><path d="M72 16 v110 M130 16 v110" stroke="var(--text)"/><rect x="14" y="110" width="172" height="16" fill="var(--text)" opacity=".3"/>
-      <text x="100" y="142" text-anchor="middle" font-size="11" font-weight="700">B · Site-stretched wall</text><text x="100" y="170" text-anchor="middle" font-size="9.5" fill="var(--muted)">cloth tucked into tracks, floor to ceiling</text></g>
-    <g transform="translate(460,36)"><rect width="200" height="150" rx="8" fill="var(--panel)" stroke="var(--line)"/>
+      <text x="100" y="142" text-anchor="middle" font-size="11" font-weight="700">B · Site-stretched wall</text><text x="100" y="157" text-anchor="middle" font-size="9.5" fill="var(--muted)">cloth tucked into tracks, floor to ceiling</text></g>
+    <g transform="translate(460,36)"><rect width="200" height="166" rx="8" fill="var(--panel)" stroke="var(--line)"/>
       <path d="M10 14 h180" stroke="var(--muted)" stroke-width="6"/><path d="M50 14 v34 M150 14 v34" stroke="var(--text)"/><rect x="34" y="48" width="132" height="16" fill="var(--accent)" opacity=".4" stroke="var(--text)"><animate attributeName="y" values="48;50;48" dur="3s" repeatCount="indefinite"/></rect>
       <path d="M60 110 l40 -36 l40 36" fill="none" stroke="var(--accent2)" stroke-dasharray="4 3"/><circle cx="60" cy="112" r="4" fill="var(--accent2)"/><circle cx="140" cy="112" r="4" fill="var(--good)"/>
-      <text x="100" y="142" text-anchor="middle" font-size="11" font-weight="700">C · Clouds and ceilings</text><text x="100" y="170" text-anchor="middle" font-size="9.5" fill="var(--muted)">framed, braced, hung on rated fixings</text></g>
-    <text x="340" y="216" text-anchor="middle" font-size="10.5" fill="var(--muted)">Same cloth, same tests — different carpentry. Most rooms use all three.</text>
+      <text x="100" y="142" text-anchor="middle" font-size="11" font-weight="700">C · Clouds and ceilings</text><text x="100" y="157" text-anchor="middle" font-size="9.5" fill="var(--muted)">framed, braced, hung on rated fixings</text></g>
+    <text x="340" y="222" text-anchor="middle" font-size="10.5" fill="var(--muted)">Same cloth, same tests — different carpentry. Most rooms use all three.</text>
   </svg>`;
 
   const stp = (x, y, v, n, d) => `<g><rect x="${x - (v ? 2 : 7)}" y="${y - (v ? 7 : 2)}" width="${v ? 4 : 14}" height="${v ? 14 : 4}" fill="var(--text)"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;${d};${Math.min(0.99, d + 0.05)};1" dur="6s" repeatCount="indefinite"/></rect>${n ? `<text x="${x + (v ? (x < 340 ? 14 : -14) : 0)}" y="${y + (v ? 4 : (y < 110 ? 18 : -9))}" text-anchor="middle" font-size="11" font-weight="800" fill="var(--bad)">${n}</text>` : ''}</g>`;
@@ -125,7 +125,7 @@
       ${i === 0 ? '<path d="M0 0 h100 v20 h-80 v80 h-20 z" fill="var(--c3)" opacity=".25" stroke="var(--c3)"/><rect x="20" y="20" width="80" height="14" fill="var(--c3)" opacity=".5"/><rect x="50" y="24" width="12" height="4" fill="var(--text)"/>' : ''}
       ${i === 1 ? '<rect x="20" y="20" width="80" height="14" fill="var(--c3)" opacity=".5"/><path d="M0 34 h20 v66 h-20 z" fill="var(--c3)" opacity=".25" stroke="var(--c3)"/><path d="M0 0 h20 v20 h-20 z" fill="none" stroke="var(--bad)" stroke-dasharray="3 2"><animate attributeName="opacity" values="1;.2;1" dur="1.6s" repeatCount="indefinite"/></path><text x="10" y="14" text-anchor="middle" font-size="9" fill="var(--bad)">✂</text>' : ''}
       ${i === 2 ? '<rect x="20" y="20" width="80" height="14" fill="var(--c3)" opacity=".5"/><rect x="20" y="20" width="14" height="80" fill="var(--c3)" opacity=".5"/><path d="M20 20 v14" stroke="var(--text)" stroke-width="2"/><rect x="24" y="52" width="4" height="12" fill="var(--text)"/>' : ''}
-      <text x="60" y="122" text-anchor="middle" font-size="10">${['1 · finish one side', '2 · cut the spare square', '3 · fold under, staple'][i]}</text></g>`).join('')}
+      <text x="60" y="122" text-anchor="middle" font-size="10">${['1 · finish one side', '2 · cut the spare', '3 · fold under, staple'][i]}</text></g>`).join('')}
     <text x="170" y="204" text-anchor="middle" font-size="10" fill="var(--muted)">no cutting · best for thick or fraying cloth</text>
     <text x="510" y="204" text-anchor="middle" font-size="10" fill="var(--muted)">flattest · best for thin, stable cloth</text>
     <text x="340" y="228" text-anchor="middle" font-size="10.5" fill="var(--muted)">Whichever you choose, make all four corners of every panel the same way.</text>
@@ -134,7 +134,7 @@
   const SVG_TRACK = `<svg class="gsvg" viewBox="0 0 680 230" role="img" aria-label="Track joint with cloth tucked into the jaw">
     <text x="340" y="18" text-anchor="middle" font-size="13" font-weight="700">A track joint, cut through and seen from above</text>
     <rect x="30" y="34" width="620" height="16" fill="var(--muted)" opacity=".4"/><text x="40" y="46" font-size="10">wall</text>
-    <rect x="304" y="50" width="72" height="70" fill="var(--c2)" opacity=".6" stroke="var(--text)"/><text x="340" y="90" text-anchor="middle" font-size="10" fill="#fff">batten</text>
+    <rect x="304" y="50" width="72" height="70" fill="rgb(160,120,80)" opacity=".8" stroke="var(--text)"/><text x="340" y="90" text-anchor="middle" font-size="10" fill="#fff">batten</text>
     <rect x="40" y="50" width="264" height="92" fill="var(--warn)" opacity=".25"/><rect x="376" y="50" width="264" height="92" fill="var(--warn)" opacity=".25"/>
     <text x="170" y="100" text-anchor="middle" font-size="10" fill="var(--muted)">wool infill, flush with the track face</text>
     <rect x="304" y="120" width="72" height="22" fill="var(--panel)" stroke="var(--text)" stroke-width="1.5"/><path d="M336 120 v22 M344 120 v22" stroke="var(--text)" stroke-width="1.5"/>
@@ -149,9 +149,9 @@
   const SVG_ALT = `<svg class="gsvg" viewBox="0 0 680 230" role="img" aria-label="Four home-made alternatives to proprietary track">
     <text x="340" y="18" text-anchor="middle" font-size="13" font-weight="700">No track available? Four joints any good carpenter can make</text>
     ${[['Kerf + spline', 'groove and rubber cord'], ['Staple + bead', 'cover strip hides staples'], ['Back-tack strip', 'blind straight edge'], ['Lift-off frame', 'hook-and-loop or magnets']].map(([a, b], i) => `<g transform="translate(${14 + i * 166},34)"><rect width="154" height="166" rx="8" fill="var(--panel)" stroke="var(--line)"/>
-      <rect x="47" y="20" width="60" height="62" fill="var(--c2)" opacity=".6" stroke="var(--text)"/>
+      <rect x="47" y="20" width="60" height="62" fill="rgb(160,120,80)" opacity=".8" stroke="var(--text)"/>
       ${i === 0 ? '<rect x="73" y="62" width="8" height="20" fill="var(--bg)" stroke="var(--text)"/><path d="M10 84 H73 V68 M144 84 H81 V68" fill="none" stroke="var(--accent)" stroke-width="3"/><circle cx="77" cy="70" r="3.6" fill="var(--c3)"><animate attributeName="cy" values="96;70;70" dur="2.6s" repeatCount="indefinite"/></circle>' : ''}
-      ${i === 1 ? '<path d="M10 84 H74 M144 84 H80" fill="none" stroke="var(--accent)" stroke-width="3"/><rect x="60" y="82" width="10" height="4" fill="var(--bad)"/><rect x="84" y="82" width="10" height="4" fill="var(--bad)"/><rect x="52" y="88" width="50" height="10" fill="var(--c2)" stroke="var(--text)"><animate attributeName="y" values="112;88;88" dur="2.6s" repeatCount="indefinite"/></rect>' : ''}
+      ${i === 1 ? '<path d="M10 84 H74 M144 84 H80" fill="none" stroke="var(--accent)" stroke-width="3"/><rect x="60" y="82" width="10" height="4" fill="var(--bad)"/><rect x="84" y="82" width="10" height="4" fill="var(--bad)"/><rect x="52" y="88" width="50" height="10" fill="rgb(120,85,50)" stroke="var(--text)"><animate attributeName="y" values="112;88;88" dur="2.6s" repeatCount="indefinite"/></rect>' : ''}
       ${i === 2 ? '<path d="M56 84 H100" stroke="var(--accent)" stroke-width="3"/><rect x="70" y="87" width="30" height="5" fill="var(--c6)" stroke="var(--text)"/><rect x="80" y="85" width="10" height="4" fill="var(--bad)"/><path d="M56 84 q -8 6 0 12 H144" fill="none" stroke="var(--accent)" stroke-width="3"><animate attributeName="d" values="M56 84 q -8 6 0 12 H60;M56 84 q -8 6 0 12 H144;M56 84 q -8 6 0 12 H144" dur="2.6s" repeatCount="indefinite"/></path>' : ''}
       ${i === 3 ? '<rect x="47" y="82" width="60" height="4" fill="var(--text)"/><g><rect x="22" y="90" width="110" height="26" fill="var(--warn)" opacity=".3" stroke="var(--text)"/><path d="M22 118 H132" stroke="var(--accent)" stroke-width="3"/><rect x="47" y="86" width="60" height="4" fill="var(--c5)"/><animateTransform attributeName="transform" type="translate" values="0 16;0 0;0 0" dur="2.6s" repeatCount="indefinite"/></g>' : ''}
       <text x="77" y="140" text-anchor="middle" font-size="11" font-weight="700">${a}</text><text x="77" y="156" text-anchor="middle" font-size="9.5" fill="var(--muted)">${b}</text></g>`).join('')}
@@ -165,7 +165,7 @@
     ${[160, 280, 400, 520].map((x) => `<path d="M${x} 34 V170" stroke="var(--text)" stroke-width="1.2"/>`).join('')}
     <rect x="410" y="60" width="100" height="110" fill="var(--good)" opacity=".14"/><text x="460" y="116" text-anchor="middle" font-size="10" fill="var(--good)" font-weight="700">lift-off access bay</text><text x="460" y="130" text-anchor="middle" font-size="9" fill="var(--good)">cables behind</text>
     <rect x="212" y="146" width="16" height="12" fill="var(--panel)" stroke="var(--text)"/><rect x="330" y="146" width="16" height="12" fill="var(--panel)" stroke="var(--text)"/>
-    <text x="220" y="140" text-anchor="middle" font-size="9.5" fill="var(--muted)">socket, centred in its bay</text>
+    <text x="220" y="140" text-anchor="middle" font-size="9.5" fill="var(--muted)">socket, centred</text>
     <path d="M40 204 h120 M40 200 v8 M160 200 v8" stroke="var(--accent2)" fill="none"/><text x="100" y="220" text-anchor="middle" font-size="10" fill="var(--accent2)">bay ≈ roll width − 100 mm</text>
     <text x="600" y="186" text-anchor="end" font-size="10">darker, tougher skirting band</text>
     <path d="M60 34 l14 -10 M620 34 l-14 -10" stroke="var(--warn)" stroke-width="2"/><text x="340" y="30" text-anchor="middle" font-size="9.5" fill="var(--warn)">wall-washers kept back from the wall so they do not graze every ripple</text>
