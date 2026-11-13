@@ -130,3 +130,7 @@ Seven Master Class courses written after studying how a contemporary design-and-
 - **M37 Choosing acoustic fabric, especially in India** and **M38 Installing fabric for a neat finish**.
 - **M39 Study guide: becoming an acoustic consultant**, **M40 The consultant's process**, **M41 Studio furniture and workflow**.
 - Tools live in `js/viz-style1.js` … `js/viz-style3.js`, grouped in six new Physics Lab tabs.
+
+### "In real life" layer on every lesson
+
+Every one of the 122 lessons now opens with a plain-words summary, a realistic worked scene with numbers, and an auto-playing step-through diagram of how the idea works, and closes with why it works, three places you will use it, a 10-minute exercise and a common slip. The player lives in `js/real-kit.js`; the content is in `js/content/real-1.js` … `real-8.js`, registered with `REAL(lessonId, {...})`.
